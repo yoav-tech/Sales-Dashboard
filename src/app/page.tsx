@@ -133,24 +133,22 @@ export default function VariationBPage() {
   return (
     <div className="v-b">
       {/* NAV */}
-      <div className="container">
-        <nav className="top">
-          <div className="inner">
-            <Logo />
-            <ul>
-              <li><a href="#features">Product</a></li>
-              <li><a href="#for">Solutions</a></li>
-              <li><a href="#compare">Compare</a></li>
-              <li><a href="#pricing">Pricing</a></li>
-              <li><a href="#faq">FAQ</a></li>
-            </ul>
-            <div className="nav-cta">
-              <Link href="/register" className="btn btn-ghost">Sign in</Link>
-              <Link href="/register" className="btn btn-primary">Start free →</Link>
-            </div>
+      <nav className="top">
+        <div className="inner">
+          <Logo />
+          <ul>
+            <li><a href="#features">Product</a></li>
+            <li><a href="#for">Solutions</a></li>
+            <li><a href="#compare">Compare</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+          <div className="nav-cta">
+            <Link href="/register" className="btn btn-ghost">Sign in</Link>
+            <Link href="/register" className="btn btn-primary">Start free →</Link>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
 
       {/* HERO */}
       <section className="hero">

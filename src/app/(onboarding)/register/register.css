@@ -396,10 +396,18 @@
 @media (max-width: 920px) {
   .ob.register-page .grid { grid-template-columns: 1fr; }
 }
-@media (max-width: 540px) {
-  .ob.register-page .social-row,
-  .ob.register-page .field-row {
-    grid-template-columns: 1fr;
-  }
-  .ob.register-page .panel { padding: 24px; }
+@media (max-width: 640px) {
+  .ob.register-page .grid { gap: 16px; }
+  .ob.register-page .panel { padding: 22px; border-radius: 18px; }
+  .ob.register-page .panel h2 { font-size: 19px; }
+  .ob.register-page .panel .panel-sub { margin-bottom: 20px; }
+  .ob.register-page .field-row { grid-template-columns: 1fr; gap: 0; }
+  .ob.register-page .field { margin-bottom: 12px; }
+  .ob.register-page .fld { padding: 11px 13px; font-size: 15px; }
+  .ob.register-page .cta-btn { padding: 13px; font-size: 14px; }
+  .ob.register-page .side { gap: 12px; }
+  .ob.register-page .side .tile { padding: 18px; border-radius: 16px; }
+  .ob.register-page .stat-tile .n { font-size: 44px; }
+  .ob.register-page .quote-tile p { min-height: 0; }
+  .ob.register-page .trust-mini { gap: 10px; justify-content: center; }
 }

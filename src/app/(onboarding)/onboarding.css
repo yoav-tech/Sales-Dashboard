@@ -173,3 +173,21 @@
   .ob .step .label { display: none; }
   .ob .stepper > .line { width: 18px; }
 }
+
+@media (max-width: 640px) {
+  .ob { padding-bottom: 32px; }
+  .ob .container { padding: 0 16px; }
+  .ob nav.top { padding: 12px 0; margin-bottom: 24px; }
+  .ob nav.top .inner { gap: 10px; }
+  .ob .stepper { gap: 6px; max-width: none; }
+  .ob .stepper > .line { width: 12px; }
+  .ob .step .circle { width: 20px; height: 20px; font-size: 10px; }
+  .ob .logo { font-size: 12px; gap: 6px; }
+  .ob .logo-mark { width: 20px; height: 20px; }
+  .ob .help { display: none; }
+
+  .ob .heading { margin-bottom: 24px; }
+  .ob .heading .eyebrow { font-size: 10px; margin-bottom: 12px; }
+  .ob .heading h1 { font-size: clamp(28px, 8vw, 40px); }
+  .ob .heading p { font-size: 14px; }
+}

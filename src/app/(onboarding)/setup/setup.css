@@ -480,3 +480,31 @@
 @media (max-width: 920px) {
   .ob.setup-page .main-grid { grid-template-columns: 1fr; }
 }
+@media (max-width: 640px) {
+  .ob.setup-page .main-grid { gap: 16px; }
+  .ob.setup-page .heading h1 { font-size: clamp(30px, 9vw, 44px); }
+  .ob.setup-page .heading p { font-size: 14px; }
+
+  .ob.setup-page .search-widget { padding: 18px; border-radius: 18px; }
+  .ob.setup-page .search-widget .q-input { padding: 12px 14px; font-size: 14px; }
+  .ob.setup-page .search-widget .q-meta { font-size: 10px; flex-wrap: wrap; }
+  .ob.setup-page .res-card {
+    grid-template-columns: 32px 1fr auto;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+  .ob.setup-page .res-card .av { width: 32px; height: 32px; }
+  .ob.setup-page .res-card .stats { display: none; }
+  .ob.setup-page .sw-cta-row { flex-direction: column; align-items: stretch; gap: 8px; }
+  .ob.setup-page .sw-cta-row .ghost { padding: 11px 14px; }
+  .ob.setup-page .refine-grid { grid-template-columns: 1fr; }
+
+  .ob.setup-page .panel-head { padding: 14px 16px; flex-wrap: wrap; gap: 10px; }
+  .ob.setup-page .task-card {
+    padding: 12px 14px;
+    grid-template-columns: 32px 1fr 22px;
+    gap: 12px;
+  }
+  .ob.setup-page .task-card .ic { width: 32px; height: 32px; }
+  .ob.setup-page .task-card .body .nm { font-size: 13.5px; }
+}

@@ -513,10 +513,16 @@
 @media (max-width: 960px) {
   .ob.confirm-page .grid { grid-template-columns: 1fr; }
 }
-@media (max-width: 540px) {
+@media (max-width: 640px) {
+  .ob.confirm-page .heading h1 { font-size: 22px; }
+  .ob.confirm-page .heading p { font-size: 13px; }
+  .ob.confirm-page .panel { padding: 18px; border-radius: 12px; }
   .ob.confirm-page .pricing-tabs,
-  .ob.confirm-page .field-row,
-  .ob.confirm-page .method-row {
-    grid-template-columns: 1fr;
-  }
+  .ob.confirm-page .method-row,
+  .ob.confirm-page .field-row { grid-template-columns: 1fr; }
+  .ob.confirm-page .ptab { padding: 12px; }
+  .ob.confirm-page .ptab .amt .n { font-size: 20px; }
+  .ob.confirm-page .total-row .ttl-amt { font-size: 18px; }
+  .ob.confirm-page .feat-row { font-size: 13px; gap: 8px; }
+  .ob.confirm-page .stripe-row { flex-direction: column; gap: 6px; }
 }

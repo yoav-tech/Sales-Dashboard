@@ -255,3 +255,23 @@
 @media (max-width: 720px) {
   .ob.personalize-page .panel { padding: 26px; }
 }
+@media (max-width: 640px) {
+  .ob.personalize-page .panel { padding: 20px; border-radius: 18px; }
+  .ob.personalize-page .progress { margin-bottom: 22px; }
+  .ob.personalize-page .progress .bar { margin: 0 10px; }
+  .ob.personalize-page .q-group { margin-bottom: 24px; }
+  .ob.personalize-page .q-label { font-size: 18px; }
+  .ob.personalize-page .chip-opt { padding: 9px 12px; font-size: 13px; }
+  .ob.personalize-page .workspace-grid { grid-template-columns: 1fr; gap: 8px; }
+  .ob.personalize-page .ws-tile { padding: 16px; }
+  .ob.personalize-page .actions {
+    flex-direction: column-reverse;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 18px;
+    align-items: stretch;
+  }
+  .ob.personalize-page .right-actions { justify-content: space-between; }
+  .ob.personalize-page .cta-btn { width: 100%; justify-content: center; padding: 13px 22px; font-size: 14px; }
+  .ob.personalize-page .back-link { justify-content: center; padding: 4px 0; }
+}

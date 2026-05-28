@@ -1085,11 +1085,104 @@
   .v-a .footer-grid,
   .v-a .stats .grid,
   .v-a .dash-body {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 24px;
   }
+  .v-a .f-copy,
+  .v-a .f-visual { min-width: 0; }
   .v-a .feature.flip > .f-copy { order: 0; }
   .v-a .step::after { display: none; }
   .v-a .creators { grid-template-columns: 1fr 1fr; }
   .v-a nav.top ul { display: none; }
+}
+
+@media (max-width: 640px) {
+  .v-a .container { padding: 0 16px; }
+
+  /* Nav */
+  .v-a nav.top .inner { padding: 12px 0; gap: 8px; }
+  .v-a nav.top .btn { padding: 8px 12px; font-size: 13px; }
+  .v-a .nav-cta .btn-ghost { display: none; }
+  .v-a .logo.compact { font-size: 13px; }
+
+  /* Hero */
+  .v-a .hero { padding: 40px 0 24px; }
+  .v-a h1.hero-h1 {
+    font-size: clamp(44px, 13vw, 72px);
+    margin: 20px auto 18px;
+    max-width: 12ch;
+  }
+  .v-a .badge { font-size: 12px; }
+  .v-a .hero p.sub { font-size: 16px; }
+  .v-a .hero-cta { flex-wrap: wrap; gap: 10px; margin: 24px 0 10px; }
+  .v-a .hero-cta .btn { padding: 12px 18px; font-size: 14px; }
+  .v-a .hero .micro { font-size: 12px; }
+
+  /* Dashboard mock — make horizontally scrollable to keep its layout */
+  .v-a .dash-wrap { margin-top: 40px; padding: 0; }
+  .v-a .dashboard { box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6) inset, 0 20px 50px -25px rgba(20, 15, 60, 0.3); border-radius: 14px; }
+  .v-a .dash-body { min-height: 0; }
+  .v-a .dash-side { display: none; }
+  .v-a .dash-main { padding: 18px 16px; }
+  .v-a .dash-main h3 { font-size: 18px; }
+  .v-a .creators { grid-template-columns: 1fr; gap: 10px; }
+  .v-a .filter-chips { gap: 6px; }
+
+  /* Stats */
+  .v-a .stats { padding: 28px 0; margin-top: 56px; }
+  .v-a .stats .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .v-a .stat .n { font-size: 44px; }
+
+  /* Logos */
+  .v-a .logos { padding: 40px 0 56px; }
+  .v-a .logo-row { gap: 18px; justify-content: center; }
+  .v-a .logo-row .lg { font-size: 20px; }
+  .v-a .logo-row .lg.c { font-size: 16px; }
+  .v-a .logo-row .lg.d { font-size: 18px; letter-spacing: 0.16em; }
+
+  /* Sections */
+  .v-a .features,
+  .v-a .how,
+  .v-a .pricing,
+  .v-a .faq { padding: 56px 0; }
+  .v-a .section-head { margin-bottom: 32px; }
+  .v-a .section-title { font-size: clamp(30px, 7vw, 44px); margin: 14px auto 12px; }
+  .v-a .section-sub { font-size: 16px; }
+
+  /* Features */
+  .v-a .feature { gap: 24px; margin-bottom: 56px; }
+  .v-a .f-visual { padding: 16px; }
+  .v-a .f-copy .num { font-size: 56px; }
+  .v-a .f-copy h3 { font-size: 30px; margin: 10px 0 14px; }
+  .v-a .f-copy p { font-size: 15px; }
+  .v-a .ai-search,
+  .v-a .discovery-vis,
+  .v-a .campaign-vis { min-height: 0; }
+
+  /* How */
+  .v-a .how-steps { margin-top: 32px; gap: 14px; }
+  .v-a .step { padding: 20px; }
+  .v-a .step .num { font-size: 48px; margin-bottom: 10px; }
+
+  /* Pricing */
+  .v-a .price-grid { margin-top: 32px; gap: 16px; }
+  .v-a .price { padding: 24px; }
+  .v-a .price .amt .n { font-size: 48px; }
+
+  /* FAQ */
+  .v-a .faq-grid { gap: 32px; }
+  .v-a .faq-grid .left h2 { font-size: 36px; }
+  .v-a .faq-list .q { font-size: 16px; padding: 18px 0; gap: 12px; }
+
+  /* Final CTA */
+  .v-a .final-cta {
+    margin: 48px 16px;
+    padding: 48px 24px;
+    border-radius: 20px;
+  }
+
+  /* Footer */
+  .v-a footer { padding: 48px 0 32px; }
+  .v-a .footer-grid { gap: 28px; margin-bottom: 32px; }
+  .v-a .footer-bot { flex-direction: column; gap: 6px; padding-top: 20px; font-size: 11px; }
 }
