@@ -38,11 +38,7 @@
   width: 22px;
   height: 22px;
   flex-shrink: 0;
-  background:
-    radial-gradient(circle at 28% 28%, var(--pink) 0 4px, transparent 5px),
-    radial-gradient(circle at 72% 28%, var(--purple) 0 4px, transparent 5px),
-    radial-gradient(circle at 28% 72%, var(--teal) 0 4px, transparent 5px),
-    radial-gradient(circle at 72% 72%, var(--yellow) 0 4px, transparent 5px);
+  display: block;
 }
 .ob .logo .name {
   display: flex;
@@ -50,7 +46,7 @@
   line-height: 1.04;
 }
 .ob .logo .name span { display: block; }
-.ob .logo .name .ai { color: var(--pink); }
+.ob .logo .name .ai { color: var(--teal); }
 
 .ob .stepper {
   display: flex;

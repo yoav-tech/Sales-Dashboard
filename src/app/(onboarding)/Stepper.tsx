@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogoMark } from "../LogoMark";
 
 export type StepKey = "register" | "personalize" | "confirm" | "setup";
 
@@ -22,7 +23,7 @@ export function OnboardingNav({ current }: { current: StepKey }) {
     <nav className="top">
       <div className="container inner">
         <Link className="logo" href="/">
-          <span className="logo-mark" />
+          <LogoMark />
           <span className="name">
             <span>Influencer</span>
             <span>

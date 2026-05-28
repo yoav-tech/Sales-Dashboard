@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { LogoMark } from "../LogoMark";
 import "./variation-a.css";
 
 const FAQS: { q: string; a: string }[] = [
@@ -43,7 +44,7 @@ const CREATORS = [
 function Logo({ compact = true }: { compact?: boolean }) {
   return (
     <Link className={`logo ${compact ? "compact" : ""}`} href="/variation-a">
-      <span className="logo-mark" />
+      <LogoMark />
       <span className="name">
         <span>Influencer</span>
         <span>Marketing<span className="ai">.Ai</span></span>

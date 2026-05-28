@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { LogoMark } from "./LogoMark";
 import "./variation-b.css";
 
 type Result = { h: string; m: string; bg: string };
@@ -109,7 +110,7 @@ const FAQS: { q: string; a: string }[] = [
 function Logo({ compact = true }: { compact?: boolean }) {
   return (
     <a className={`logo ${compact ? "compact" : ""}`} href="/">
-      <span className="logo-mark" />
+      <LogoMark />
       <span className="name">
         <span>Influencer</span>
         <span>
