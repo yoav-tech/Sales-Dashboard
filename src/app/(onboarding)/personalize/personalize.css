@@ -196,6 +196,126 @@
   line-height: 1;
 }
 
+/* Add-on price tag on each workspace tile */
+.ob.personalize-page .ws-tile .ws-price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 4px 9px;
+  background: #f6f4ef;
+  border: 1px solid #e6e3dc;
+  border-radius: 8px;
+  align-self: flex-start;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.ob.personalize-page .ws-tile .ws-price .amt { font-size: 13px; font-weight: 700; }
+.ob.personalize-page .ws-tile .ws-price .per { color: var(--ink-muted); font-weight: 500; }
+.ob.personalize-page .ws-tile.on .ws-price {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+.ob.personalize-page .ws-tile.on.dark .ws-price {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+.ob.personalize-page .ws-tile.on.dark .ws-price .per { color: rgba(255, 255, 255, 0.7); }
+.ob.personalize-page .ws-tile .ws-price.included {
+  background: var(--mint);
+  border-color: rgba(6, 199, 169, 0.4);
+  color: #1d6055;
+}
+.ob.personalize-page .ws-tile .ws-price.included .per { color: #1d6055; opacity: 0.75; }
+.ob.personalize-page .ws-tile .ws-price.talk {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+.ob.personalize-page .ws-tile .ws-price.talk .per { color: rgba(255, 255, 255, 0.7); }
+.ob.personalize-page .ws-tile.on.dark .ws-price.talk {
+  background: var(--teal);
+  color: var(--ink);
+  border-color: var(--teal);
+}
+
+/* Running-total bar */
+.ob.personalize-page .addon-running {
+  margin-top: 14px;
+  padding: 14px 18px;
+  border: 1.5px dashed var(--line-2);
+  border-radius: 14px;
+  background: #f6f4ef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  transition: background 0.25s, border-color 0.25s;
+}
+.ob.personalize-page .addon-running.has-addons {
+  background: var(--lavender);
+  border-style: solid;
+  border-color: var(--accent);
+}
+.ob.personalize-page .addon-running .ar-left { min-width: 0; }
+.ob.personalize-page .addon-running .ar-lab {
+  display: block;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+.ob.personalize-page .addon-running .ar-list {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.ob.personalize-page .addon-running .ar-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+.ob.personalize-page .addon-running .ar-amt {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.ob.personalize-page .addon-running .ar-per {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  letter-spacing: 0;
+}
+.ob.personalize-page .addon-running .ar-note {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-family: var(--font-jetbrains), monospace;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .ob.personalize-page .addon-running {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .ob.personalize-page .addon-running .ar-right { text-align: left; }
+  .ob.personalize-page .addon-running .ar-amt { font-size: 20px; }
+}
+
 .ob.personalize-page .actions {
   display: flex;
   justify-content: space-between;
@@ -242,10 +362,14 @@
   gap: 8px;
   cursor: pointer;
 }
-.ob.personalize-page .cta-btn:hover { background: var(--accent-hover); }
+.ob.personalize-page .cta-btn:hover {
+  background: var(--accent-hover);
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
 .ob.personalize-page .cta-btn:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 0 var(--ink);
+  box-shadow: 1px 1px 0 0 var(--ink);
 }
 .ob.personalize-page .cta-btn svg {
   width: 16px;

@@ -198,10 +198,14 @@
   gap: 8px;
   cursor: pointer;
 }
-.ob.register-page .cta-btn:hover { background: var(--accent-hover); }
+.ob.register-page .cta-btn:hover {
+  background: var(--accent-hover);
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
 .ob.register-page .cta-btn:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 0 var(--ink);
+  box-shadow: 1px 1px 0 0 var(--ink);
 }
 .ob.register-page .cta-btn svg {
   width: 16px;

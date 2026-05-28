@@ -112,6 +112,153 @@
 }
 .ob.confirm-page .switch-plan:hover { color: var(--ink); }
 
+/* Active workspaces panel (LEFT plan summary) */
+.ob.confirm-page .addons-included {
+  margin-top: 10px;
+  padding: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.ob.confirm-page .addons-included .ai-head {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ob.confirm-page .addons-included .ai-head .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.ob.confirm-page .addons-included .ai-row {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 13px;
+}
+.ob.confirm-page .addons-included .ai-row + .ai-row {
+  border-top: 1px dashed var(--line);
+}
+.ob.confirm-page .addons-included .ai-row .ai-ic {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.ob.confirm-page .addons-included .ai-row .ai-ic svg {
+  width: 12px;
+  height: 12px;
+}
+.ob.confirm-page .addons-included .ai-row.pr .ai-ic { background: var(--pink); }
+.ob.confirm-page .addons-included .ai-row.ugc .ai-ic { background: var(--teal); }
+.ob.confirm-page .addons-included .ai-row.llm .ai-ic { background: var(--yellow); color: var(--ink); }
+.ob.confirm-page .addons-included .ai-row.agents .ai-ic { background: var(--ink); }
+.ob.confirm-page .addons-included .ai-row .ai-nm { font-weight: 600; }
+.ob.confirm-page .addons-included .ai-row .ai-pr {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 12px;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+.ob.confirm-page .addons-included .ai-row.agents .ai-pr { color: var(--accent); }
+.ob.confirm-page .addons-included .ai-empty {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.ob.confirm-page .edit-addons {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--ink-muted);
+  font-family: var(--font-jetbrains), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ob.confirm-page .edit-addons:hover { color: var(--accent); }
+
+/* Add-on summary line items (RIGHT panel, above total) */
+.ob.confirm-page .addons-summary {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line-2);
+  display: none;
+}
+.ob.confirm-page .addons-summary.visible { display: block; }
+.ob.confirm-page .addons-summary .as-head {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+.ob.confirm-page .addons-summary .as-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 0;
+  font-size: 13px;
+}
+.ob.confirm-page .addons-summary .as-row .as-nm {
+  color: var(--ink);
+  font-weight: 500;
+}
+.ob.confirm-page .addons-summary .as-row .as-pr {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.ob.confirm-page .addons-summary .as-row.custom .as-pr {
+  color: var(--accent);
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.ob.confirm-page .addons-summary .as-base {
+  padding-top: 6px;
+  margin-top: 4px;
+  border-top: 1px dashed var(--line-2);
+  font-weight: 600;
+}
+
+/* AI Agents banner */
+.ob.confirm-page .agents-banner {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--lavender);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  display: none;
+  align-items: flex-start;
+  gap: 8px;
+}
+.ob.confirm-page .agents-banner.visible { display: flex; }
+.ob.confirm-page .agents-banner .ab-ic {
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.ob.confirm-page .agents-banner b { font-weight: 700; }
+
 .ob.confirm-page .trust .row {
   display: flex;
   align-items: flex-start;
@@ -442,17 +589,27 @@
   margin-top: 14px;
   background: var(--accent);
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
+  border: 1.5px solid var(--ink);
   border-radius: 10px;
-  transition: background 0.15s;
+  box-shadow: 4px 4px 0 0 var(--ink);
+  transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   cursor: pointer;
 }
-.ob.confirm-page .cta-btn:hover { background: var(--accent-hover); }
+.ob.confirm-page .cta-btn:hover {
+  background: var(--accent-hover);
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
+.ob.confirm-page .cta-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 var(--ink);
+}
 .ob.confirm-page .cta-btn svg { width: 14px; height: 14px; }
 
 .ob.confirm-page .below-cta {

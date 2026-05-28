@@ -212,16 +212,25 @@
   color: #fff;
   font-weight: 700;
   font-size: 15px;
-  border: 1.5px solid var(--accent);
+  border: 1.5px solid var(--ink);
   border-radius: 12px;
-  transition: background 0.15s, transform 0.12s;
+  box-shadow: 4px 4px 0 0 #fff;
+  transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   cursor: pointer;
 }
-.ob.setup-page .sw-cta-row .primary:hover { background: var(--accent-hover); }
+.ob.setup-page .sw-cta-row .primary:hover {
+  background: var(--accent-hover);
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 0 #fff;
+}
+.ob.setup-page .sw-cta-row .primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 #fff;
+}
 .ob.setup-page .sw-cta-row .primary svg {
   width: 16px;
   height: 16px;

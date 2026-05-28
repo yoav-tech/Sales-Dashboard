@@ -44,6 +44,21 @@ const ICPS: Icp[] = [
 
 const ICP_LABELS = ["Beauty", "Fitness", "B2B SaaS", "PR · Agency"];
 
+const FACES = [
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop&crop=faces&auto=format&q=80",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&h=120&fit=crop&crop=faces&auto=format&q=80",
+  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=120&h=120&fit=crop&crop=faces&auto=format&q=80",
+  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&fit=crop&crop=faces&auto=format&q=80",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=faces&auto=format&q=80",
+];
+
+const PERSONA_FACES = {
+  inhouse: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
+  agency: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
+  b2b: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
+  enterprise: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
+};
+
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Where does the 400M creator data come from?",
@@ -162,25 +177,21 @@ export default function VariationBPage() {
               <h1 className="display">
                 The <span className="accent">#1</span><br />
                 influencer<br />
-                marketing <span className="wrap">platform</span><br />
-                <span style={{ fontSize: "0.6em", fontWeight: 600, letterSpacing: "-0.02em", color: "var(--ink-muted)" }}>
-                  powered by AI.
-                </span>
+                marketing <span className="wrap">platform</span>
               </h1>
+              <div className="hero-tag">powered by AI.</div>
               <p className="sub">
                 Find, evaluate, and activate creators from <b>400M+ influencers.</b> AI discovery, campaign management, ROI tracking, and creator payouts — all in one platform.
               </p>
               <div className="cta-row">
                 <Link href="/register" className="btn btn-primary">Start free trial</Link>
-                <Link href="/register" className="btn btn-ghost-dark">Book a demo →</Link>
+                <Link href="/register" className="btn btn-outline">Book a demo →</Link>
               </div>
               <div className="avatars">
                 <div className="stack">
-                  <div style={{ background: "linear-gradient(135deg,#ffd0b8,#8564ff)" }} />
-                  <div style={{ background: "linear-gradient(135deg,#eeecff,#8564ff)" }} />
-                  <div style={{ background: "linear-gradient(135deg,#fdf4c0,#efcc01)" }} />
-                  <div style={{ background: "linear-gradient(135deg,#e0f8f2,#299d88)" }} />
-                  <div style={{ background: "linear-gradient(135deg,#fdf4c0,#c94865)" }} />
+                  {FACES.map((url, i) => (
+                    <span key={i} style={{ backgroundImage: `url('${url}')` }} />
+                  ))}
                 </div>
                 <div className="text">
                   Joined this week by <b>Estee Lauder, Playtika, Lumenis</b> &amp; 23 more →
@@ -250,9 +261,11 @@ export default function VariationBPage() {
                     <div className="hd">@maralinde · IG · DE</div>
                   </div>
                 </div>
-                <div className="stat-row">
-                  <div className="sb"><div className="l">Reach</div><div className="v">128K</div></div>
-                  <div className="sb"><div className="l">ER</div><div className="v">5.2%</div></div>
+                <div className="metric-list">
+                  <div className="mrow"><span className="ml">Story views</span><span className="mv">412K</span></div>
+                  <div className="mrow"><span className="ml">Reels reach</span><span className="mv">128K</span></div>
+                  <div className="mrow"><span className="ml">ER</span><span className="mv">5.2%</span></div>
+                  <div className="mrow"><span className="ml">Audience cred.</span><span className="mv">94%</span></div>
                 </div>
                 <span className="match">98% match</span>
               </div>
@@ -581,13 +594,16 @@ export default function VariationBPage() {
           </div>
           <div className="personas-grid">
             {[
-              { tag: "In-house · Brand", title: ["Influencer", "marketers"], body: "Run end-to-end campaigns without three browser tabs. Search, vet, brief, sign, pay, and report — all from the same screen.", items: ["AI Match by audience overlap", "Reusable brief & contract templates", "Live EMV + GMV per creator"] },
-              { tag: "Agency", title: ["Influencer", "agencies"], body: "Manage a roster of brand clients in workspaces. Whitelabel reports, billable creator unlocks, and a shared roster of vetted talent across clients.", items: ["Multi-workspace + client roles", "Whitelabel exports & PDFs", "Roster sharing across clients"] },
-              { tag: "B2B · SaaS", title: ["B2B marketing", "teams"], body: "B2B creator marketing isn't TikTok dances — it's LinkedIn carousels and YouTube long-form. IMAI's graph covers technical and trade creators most tools ignore.", items: ["LinkedIn + YouTube graph included", "Salesforce + HubSpot sync", "Pipeline attribution"] },
-              { tag: "Enterprise", title: ["Enterprise", "ops & finance"], body: "SSO, SOC 2, custom data residency, and a single procurement contract that replaces 4–6 SaaS line items. Finance gets clean payouts, ops gets one vendor.", items: ["SSO · SAML · SCIM provisioning", "SOC 2 Type II · GDPR", "Bring-your-own-data API"] },
+              { face: PERSONA_FACES.inhouse, tag: "In-house · Brand", title: ["Influencer", "marketers"], body: "Run end-to-end campaigns without three browser tabs. Search, vet, brief, sign, pay, and report — all from the same screen.", items: ["AI Match by audience overlap", "Reusable brief & contract templates", "Live EMV + GMV per creator"] },
+              { face: PERSONA_FACES.agency, tag: "Agency", title: ["Influencer", "agencies"], body: "Manage a roster of brand clients in workspaces. Whitelabel reports, billable creator unlocks, and a shared roster of vetted talent across clients.", items: ["Multi-workspace + client roles", "Whitelabel exports & PDFs", "Roster sharing across clients"] },
+              { face: PERSONA_FACES.b2b, tag: "B2B · SaaS", title: ["B2B marketing", "teams"], body: "B2B creator marketing isn't TikTok dances — it's LinkedIn carousels and YouTube long-form. IMAI's graph covers technical and trade creators most tools ignore.", items: ["LinkedIn + YouTube graph included", "Salesforce + HubSpot sync", "Pipeline attribution"] },
+              { face: PERSONA_FACES.enterprise, tag: "Enterprise", title: ["Enterprise", "ops & finance"], body: "SSO, SOC 2, custom data residency, and a single procurement contract that replaces 4–6 SaaS line items. Finance gets clean payouts, ops gets one vendor.", items: ["SSO · SAML · SCIM provisioning", "SOC 2 Type II · GDPR", "Bring-your-own-data API"] },
             ].map((p, i) => (
               <div key={i} className="persona">
-                <span className="role-tag">{p.tag}</span>
+                <div className="persona-top">
+                  <span className="face" style={{ backgroundImage: `url('${p.face}')` }} />
+                  <span className="role-tag">{p.tag}</span>
+                </div>
                 <h4>{p.title[0]}<br />{p.title[1]}</h4>
                 <p>{p.body}</p>
                 <ul>
@@ -742,8 +758,19 @@ export default function VariationBPage() {
         <div>
           <p>Join 1,000+ brands using IMAI to find creators worth paying for — and pay them well.</p>
           <div className="cta-row">
-            <Link href="/register" className="btn btn-ink">Start free trial</Link>
-            <Link href="/register" className="btn btn-ghost">Book a demo</Link>
+            <Link href="/register" className="btn btn-lime">Start free trial</Link>
+            <Link href="/register" className="btn btn-ink">Book a demo →</Link>
+          </div>
+          <div className="joined">
+            <div className="stack">
+              {FACES.map((url, i) => (
+                <span key={i} style={{ backgroundImage: `url('${url}')` }} />
+              ))}
+            </div>
+            <div className="text">
+              <b>Mara, Jonas, Anika &amp; 1,023</b><br />
+              more marketers chose IMAI this month.
+            </div>
           </div>
         </div>
       </section>

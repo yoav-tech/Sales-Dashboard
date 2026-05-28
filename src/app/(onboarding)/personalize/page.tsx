@@ -1,10 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { OnboardingNav } from "../Stepper";
 import "./personalize.css";
+
+const ADDONS_STORAGE_KEY = "imai_addons";
+
+type AddonPrice = number | "custom";
+const ADDON_PRICES: Record<string, AddonPrice> = {
+  influencer: 0,
+  pr: 59,
+  ugc: 249,
+  llm: 39,
+  agents: "custom",
+};
+
+const ADDON_LABELS: Record<string, string> = {
+  influencer: "Influencer Marketing",
+  pr: "PR & Media",
+  ugc: "UGC Video Ads",
+  llm: "LLM Visibility",
+  agents: "AI Agents",
+};
 
 const ROLES = [
   "Brand · Marketing manager",
@@ -111,6 +130,35 @@ export default function PersonalizePage() {
     influencer: "lavender",
   });
 
+  // Load any previously-saved selection from localStorage on mount.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(ADDONS_STORAGE_KEY);
+      if (!raw) return;
+      const arr: string[] = JSON.parse(raw);
+      if (!Array.isArray(arr) || arr.length === 0) return;
+      const next: Record<string, Tint | null> = {};
+      arr.forEach((key) => {
+        const i = WORKSPACES.findIndex((w) => w.key === key);
+        if (i !== -1) next[key] = TINT_CYCLE[i % TINT_CYCLE.length];
+      });
+      if (!next.influencer) next.influencer = "lavender";
+      setWorkspaces(next);
+    } catch {
+      // ignore, keep defaults
+    }
+  }, []);
+
+  // Persist whenever selection changes so /confirm can read it.
+  useEffect(() => {
+    try {
+      const selected = Object.keys(workspaces).filter((k) => workspaces[k]);
+      localStorage.setItem(ADDONS_STORAGE_KEY, JSON.stringify(selected));
+    } catch {
+      // ignore
+    }
+  }, [workspaces]);
+
   const toggleWorkspace = (key: string, i: number) => {
     setWorkspaces((cur) => {
       const next = { ...cur };
@@ -122,6 +170,15 @@ export default function PersonalizePage() {
       return next;
     });
   };
+
+  // Running total: sum priced add-ons (skip "custom" Agents + free influencer base).
+  const selectedKeys = Object.keys(workspaces).filter((k) => workspaces[k]);
+  const paidAddons = selectedKeys.filter(
+    (k) => k !== "influencer" && typeof ADDON_PRICES[k] === "number" && (ADDON_PRICES[k] as number) > 0
+  );
+  const hasAgents = selectedKeys.includes("agents");
+  const addonsTotal = paidAddons.reduce((sum, k) => sum + (ADDON_PRICES[k] as number), 0);
+  const addonLabels = selectedKeys.filter((k) => k !== "influencer").map((k) => ADDON_LABELS[k]);
 
   return (
     <div className="ob personalize-page">
@@ -180,6 +237,7 @@ export default function PersonalizePage() {
               {WORKSPACES.map((w, i) => {
                 const tint = workspaces[w.key];
                 const on = !!tint;
+                const price = ADDON_PRICES[w.key];
                 return (
                   <div
                     key={w.key}
@@ -192,9 +250,41 @@ export default function PersonalizePage() {
                     </div>
                     <h5>{w.title}</h5>
                     <p>{w.body}</p>
+                    {w.key === "influencer" ? (
+                      <span className="ws-price included">
+                        <span className="amt">Included</span>
+                        <span className="per">in your plan</span>
+                      </span>
+                    ) : price === "custom" ? (
+                      <span className="ws-price talk">
+                        <span className="amt">Custom</span>
+                        <span className="per">· Talk to us</span>
+                      </span>
+                    ) : (
+                      <span className="ws-price">
+                        +<span className="amt">${price}</span>
+                        <span className="per">/mo</span>
+                      </span>
+                    )}
                   </div>
                 );
               })}
+            </div>
+
+            <div className={`addon-running ${addonLabels.length > 0 || hasAgents ? "has-addons" : ""}`}>
+              <div className="ar-left">
+                <span className="ar-lab">Add-ons selected</span>
+                <span className="ar-list">
+                  {addonLabels.length > 0 ? addonLabels.join(" · ") : "None — Influencer Marketing only"}
+                </span>
+              </div>
+              <div className="ar-right">
+                <span className="ar-amt">
+                  ${addonsTotal}
+                  <span className="ar-per">/mo on top of base</span>
+                </span>
+                {hasAgents && <span className="ar-note">+ custom AI Agents quote</span>}
+              </div>
             </div>
           </div>
 
