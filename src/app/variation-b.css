@@ -1835,8 +1835,7 @@
   .v-b .hero-left h1 { font-size: clamp(40px, 11vw, 56px); }
   .v-b .hero-left p.sub { margin-top: 20px; font-size: 16px; }
   .v-b .hero-left .cta-row { flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-  .v-b .hero-left .btn-primary,
-  .v-b .hero-left .btn-ghost-dark { padding: 12px 18px; font-size: 14px; }
+  .v-b .hero-left .cta-row .btn { padding: 12px 18px; font-size: 14px; }
   .v-b .hero-left .avatars { margin-top: 28px; flex-wrap: wrap; }
 
   /* Hero bento collapses to single column on phones */
