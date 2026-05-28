@@ -165,22 +165,17 @@ export default function VariationBPage() {
         </div>
       </nav>
 
-      {/* HERO */}
+      {/* HERO — single-column centered */}
       <section className="hero">
         <div className="container">
-          <div className="hero-grid">
+          <div className="hero-inner">
             <div className="hero-left">
-              <span className="badge">
-                <span className="pill">v 2.0</span>
-                AI influencer marketing platform — now with smart AI discovery 2.0
-              </span>
               <h1 className="display">
-                The <span className="accent">#1</span><br />
-                influencer<br />
+                The <span className="accent">#1</span> influencer<br />
                 marketing <span className="wrap">platform</span>
               </h1>
               <div className="hero-tag">powered by AI.</div>
-              <p className="sub">
+              <p className="sub" id="heroSub">
                 Find, evaluate, and activate creators from <b>400M+ influencers.</b> AI discovery, campaign management, ROI tracking, and creator payouts — all in one platform.
               </p>
               <div className="cta-row">
@@ -194,88 +189,8 @@ export default function VariationBPage() {
                   ))}
                 </div>
                 <div className="text">
-                  Joined this week by <b>Estee Lauder, Playtika, Lumenis</b> &amp; 23 more →
+                  Joined this week by <b>Estée Lauder, Playtika</b> &amp; 23 more →
                 </div>
-              </div>
-            </div>
-
-            {/* HERO BENTO */}
-            <div className="hero-bento">
-              <div className={`tile tile-search span2 ${swap ? "swap" : ""}`}>
-                <div className="tile-lab">
-                  <span className="dot" />
-                  AI Search · 412M creators indexed
-                </div>
-                <div className="icp-tabs">
-                  {ICP_LABELS.map((label, i) => (
-                    <span key={`${i}-${icpKey}`} className={`icp-tab ${i === icpIdx ? "on" : ""}`}>
-                      {label}
-                    </span>
-                  ))}
-                </div>
-                <div className="q">
-                  <span style={{ opacity: 0.6 }}>›</span>
-                  <span>{icp.q}</span>
-                  <span className="cursor" />
-                </div>
-                <div className="results">
-                  {icp.res.map((r, i) => (
-                    <div key={`${icpKey}-${i}`} className="res" style={{ animationDelay: `${i * 60}ms` }}>
-                      <div className="av" style={{ background: r.bg }} />
-                      {r.h} · {r.m}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="tile tile-count">
-                <div className="tile-lab"><span className="dot" />Database</div>
-                <div className="n">400M+</div>
-                <div className="lab">creators across IG · TT · YT · X</div>
-              </div>
-
-              <div className="tile tile-roi">
-                <div className="tile-lab"><span className="dot" />ROI · last 30d</div>
-                <div className="n">+52%</div>
-                <div className="delta">▲ vs. last quarter</div>
-                <div className="chart">
-                  <svg viewBox="0 0 200 56" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="grad-a" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#8564ff" stopOpacity="0.4" />
-                        <stop offset="100%" stopColor="#8564ff" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                    <path d="M0,48 L20,42 L40,46 L60,38 L80,40 L100,30 L120,32 L140,22 L160,24 L180,14 L200,8 L200,56 L0,56 Z" fill="url(#grad-a)" />
-                    <path d="M0,48 L20,42 L40,46 L60,38 L80,40 L100,30 L120,32 L140,22 L160,24 L180,14 L200,8" stroke="#8564ff" strokeWidth="2.5" fill="none" strokeLinejoin="round" />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="tile tile-creator">
-                <div className="tile-lab"><span className="dot" />Top match</div>
-                <div className="head">
-                  <div className="av" />
-                  <div>
-                    <div className="nm">Mara Linde</div>
-                    <div className="hd">@maralinde · IG · DE</div>
-                  </div>
-                </div>
-                <div className="metric-list">
-                  <div className="mrow"><span className="ml">Story views</span><span className="mv">412K</span></div>
-                  <div className="mrow"><span className="ml">Reels reach</span><span className="mv">128K</span></div>
-                  <div className="mrow"><span className="ml">ER</span><span className="mv">5.2%</span></div>
-                  <div className="mrow"><span className="ml">Audience cred.</span><span className="mv">94%</span></div>
-                </div>
-                <span className="match">98% match</span>
-              </div>
-
-              <div className="tile tile-pipe">
-                <div className="tile-lab"><span className="dot" />Live campaign</div>
-                <div className="pipe-row"><span>Outreach</span><span className="n">142</span></div>
-                <div className="pipe-row"><span>Negotiating</span><span className="n">38</span></div>
-                <div className="pipe-row"><span>Live</span><span className="n">19</span></div>
-                <div className="pipe-row"><span>Paid out</span><span className="n">€48.2K</span></div>
               </div>
             </div>
           </div>
@@ -313,6 +228,96 @@ export default function VariationBPage() {
             <div className="cell"><span className="lg">Coca-Cola</span></div>
             <div className="cell"><span className="lg b">Samsung</span></div>
             <div className="cell"><span className="lg c">/wpp</span></div>
+          </div>
+        </div>
+      </section>
+
+      {/* INSIDE THE PRODUCT — bento */}
+      <section className="bento-section">
+        <div className="container">
+          <div className="bento-head">
+            <span className="section-eyebrow"><span className="dot" />Inside the product</span>
+            <h2 className="bento-title">
+              Search, vet, activate, measure — <span className="accent">in one screen.</span>
+            </h2>
+          </div>
+          <div className="hero-bento">
+            <div className={`tile tile-search span2 ${swap ? "swap" : ""}`}>
+              <div className="tile-lab">
+                <span className="dot" />
+                AI Search · 412M creators indexed
+              </div>
+              <div className="icp-tabs">
+                {ICP_LABELS.map((label, i) => (
+                  <span key={`${i}-${icpKey}`} className={`icp-tab ${i === icpIdx ? "on" : ""}`}>
+                    {label}
+                  </span>
+                ))}
+              </div>
+              <div className="q">
+                <span style={{ opacity: 0.6 }}>›</span>
+                <span>{icp.q}</span>
+                <span className="cursor" />
+              </div>
+              <div className="results">
+                {icp.res.map((r, i) => (
+                  <div key={`${icpKey}-${i}`} className="res" style={{ animationDelay: `${i * 60}ms` }}>
+                    <div className="av" style={{ background: r.bg }} />
+                    {r.h} · {r.m}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="tile tile-count">
+              <div className="tile-lab"><span className="dot" />Database</div>
+              <div className="n">400M+</div>
+              <div className="lab">creators across IG · TT · YT · X</div>
+            </div>
+
+            <div className="tile tile-creator">
+              <div className="tile-lab"><span className="dot" />Top match</div>
+              <div className="head">
+                <div className="av" />
+                <div>
+                  <div className="nm">Mara Linde</div>
+                  <div className="hd">@maralinde · IG · DE</div>
+                </div>
+              </div>
+              <div className="metric-list">
+                <div className="mrow"><span className="ml">Story views</span><span className="mv">412K</span></div>
+                <div className="mrow"><span className="ml">Reels reach</span><span className="mv">128K</span></div>
+                <div className="mrow"><span className="ml">ER</span><span className="mv">5.2%</span></div>
+                <div className="mrow"><span className="ml">Audience cred.</span><span className="mv">94%</span></div>
+              </div>
+              <span className="match">98% match</span>
+            </div>
+
+            <div className="tile tile-pipe">
+              <div className="tile-lab"><span className="dot" />Live campaign</div>
+              <div className="pipe-row"><span>Outreach</span><span className="n">142</span></div>
+              <div className="pipe-row"><span>Negotiating</span><span className="n">38</span></div>
+              <div className="pipe-row"><span>Live</span><span className="n">19</span></div>
+              <div className="pipe-row"><span>Paid out</span><span className="n">€48.2K</span></div>
+            </div>
+
+            <div className="tile tile-roi">
+              <div className="tile-lab"><span className="dot" />ROI · last 30d</div>
+              <div className="n">+52%</div>
+              <div className="delta">▲ vs. last quarter</div>
+              <div className="chart">
+                <svg viewBox="0 0 200 56" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="grad-a" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#8564ff" stopOpacity="0.4" />
+                      <stop offset="100%" stopColor="#8564ff" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,48 L20,42 L40,46 L60,38 L80,40 L100,30 L120,32 L140,22 L160,24 L180,14 L200,8 L200,56 L0,56 Z" fill="url(#grad-a)" />
+                  <path d="M0,48 L20,42 L40,46 L60,38 L80,40 L100,30 L120,32 L140,22 L160,24 L180,14 L200,8" stroke="#8564ff" strokeWidth="2.5" fill="none" strokeLinejoin="round" />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </section>
