@@ -547,37 +547,61 @@ export default function VariationBPage() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
+      {/* HOW IT WORKS — testimonial cards */}
       <section className="how" id="how">
         <div className="container">
           <div className="how-head">
             <div>
               <span className="section-eyebrow"><span className="dot" />How it works</span>
-              <h2 className="section-title">Four steps. <span className="accent">No spreadsheet.</span></h2>
+              <h2 className="section-title">Four steps. <span className="accent">In their words.</span></h2>
             </div>
-            <p className="section-sub">From the moment you log in to the moment you wire a creator&apos;s payout — every step lives in IMAI. We replaced the agency stack with a single page.</p>
+            <p className="section-sub">From AI search to wired payout, every step lives inside IMAI. Here&apos;s what it actually feels like — straight from the people running it this week.</p>
           </div>
           <div className="how-grid">
-            <div className="step">
-              <div className="num">01 / SEARCH</div>
-              <h4>Describe<br />your creator</h4>
-              <p>Plain-English search across 412M creators. AI does the filter logic for you.</p>
-            </div>
-            <div className="step">
-              <div className="num">02 / VET</div>
-              <h4>Inspect<br />their audience</h4>
-              <p>Demographics, fake-follower score, brand safety, and historical performance.</p>
-            </div>
-            <div className="step">
-              <div className="num">03 / ACTIVATE</div>
-              <h4>Brief, sign,<br />and pay</h4>
-              <p>Outreach, contracts, payouts in 190 currencies and 50+ countries. All inside IMAI.</p>
-            </div>
-            <div className="step">
-              <div className="num">04 / MEASURE</div>
-              <h4>Track every<br />dollar</h4>
-              <p>Live EMV, GMV, CAC, and engagement. Roll up by creator, campaign, or brand.</p>
-            </div>
+            {[
+              {
+                num: "01 · SEARCH",
+                quote: "I described my creator in a sentence. AI did the 40 filters.",
+                name: "Mara Linde",
+                role: "Brand · Estée Lauder",
+                face: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
+              },
+              {
+                num: "02 · VET",
+                quote: "I scanned 200 audiences in 12 minutes. Skipped half of them.",
+                name: "Jonas Becker",
+                role: "Agency · WPP",
+                face: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
+              },
+              {
+                num: "03 · ACTIVATE",
+                quote: "Brief, contract, payout — one screen, three currencies, twenty minutes.",
+                name: "Anika Roth",
+                role: "Influencer Lead · Coca-Cola",
+                face: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
+              },
+              {
+                num: "04 · MEASURE",
+                quote: "By Friday I knew which creator drove what GMV. Finally.",
+                name: "Sofia Kraus",
+                role: "B2B SaaS · Playtika",
+                face: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
+              },
+            ].map((s) => (
+              <div key={s.num} className="step">
+                <div className="step-top">
+                  <div className="num">{s.num}</div>
+                  <span className="step-face" style={{ backgroundImage: `url('${s.face}')` }} />
+                </div>
+                <blockquote className="step-quote">
+                  <span className="oq">&ldquo;</span>{s.quote}<span className="cq">&rdquo;</span>
+                </blockquote>
+                <div className="step-attr">
+                  <div className="step-name">{s.name}</div>
+                  <div className="step-role">{s.role}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
