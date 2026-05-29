@@ -75,7 +75,7 @@ const ERS: ER[] = [
   { v: "7%", mult: 0.21 },
 ];
 
-type TaskKey = "socials" | "brand" | "team";
+type TaskKey = "saveSearch" | "buildList" | "scheduleReport";
 
 export default function SetupPage() {
   const [verticalI, setVerticalI] = useState(0);
@@ -92,9 +92,9 @@ export default function SetupPage() {
   const [resultsFade, setResultsFade] = useState(false);
 
   const [done, setDone] = useState<Record<TaskKey, boolean>>({
-    socials: false,
-    brand: false,
-    team: false,
+    saveSearch: false,
+    buildList: false,
+    scheduleReport: false,
   });
 
   const verticalData = VERTICALS[verticalI];
@@ -237,55 +237,51 @@ export default function SetupPage() {
           {/* Side checklist */}
           <div className="side">
             <div className="panel-head">
-              <h3>Finish setting up</h3>
+              <h3>Make this search yours</h3>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <div className="progress-bar"><div style={{ width: `${fillPct}%` }} /></div>
                 <span className="progress"><b>{doneCount}</b>/3</span>
               </div>
             </div>
 
-            <div className={`task-card purple ${done.socials ? "done" : ""}`} onClick={() => toggleTask("socials")}>
+            <div className={`task-card purple ${done.saveSearch ? "done" : ""}`} onClick={() => toggleTask("saveSearch")}>
               <span className="ic">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" />
-                  <path d="M16 11.4a4 4 0 1 1-4.6-4.6 4 4 0 0 1 4.6 4.6z" />
-                  <circle cx="17.5" cy="6.5" r="1" />
+                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
                 </svg>
               </span>
               <div className="body">
-                <div className="nm">Connect your socials</div>
-                <div className="sub">Instagram + TikTok unlock real-time analytics &amp; audience overlap.</div>
-                <div className="time">1-click · 30 sec</div>
+                <div className="nm">Save this search</div>
+                <div className="sub">Re-run it weekly. We&apos;ll surface new creators that match your prompt.</div>
+                <div className="time">1-click · stays in your sidebar</div>
               </div>
               <span className="check" />
             </div>
 
-            <div className={`task-card pink ${done.brand ? "done" : ""}`} onClick={() => toggleTask("brand")}>
+            <div className={`task-card pink ${done.buildList ? "done" : ""}`} onClick={() => toggleTask("buildList")}>
               <span className="ic">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 11l9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                  <path d="M9 22V12h6v10" />
+                  <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
                 </svg>
               </span>
               <div className="body">
-                <div className="nm">Confirm your brand profile</div>
-                <div className="sub">We auto-detected your logo and category. Just check it&apos;s right.</div>
-                <div className="time">Auto · 20 sec</div>
+                <div className="nm">Build your first list</div>
+                <div className="sub">Group shortlisted creators into a roster you can brief and outreach in bulk.</div>
+                <div className="time">Optional · ~1 min</div>
               </div>
               <span className="check" />
             </div>
 
-            <div className={`task-card yellow ${done.team ? "done" : ""}`} onClick={() => toggleTask("team")}>
+            <div className={`task-card yellow ${done.scheduleReport ? "done" : ""}`} onClick={() => toggleTask("scheduleReport")}>
               <span className="ic">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                  <path d="M3 3v18h18" />
+                  <path d="m7 14 4-4 4 4 5-6" />
                 </svg>
               </span>
               <div className="body">
-                <div className="nm">Invite your team</div>
-                <div className="sub">Add up to 2 teammates on the Starter plan.</div>
+                <div className="nm">Schedule a weekly report</div>
+                <div className="sub">Audience, ER, and ROI digest in your inbox every Monday — share with your team.</div>
                 <div className="time">Optional · skip ok</div>
               </div>
               <span className="check" />

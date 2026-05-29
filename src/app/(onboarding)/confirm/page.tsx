@@ -1,75 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { OnboardingNav } from "../Stepper";
 import "./confirm.css";
 
 type Cycle = "year" | "month";
-
-const BASE = { month: 175, year: 1788 };
-
-type AddonRow = {
-  label: string;
-  month: number | null;
-  year: number | null;
-  cls: string;
-  icon: React.ReactNode;
-};
-
-const ADDON_META: Record<string, AddonRow> = {
-  pr: {
-    label: "PR & Media",
-    month: 59,
-    year: 590,
-    cls: "pr",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 11l18-8v18l-18-8z" />
-      </svg>
-    ),
-  },
-  ugc: {
-    label: "UGC Video Ads",
-    month: 249,
-    year: 2490,
-    cls: "ugc",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="5" width="14" height="14" rx="2" />
-        <path d="m21 7-4 4 4 4z" />
-      </svg>
-    ),
-  },
-  llm: {
-    label: "LLM Visibility",
-    month: 39,
-    year: 390,
-    cls: "llm",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9 7.8 7.8M16.2 16.2l2.9 2.9M4.9 19.1 7.8 16.2M16.2 7.8l2.9-2.9" />
-      </svg>
-    ),
-  },
-  agents: {
-    label: "AI Agents",
-    month: null,
-    year: null,
-    cls: "agents",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="4" y="6" width="16" height="12" rx="2" />
-        <path d="M9 12h.01M15 12h.01M8 3v3M16 3v3" />
-      </svg>
-    ),
-  },
-};
-
-const fmt = (n: number) => "$" + n.toLocaleString("en-US");
 
 export default function ConfirmPage() {
   const router = useRouter();
@@ -77,28 +14,9 @@ export default function ConfirmPage() {
   const [method, setMethod] = useState<"card" | "bank">("card");
   const [coupon, setCoupon] = useState("");
   const [applied, setApplied] = useState(false);
-  const [selection, setSelection] = useState<string[]>([]);
 
-  // Read addons selection from /personalize via localStorage
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem("imai_addons");
-      if (!raw) return;
-      const arr = JSON.parse(raw);
-      if (Array.isArray(arr)) {
-        setSelection(arr.filter((k: string) => k !== "influencer"));
-      }
-    } catch {
-      // ignore
-    }
-  }, []);
-
-  const paid = selection.filter((k) => ADDON_META[k] && ADDON_META[k][cycle] != null);
-  const hasAgents = selection.includes("agents");
-  const addonsAmt = paid.reduce((s, k) => s + (ADDON_META[k][cycle] as number), 0);
-  const total = BASE[cycle] + addonsAmt;
-  const periodAbbrev = cycle === "year" ? "/yr" : "/mo";
-  const periodFull = cycle === "year" ? "year" : "month";
+  const strike = cycle === "year" ? "$1,788" : "$175";
+  const afterTrial = cycle === "year" ? "$1,788 / year" : "$175 / month";
 
   const applyCoupon = () => {
     if (coupon.trim()) setApplied(true);
@@ -170,29 +88,6 @@ export default function ConfirmPage() {
               </div>
 
               <a href="#" className="switch-plan">← Switch to a different plan</a>
-
-              <div className="addons-included">
-                <div className="ai-head"><span className="dot" />Active workspaces</div>
-                <div>
-                  {selection.length === 0 ? (
-                    <div className="ai-empty">Influencer Marketing only.</div>
-                  ) : (
-                    selection.map((k) => {
-                      const a = ADDON_META[k];
-                      if (!a) return null;
-                      const price = a[cycle] != null ? fmt(a[cycle] as number) + periodAbbrev : "Custom quote";
-                      return (
-                        <div key={k} className={`ai-row ${a.cls}`}>
-                          <span className="ai-ic">{a.icon}</span>
-                          <span className="ai-nm">{a.label}</span>
-                          <span className="ai-pr">{price}</span>
-                        </div>
-                      );
-                    })
-                  )}
-                </div>
-                <Link className="edit-addons" href="/personalize">← Edit add-ons</Link>
-              </div>
             </div>
 
             <div className="panel trust">
@@ -332,47 +227,10 @@ export default function ConfirmPage() {
                 </div>
               </div>
 
-              {(paid.length > 0 || hasAgents) && (
-                <div className="addons-summary visible">
-                  <div className="as-head">Workspace add-ons</div>
-                  <div className="as-row as-base">
-                    <span className="as-nm">Base plan · 2 seats</span>
-                    <span className="as-pr">{fmt(BASE[cycle])}{periodAbbrev}</span>
-                  </div>
-                  {paid.map((k) => {
-                    const a = ADDON_META[k];
-                    return (
-                      <div key={k} className="as-row">
-                        <span className="as-nm">{a.label}</span>
-                        <span className="as-pr">+{fmt(a[cycle] as number)}{periodAbbrev}</span>
-                      </div>
-                    );
-                  })}
-                  {hasAgents && (
-                    <div className="as-row custom">
-                      <span className="as-nm">AI Agents</span>
-                      <span className="as-pr">Talk to us</span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {hasAgents && (
-                <div className="agents-banner visible">
-                  <svg className="ab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M12 8v4M12 16h.01" />
-                  </svg>
-                  <div>
-                    <b>AI Agents quote pending.</b> Our team will follow up within 24h with custom pricing — not charged today.
-                  </div>
-                </div>
-              )}
-
               <div className="total-row">
                 <div className="ttl-lab">Total due today</div>
-                <div className="ttl-amt"><span className="strike">{fmt(total)}</span>$0.00</div>
-                <div className="ttl-meta">After your 7-day trial: <b>{fmt(total)} / {periodFull}</b></div>
+                <div className="ttl-amt"><span className="strike">{strike}</span>$0.00</div>
+                <div className="ttl-meta">After your 7-day trial: <b>{afterTrial}</b></div>
               </div>
 
               <button className="cta-btn" onClick={() => router.push("/setup")}>

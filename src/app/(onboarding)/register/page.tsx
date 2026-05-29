@@ -86,6 +86,27 @@ export default function RegisterPage() {
               </Link>.
             </p>
 
+            <div className="trust-row">
+              <span className="tr-item">
+                <span className="stars">
+                  {[0, 1, 2, 3, 4].map((i) => <span key={i} className="s">★</span>)}
+                </span>
+                <b>4.8</b><span className="muted">on&nbsp;G2</span>
+              </span>
+              <span className="tr-sep" />
+              <span className="tr-item"><b>1,000+</b><span className="muted">brands</span></span>
+              <span className="tr-sep" />
+              <span className="tr-item">
+                <span className="ic">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                </span>
+                <b>SOC&nbsp;2</b><span className="muted">Type&nbsp;II</span>
+              </span>
+            </div>
+
             <div className="social-row">
               <button type="button" className="social" onClick={() => router.push("/personalize")}>
                 <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C40.9 36.7 44 30.9 44 24c0-1.2-.1-2.4-.4-3.5z"/></svg>
@@ -155,9 +176,27 @@ export default function RegisterPage() {
               </svg>
             </button>
 
+            <div className="cta-reassure">
+              <span><span className="ck">✓</span>No credit card</span>
+              <span><span className="ck">✓</span>7-day free trial</span>
+              <span><span className="ck">✓</span>Cancel anytime</span>
+            </div>
+
             <p className="signin-line">
               Already have an account? <a href="#">Sign in</a>
             </p>
+
+            <div className="trust-brands">
+              <div className="lbl">Trusted by marketing teams at</div>
+              <div className="row">
+                <span className="b">Estée&nbsp;Lauder</span>
+                <span className="b i">playtika</span>
+                <span className="b m">LUMENIS</span>
+                <span className="b">Coca-Cola</span>
+                <span className="b i">Samsung</span>
+                <span className="b s">beluga</span>
+              </div>
+            </div>
           </form>
 
           {/* RIGHT: side bento */}

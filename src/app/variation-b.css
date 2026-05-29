@@ -642,9 +642,9 @@
   font-weight: 700;
 }
 .v-b .feature .f-copy h3 {
-  font-size: 48px;
+  font-size: var(--t-card);
   letter-spacing: -0.035em;
-  line-height: 1;
+  line-height: 1.05;
   font-weight: 800;
   margin-bottom: 18px;
 }

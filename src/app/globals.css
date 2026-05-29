@@ -1,5 +1,14 @@
 /* ============ IMAI design tokens ============ */
 :root {
+  /* Type hierarchy (strict 3-tier — see ROUND-4 README)
+     --t-display : hero h1 + every section h2 (loudest voice)
+     --t-card    : h3 inside any card/feature/pricing/FAQ (clear step down)
+     --t-body    : paragraph + list copy */
+  --t-display: clamp(48px, 6vw, 80px);
+  --t-card: clamp(26px, 2.6vw, 34px);
+  --t-body: 17px;
+  --t-eyebrow: 11px;
+
   /* Primary brand */
   --purple: #8564ff;
   --purple-dark: #6442dd;
