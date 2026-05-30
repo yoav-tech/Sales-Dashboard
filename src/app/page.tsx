@@ -53,13 +53,6 @@ const FACES = [
   "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=faces&auto=format&q=80",
 ];
 
-const PERSONA_FACES = {
-  inhouse: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
-  agency: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
-  b2b: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
-  enterprise: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
-};
-
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Where does the 400M creator data come from?",
@@ -197,22 +190,6 @@ export default function VariationBPage() {
           </div>
         </div>
       </section>
-
-      {/* TICKER */}
-      <div className="container">
-        <div className="ticker">
-          <div className="ticker-track">
-            {[...Array(2)].flatMap((_, dup) => [
-              <span key={`${dup}-1`} className="ticker-item"><span className="dot" />412,388,201 creators indexed</span>,
-              <span key={`${dup}-2`} className="ticker-item"><span className="dot" /><span className="lime">1,000+</span> brands using IMAI</span>,
-              <span key={`${dup}-3`} className="ticker-item"><span className="dot" />$1.2B paid to creators</span>,
-              <span key={`${dup}-4`} className="ticker-item"><span className="dot" />50+ countries · 190 currencies</span>,
-              <span key={`${dup}-5`} className="ticker-item"><span className="dot" /><span className="lime">92%</span> avg ROI lift</span>,
-              <span key={`${dup}-6`} className="ticker-item"><span className="dot" />SOC 2 Type II · GDPR ready</span>,
-            ])}
-          </div>
-        </div>
-      </div>
 
       {/* LOGOS */}
       <section className="logos">
@@ -549,98 +526,6 @@ export default function VariationBPage() {
                 <span>1–5 of 19</span>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* HOW IT WORKS — testimonial cards */}
-      <section className="how" id="how">
-        <div className="container">
-          <div className="how-head">
-            <div>
-              <span className="section-eyebrow"><span className="dot" />How it works</span>
-              <h2 className="section-title">Four steps. <span className="accent">In their words.</span></h2>
-            </div>
-            <p className="section-sub">From AI search to wired payout, every step lives inside IMAI. Here&apos;s what it actually feels like — straight from the people running it this week.</p>
-          </div>
-          <div className="how-grid">
-            {[
-              {
-                num: "01 · SEARCH",
-                quote: "I described my creator in a sentence. AI did the 40 filters.",
-                name: "Mara Linde",
-                role: "Brand · Estée Lauder",
-                face: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
-              },
-              {
-                num: "02 · VET",
-                quote: "I scanned 200 audiences in 12 minutes. Skipped half of them.",
-                name: "Jonas Becker",
-                role: "Agency · WPP",
-                face: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
-              },
-              {
-                num: "03 · ACTIVATE",
-                quote: "Brief, contract, payout — one screen, three currencies, twenty minutes.",
-                name: "Anika Roth",
-                role: "Influencer Lead · Coca-Cola",
-                face: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
-              },
-              {
-                num: "04 · MEASURE",
-                quote: "By Friday I knew which creator drove what GMV. Finally.",
-                name: "Sofia Kraus",
-                role: "B2B SaaS · Playtika",
-                face: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=160&h=160&fit=crop&crop=faces&auto=format&q=80",
-              },
-            ].map((s) => (
-              <div key={s.num} className="step">
-                <div className="step-top">
-                  <div className="num">{s.num}</div>
-                  <span className="step-face" style={{ backgroundImage: `url('${s.face}')` }} />
-                </div>
-                <blockquote className="step-quote">
-                  <span className="oq">&ldquo;</span>{s.quote}<span className="cq">&rdquo;</span>
-                </blockquote>
-                <div className="step-attr">
-                  <div className="step-name">{s.name}</div>
-                  <div className="step-role">{s.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PERSONAS */}
-      <section className="personas" id="for">
-        <div className="container">
-          <div style={{ textAlign: "center" }}>
-            <span className="section-eyebrow"><span className="dot" />Built for every growth team</span>
-            <h2 className="section-title" style={{ margin: "18px auto 12px" }}>One platform. <span className="accent">Every team.</span></h2>
-            <p className="section-sub" style={{ margin: "0 auto" }}>
-              Whether you ship campaigns weekly in-house, run a roster of brand clients at an agency, or report up to a CMO at a global enterprise — IMAI fits the workflow you already have.
-            </p>
-          </div>
-          <div className="personas-grid">
-            {[
-              { face: PERSONA_FACES.inhouse, tag: "In-house · Brand", title: ["Influencer", "marketers"], body: "Run end-to-end campaigns without three browser tabs. Search, vet, brief, sign, pay, and report — all from the same screen.", items: ["AI Match by audience overlap", "Reusable brief & contract templates", "Live EMV + GMV per creator"] },
-              { face: PERSONA_FACES.agency, tag: "Agency", title: ["Influencer", "agencies"], body: "Manage a roster of brand clients in workspaces. Whitelabel reports, billable creator unlocks, and a shared roster of vetted talent across clients.", items: ["Multi-workspace + client roles", "Whitelabel exports & PDFs", "Roster sharing across clients"] },
-              { face: PERSONA_FACES.b2b, tag: "B2B · SaaS", title: ["B2B marketing", "teams"], body: "B2B creator marketing isn't TikTok dances — it's LinkedIn carousels and YouTube long-form. IMAI's graph covers technical and trade creators most tools ignore.", items: ["LinkedIn + YouTube graph included", "Salesforce + HubSpot sync", "Pipeline attribution"] },
-              { face: PERSONA_FACES.enterprise, tag: "Enterprise", title: ["Enterprise", "ops & finance"], body: "SSO, SOC 2, custom data residency, and a single procurement contract that replaces 4–6 SaaS line items. Finance gets clean payouts, ops gets one vendor.", items: ["SSO · SAML · SCIM provisioning", "SOC 2 Type II · GDPR", "Bring-your-own-data API"] },
-            ].map((p, i) => (
-              <div key={i} className="persona">
-                <div className="persona-top">
-                  <span className="face" style={{ backgroundImage: `url('${p.face}')` }} />
-                  <span className="role-tag">{p.tag}</span>
-                </div>
-                <h4>{p.title[0]}<br />{p.title[1]}</h4>
-                <p>{p.body}</p>
-                <ul>
-                  {p.items.map((it, j) => <li key={j}>{it}</li>)}
-                </ul>
-              </div>
-            ))}
           </div>
         </div>
       </section>
