@@ -119,7 +119,25 @@ export default function VariationBPage() {
   const [icpKey, setIcpKey] = useState(0);
   const [swap, setSwap] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [menuOpen, setMenuOpen] = useState(false);
   const swapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [menuOpen]);
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
 
   useEffect(() => {
     const SWAP_MS = 4200;
@@ -142,22 +160,32 @@ export default function VariationBPage() {
   return (
     <div className="v-c">
       {/* NAV */}
-      <nav className="top">
+      <nav className={`top ${menuOpen ? "menu-open" : ""}`}>
         <div className="inner">
           <Logo />
           <ul>
-            <li><a href="#features">Product</a></li>
-            <li><a href="#for">Solutions</a></li>
-            <li><a href="#compare">Compare</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#features" onClick={() => setMenuOpen(false)}>Product</a></li>
+            <li><a href="#features" onClick={() => setMenuOpen(false)}>Solutions</a></li>
+            <li><a href="#compare" onClick={() => setMenuOpen(false)}>Compare</a></li>
+            <li><a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a></li>
+            <li><a href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a></li>
           </ul>
           <div className="nav-cta">
             <Link href="/register" className="btn btn-ghost">Sign in</Link>
             <Link href="/register" className="btn btn-primary">Start free →</Link>
+            <button
+              type="button"
+              className="nav-burger"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              <span /><span /><span />
+            </button>
           </div>
         </div>
       </nav>
+      {menuOpen && <div className="nav-scrim" onClick={() => setMenuOpen(false)} aria-hidden />}
 
       {/* HERO — single-column centered */}
       <section className="hero">

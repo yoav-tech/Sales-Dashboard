@@ -67,6 +67,54 @@
   gap: 8px;
   align-items: center;
 }
+
+/* ---------- Mobile hamburger button (hidden on desktop) ---------- */
+.v-c .nav-burger {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background 0.15s;
+}
+.v-c .nav-burger:hover { background: rgba(255, 255, 255, 0.16); }
+.v-c .nav-burger span {
+  display: block;
+  width: 16px;
+  height: 1.6px;
+  background: var(--ink-2);
+  border-radius: 999px;
+  transition: transform 0.22s ease, opacity 0.18s ease;
+  transform-origin: center;
+}
+.v-c nav.top.menu-open .nav-burger span:nth-child(1) {
+  transform: translateY(5.6px) rotate(45deg);
+}
+.v-c nav.top.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+.v-c nav.top.menu-open .nav-burger span:nth-child(3) {
+  transform: translateY(-5.6px) rotate(-45deg);
+}
+
+/* Click-outside scrim behind the open mobile menu */
+.v-c .nav-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+  animation: vc-scrim-in 0.18s ease both;
+}
+@keyframes vc-scrim-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 /* ===========================================================
    UNIFIED BUTTON SYSTEM
    - btn-primary  : purple fill, white text, ink shadow  → main CTA
@@ -1573,7 +1621,52 @@
     border-top: 1.5px solid var(--ink);
   }
   .v-c .logo-row { grid-template-columns: repeat(2, 1fr); }
-  .v-c nav.top ul { display: none; }
+
+  /* Mobile nav: hide inline links, show hamburger.
+     When open, the ul becomes a sheet that drops under the pill. */
+  .v-c .nav-burger { display: inline-flex; }
+  .v-c nav.top ul {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 12px;
+    background: var(--ink);
+    color: var(--ink-2);
+    border-radius: 18px;
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.5);
+    z-index: 60;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .v-c nav.top.menu-open ul {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .v-c nav.top ul li { list-style: none; }
+  .v-c nav.top ul a {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0.92;
+    transition: background 0.12s, opacity 0.12s;
+  }
+  .v-c nav.top ul a:hover,
+  .v-c nav.top ul a:active {
+    background: rgba(255, 255, 255, 0.06);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 640px) {
