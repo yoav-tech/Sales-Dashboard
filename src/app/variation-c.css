@@ -583,44 +583,101 @@
   color: var(--ink-soft);
   font-size: 13px;
 }
-.v-c .logo-row {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
-  background: var(--ink);
-  border: 1.5px solid var(--ink);
-  border-radius: 18px;
+/* Auto-scrolling brand marquee — full-bleed, edge-faded */
+.v-c .logo-marquee {
   overflow: hidden;
+  width: 100%;
+  padding: 12px 0 4px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
-.v-c .logo-row .cell {
-  padding: 28px 12px;
-  text-align: center;
-  background: var(--bg);
+.v-c .logo-track {
+  display: flex;
+  width: max-content;
+  animation: vc-marquee 38s linear infinite;
+}
+.v-c .logo-track:hover { animation-play-state: paused; }
+@keyframes vc-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.v-c .logo-set {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 64px;
+  padding-right: 64px;
+  flex-shrink: 0;
 }
-.v-c .logo-row .cell:hover { background: var(--card); }
-.v-c .logo-row .lg {
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.v-c .logo-marquee .lg {
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--ink);
+  opacity: 0.85;
+  white-space: nowrap;
+  font-size: 22px;
+  line-height: 1;
+  height: 32px;
+  transition: opacity 0.2s;
+}
+.v-c .logo-marquee .lg:hover { opacity: 1; }
+
+/* Per-brand wordmark styling — approximate the official look */
+.v-c .logo-marquee .lufthansa {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+.v-c .logo-marquee .clinique {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  font-size: 21px;
+}
+.v-c .logo-marquee .estrid {
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  font-size: 19px;
+}
+.v-c .logo-marquee .plt {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  font-size: 16px;
+}
+.v-c .logo-marquee .samsung {
+  font-weight: 800;
+  letter-spacing: 0.02em;
   font-size: 22px;
 }
-.v-c .logo-row .lg.b {
-  font-style: italic;
+.v-c .logo-marquee .catrice {
+  flex-direction: column;
+  align-items: flex-start;
   font-weight: 800;
-  letter-spacing: -0.04em;
-}
-.v-c .logo-row .lg.c {
-  font-family: var(--font-jetbrains), monospace;
-  font-size: 18px;
-  font-weight: 500;
-}
-.v-c .logo-row .lg.d {
-  font-weight: 300;
+  letter-spacing: 0.04em;
   font-size: 20px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  line-height: 1;
+  gap: 2px;
+}
+.v-c .logo-marquee .catrice small {
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  opacity: 0.7;
+}
+.v-c .logo-marquee .boohoo {
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  font-size: 21px;
+}
+.v-c .logo-marquee .boohoo b { font-weight: 800; }
+.v-c .logo-marquee .budweiser {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-c .logo-track { animation-duration: 90s; }
 }
 
 /* ---------- FEATURES ---------- */
@@ -1620,8 +1677,6 @@
     border-left: 0;
     border-top: 1.5px solid var(--ink);
   }
-  .v-c .logo-row { grid-template-columns: repeat(2, 1fr); }
-
   /* Mobile nav: hide inline links, show hamburger.
      When open, the ul becomes a sheet that drops under the pill. */
   .v-c .nav-burger { display: inline-flex; }
@@ -1710,13 +1765,21 @@
   .v-c .section-title { font-size: clamp(32px, 8vw, 48px); }
   .v-c .section-sub { font-size: 16px; }
 
-  /* Logos */
+  /* Logos marquee tightens slightly on phones */
   .v-c .logos { padding: 56px 0 40px; }
   .v-c .logos .head { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .v-c .logo-row .cell { padding: 18px 8px; }
-  .v-c .logo-row .lg { font-size: 16px; }
-  .v-c .logo-row .lg.c { font-size: 13px; }
-  .v-c .logo-row .lg.d { font-size: 14px; letter-spacing: 0.16em; }
+  .v-c .logo-set { gap: 44px; padding-right: 44px; }
+  .v-c .logo-marquee .lg { font-size: 18px; height: 28px; }
+  .v-c .logo-marquee .lufthansa,
+  .v-c .logo-marquee .samsung,
+  .v-c .logo-marquee .boohoo,
+  .v-c .logo-marquee .clinique { font-size: 17px; }
+  .v-c .logo-marquee .estrid { font-size: 15px; letter-spacing: 0.24em; }
+  .v-c .logo-marquee .plt { font-size: 13px; }
+  .v-c .logo-marquee .catrice { font-size: 16px; }
+  .v-c .logo-marquee .catrice small { font-size: 7px; }
+  .v-c .logo-marquee .budweiser { font-size: 20px; }
+  .v-c .logo-track { animation-duration: 28s; }
 
   /* Problem */
   .v-c .problem { padding: 56px 0 24px; }

@@ -219,21 +219,28 @@ export default function VariationBPage() {
         </div>
       </section>
 
-      {/* LOGOS */}
+      {/* LOGOS — auto-scrolling marquee */}
       <section className="logos">
         <div className="container">
           <div className="head">
             <h3>Trusted by the marketing teams that ship campaigns weekly.</h3>
             <div className="num">1,000+ brands · and counting</div>
           </div>
-          <div className="logo-row">
-            <div className="cell"><span className="lg">Estée Lauder</span></div>
-            <div className="cell"><span className="lg b">playtika</span></div>
-            <div className="cell"><span className="lg c">LUMENIS</span></div>
-            <div className="cell"><span className="lg d">beluga</span></div>
-            <div className="cell"><span className="lg">Coca-Cola</span></div>
-            <div className="cell"><span className="lg b">Samsung</span></div>
-            <div className="cell"><span className="lg c">/wpp</span></div>
+        </div>
+        <div className="logo-marquee" aria-label="Customer brands">
+          <div className="logo-track">
+            {[0, 1].map((dup) => (
+              <div key={dup} className="logo-set" aria-hidden={dup === 1 ? true : undefined}>
+                <span className="lg lufthansa">Lufthansa</span>
+                <span className="lg clinique">CLINIQUE</span>
+                <span className="lg estrid">ESTRID</span>
+                <span className="lg plt">PRETTYLITTLETHING</span>
+                <span className="lg samsung">SAMSUNG</span>
+                <span className="lg catrice">CATRICE<small>COSMETICS</small></span>
+                <span className="lg boohoo">boohoo<b>MAN</b></span>
+                <span className="lg budweiser">Budweiser</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
