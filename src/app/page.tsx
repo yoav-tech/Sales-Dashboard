@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { LogoMark } from "./LogoMark";
-import "./variation-b.css";
+import "./variation-c.css";
 
 type Result = { h: string; m: string; bg: string };
 type Icp = { q: string; res: Result[] };
@@ -147,7 +147,7 @@ export default function VariationBPage() {
   const icp = ICPS[icpIdx];
 
   return (
-    <div className="v-b">
+    <div className="v-c">
       {/* NAV */}
       <nav className="top">
         <div className="inner">

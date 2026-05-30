@@ -67,7 +67,7 @@
   gap: 12px;
   align-items: center;
 }
-/* Unified button system (matches variation-b, but with --bg on outline hover) */
+/* Unified button system (matches variation-c, but with --bg on outline hover) */
 .v-a .btn {
   display: inline-flex;
   align-items: center;
