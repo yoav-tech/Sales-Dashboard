@@ -47,7 +47,7 @@ function Logo({ compact = true }: { compact?: boolean }) {
       <LogoMark />
       <span className="name">
         <span>Influencer</span>
-        <span>Marketing<span className="ai">.Ai</span></span>
+        <span>Marketing<span className="ai-dot">.</span>Ai</span>
       </span>
     </Link>
   );

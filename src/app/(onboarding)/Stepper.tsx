@@ -27,7 +27,7 @@ export function OnboardingNav({ current }: { current: StepKey }) {
           <span className="name">
             <span>Influencer</span>
             <span>
-              Marketing<span className="ai">.Ai</span>
+              Marketing<span className="ai-dot">.</span>Ai
             </span>
           </span>
         </Link>

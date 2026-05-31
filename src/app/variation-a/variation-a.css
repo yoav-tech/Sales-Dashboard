@@ -46,8 +46,8 @@
   flex-direction: column;
   line-height: 1.04;
 }
-.v-a .logo .name .ai { color: #06c7a9; }
-.v-a .logo .name span { display: block; }
+.v-a .logo .name > span { display: block; }
+.v-a .logo .name .ai-dot { display: inline; color: #06c7a9; }
 .v-a .logo.compact { font-size: 15px; }
 .v-a .logo.compact .logo-mark { width: 22px; height: 22px; }
 .v-a nav.top ul {

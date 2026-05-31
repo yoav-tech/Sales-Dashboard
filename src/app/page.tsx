@@ -107,7 +107,7 @@ function Logo({ compact = true }: { compact?: boolean }) {
       <span className="name">
         <span>Influencer</span>
         <span>
-          Marketing<span className="ai">.Ai</span>
+          Marketing<span className="ai-dot">.</span>Ai
         </span>
       </span>
     </a>

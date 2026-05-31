@@ -45,8 +45,8 @@
   flex-direction: column;
   line-height: 1.04;
 }
-.ob .logo .name span { display: block; }
-.ob .logo .name .ai { color: var(--teal); }
+.ob .logo .name > span { display: block; }
+.ob .logo .name .ai-dot { display: inline; color: var(--teal); }
 
 .ob .stepper {
   display: flex;
