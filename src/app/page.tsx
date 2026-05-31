@@ -537,16 +537,16 @@ export default function VariationBPage() {
                   <span />
                 </div>
                 {[
-                  { on: true, name: "Mara Linde", handle: "@maralinde · IG", bg: "linear-gradient(135deg,#eeecff,#8564ff)", tags: ["2 posts", "1 reel"], status: "paid", label: "Paid", pay: "€2,400" },
-                  { on: true, name: "Jonas Becker", handle: "@jonasthrift · IG", bg: "linear-gradient(135deg,#e0f8f2,#06c7a9)", tags: ["1 reel"], status: "live", label: "Live", pay: "€1,200" },
-                  { on: true, name: "Anika Roth", handle: "@anikaroth_ · IG", bg: "linear-gradient(135deg,#fdf4c0,#efcc01)", tags: ["3 stories", "1 post"], status: "live", label: "Live", pay: "€3,600" },
-                  { on: false, name: "Lea Vogel", handle: "@lea.vogel · TT", bg: "linear-gradient(135deg,#ffecf0,#f9476c)", tags: ["1 TikTok"], status: "negotiating", label: "Negotiating", pay: "€900" },
-                  { on: false, name: "Sofia Kraus", handle: "@sofiakraus · IG", bg: "linear-gradient(135deg,#e0f8f2,#299d88)", tags: ["Draft brief"], status: "draft", label: "Draft", pay: "—" },
+                  { on: true, name: "Mara Linde", handle: "@maralinde · IG", face: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&fit=crop&crop=faces&auto=format&q=80", tags: ["2 posts", "1 reel"], status: "paid", label: "Paid", pay: "€2,400" },
+                  { on: true, name: "Jonas Becker", handle: "@jonasthrift · IG", face: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&fit=crop&crop=faces&auto=format&q=80", tags: ["1 reel"], status: "live", label: "Live", pay: "€1,200" },
+                  { on: true, name: "Anika Roth", handle: "@anikaroth_ · IG", face: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&fit=crop&crop=faces&auto=format&q=80", tags: ["3 stories", "1 post"], status: "live", label: "Live", pay: "€3,600" },
+                  { on: false, name: "Lea Vogel", handle: "@lea.vogel · TT", face: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=96&h=96&fit=crop&crop=faces&auto=format&q=80", tags: ["1 TikTok"], status: "negotiating", label: "Negotiating", pay: "€900" },
+                  { on: false, name: "Sofia Kraus", handle: "@sofiakraus · IG", face: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=96&h=96&fit=crop&crop=faces&auto=format&q=80", tags: ["Draft brief"], status: "draft", label: "Draft", pay: "—" },
                 ].map((r, i) => (
                   <div key={i} className="cm-row">
                     <span className={`cm-check ${r.on ? "on" : ""}`} />
                     <div className="cm-creator">
-                      <div className="cm-av" style={{ background: r.bg }} />
+                      <div className="cm-av" style={{ backgroundImage: `url('${r.face}')` }} />
                       <div><div className="cm-nm">{r.name}</div><div className="cm-hd">{r.handle}</div></div>
                     </div>
                     <div className="cm-deliv">{r.tags.map((t, j) => <span key={j} className="cm-tag">{t}</span>)}</div>
