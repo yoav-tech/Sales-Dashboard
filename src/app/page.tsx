@@ -288,32 +288,6 @@ export default function VariationBPage() {
               <div className="lab">creators across IG · TT · YT · X</div>
             </div>
 
-            <div className="tile tile-creator">
-              <div className="tile-lab"><span className="dot" />Top match</div>
-              <div className="head">
-                <div className="av" />
-                <div>
-                  <div className="nm">Mara Linde</div>
-                  <div className="hd">@maralinde · IG · DE</div>
-                </div>
-              </div>
-              <div className="metric-list">
-                <div className="mrow"><span className="ml">Story views</span><span className="mv">412K</span></div>
-                <div className="mrow"><span className="ml">Reels reach</span><span className="mv">128K</span></div>
-                <div className="mrow"><span className="ml">ER</span><span className="mv">5.2%</span></div>
-                <div className="mrow"><span className="ml">Audience cred.</span><span className="mv">94%</span></div>
-              </div>
-              <span className="match">98% match</span>
-            </div>
-
-            <div className="tile tile-pipe">
-              <div className="tile-lab"><span className="dot" />Live campaign</div>
-              <div className="pipe-row"><span>Outreach</span><span className="n">142</span></div>
-              <div className="pipe-row"><span>Negotiating</span><span className="n">38</span></div>
-              <div className="pipe-row"><span>Live</span><span className="n">19</span></div>
-              <div className="pipe-row"><span>Paid out</span><span className="n">€48.2K</span></div>
-            </div>
-
             <div className="tile tile-roi">
               <div className="tile-lab"><span className="dot" />ROI · last 30d</div>
               <div className="n">+52%</div>
@@ -331,50 +305,70 @@ export default function VariationBPage() {
                 </svg>
               </div>
             </div>
+
+            <div className="tile tile-pipe">
+              <div className="tile-lab"><span className="dot" />Live campaign · SS26 launch</div>
+              <div className="pipe-stats">
+                <div className="ps"><div className="pn">142</div><div className="pl">Outreach</div></div>
+                <div className="ps"><div className="pn">38</div><div className="pl">Negotiating</div></div>
+                <div className="ps"><div className="pn">19</div><div className="pl">Live</div></div>
+                <div className="ps"><div className="pn">€48.2K</div><div className="pl">Paid out</div></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* PROBLEM */}
+      {/* PROBLEM — 4 quiet cards centred under a single title */}
       <section className="problem" id="problem">
         <div className="container">
           <div className="problem-head">
-            <h2>
-              The problem with <span className="strike">every other</span><br />
-              influencer marketing tool. <span className="accent">Fixed.</span>
-            </h2>
-            <p>
-              Most &ldquo;platforms&rdquo; are really one workflow with three tools bolted on. You end up paying for a search tool, an outreach tool, a contracts tool, and a payments tool — then duct-taping them with spreadsheets.
-            </p>
+            <span className="section-eyebrow"><span className="dot" />The problem</span>
+            <h2>The problem with every other influencer marketing tool.</h2>
           </div>
           <div className="problem-grid">
             <div className="pcard">
-              <div className="ico">01</div>
-              <div className="lab">Database tools</div>
-              <h4><span className="strike">Static lists.</span><br />Stale data.</h4>
-              <p>Most &ldquo;creator databases&rdquo; are spreadsheets that update quarterly. You can&apos;t trust the engagement rate, you can&apos;t trust the audience breakdown, you definitely can&apos;t trust the contact info.</p>
-              <div className="fix">Refreshed every 24h</div>
+              <div className="ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <ellipse cx="12" cy="6" rx="8" ry="3" />
+                  <path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6" />
+                  <path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
+                </svg>
+              </div>
+              <h4>Database</h4>
+              <p>Search and export. No AI. No vetting. No context. Just a list.</p>
             </div>
             <div className="pcard">
-              <div className="ico">02</div>
-              <div className="lab">Email outreach</div>
-              <h4><span className="strike">Cold emails.</span><br />Colder reply rates.</h4>
-              <p>Generic mail-merge to 500 creators gets a 1% reply rate. AI-personalized outreach inside the platform — with creator context and brand history — gets 27%.</p>
-              <div className="fix">In-platform inbox + AI replies</div>
+              <div className="ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" />
+                </svg>
+              </div>
+              <h4>Email Outreach</h4>
+              <p>No tracking, no workflows, no reply rate visibility.</p>
             </div>
             <div className="pcard">
-              <div className="ico">03</div>
-              <div className="lab">Spreadsheets</div>
-              <h4><span className="strike">Tabs &amp; tabs</span><br />of campaign rows.</h4>
-              <p>Brief in Docs. Contracts in DocuSign. Approvals in Slack. Payments in Wise. Reporting in Looker. By month two, no one knows what&apos;s live.</p>
-              <div className="fix">One pipeline, one source of truth</div>
+              <div className="ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M8 17v-5M12 17v-9M16 17v-3" />
+                </svg>
+              </div>
+              <h4>Spreadsheets</h4>
+              <p>Manual reporting, zero attribution, no ROI visibility.</p>
             </div>
             <div className="pcard">
-              <div className="ico">04</div>
-              <div className="lab">Separate payments</div>
-              <h4><span className="strike">Wire transfers</span><br />&amp; finance tickets.</h4>
-              <p>You found the perfect creator in Brazil. Now your finance team needs a W-8, a Wise account, and 14 days to figure out withholding tax. IMAI handles all of it.</p>
-              <div className="fix">190 currencies · auto tax forms</div>
+              <div className="ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="9" y="3" width="6" height="5" rx="1" />
+                  <rect x="2" y="16" width="6" height="5" rx="1" />
+                  <rect x="16" y="16" width="6" height="5" rx="1" />
+                  <path d="M12 8v3M5 16v-3h14v3" />
+                </svg>
+              </div>
+              <h4>Separate Payments</h4>
+              <p>Friction, delays, compliance risk, and lost creator relationships.</p>
             </div>
           </div>
         </div>
@@ -561,6 +555,58 @@ export default function VariationBPage() {
                 <span>1–5 of 19</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS — 4 image cards */}
+      <section className="how" id="how">
+        <div className="container">
+          <div className="how-head">
+            <div>
+              <span className="section-eyebrow"><span className="dot" />How it works</span>
+              <h2 className="section-title">Four steps. <span className="accent">No spreadsheet.</span></h2>
+            </div>
+            <p className="how-sub">From the moment you log in to the moment you wire a creator&apos;s payout — every step lives in IMAI. We replaced the agency stack with a single page.</p>
+          </div>
+          <div className="how-grid">
+            {[
+              {
+                tone: "teal",
+                num: "01 / SEARCH",
+                title: ["Describe", "your creator"],
+                body: "Plain-English search across 412M creators. AI does the filter logic for you.",
+                img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=720&h=540&fit=crop&crop=faces&auto=format&q=80",
+              },
+              {
+                tone: "purple",
+                num: "02 / VET",
+                title: ["Inspect", "their audience"],
+                body: "Demographics, fake-follower score, brand safety, and historical performance.",
+                img: "https://images.unsplash.com/photo-1554151228-14d9def656e4?w=720&h=540&fit=crop&crop=faces&auto=format&q=80",
+              },
+              {
+                tone: "ink",
+                num: "03 / ACTIVATE",
+                title: ["Brief, sign,", "and pay"],
+                body: "Outreach, contracts, payouts in 190 currencies and 50+ countries. All inside IMAI.",
+                img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=720&h=540&fit=crop&crop=faces&auto=format&q=80",
+              },
+              {
+                tone: "light",
+                num: "04 / MEASURE",
+                title: ["Track every", "dollar"],
+                body: "Live EMV, GMV, CAC, and engagement. Roll up by creator, campaign, or brand.",
+                img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=720&h=540&fit=crop&auto=format&q=80",
+              },
+            ].map((s) => (
+              <div key={s.num} className={`how-card how-${s.tone}`}>
+                <div className="how-img" style={{ backgroundImage: `url('${s.img}')` }} aria-hidden />
+                <div className="how-num">{s.num}</div>
+                <h4 className="how-title">{s.title[0]}<br />{s.title[1]}</h4>
+                <p className="how-body">{s.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
