@@ -46,6 +46,9 @@ Two packages in this folder:
 | `features-section.html` | Just the Features section (3 alternating cards with the filter panel / platform graph / campaign table mockups). |
 | `features-section.css` | CSS for the Features section, standalone. |
 | `elementor-build-guide.md` | Step-by-step build instructions for both options (HTML widget vs native Elementor widgets) for the Features section. |
+| **`seo/page-meta.html`** | ★ Head-level meta tags: title, description, canonical, Open Graph, Twitter Card, AI-search hints, favicon. |
+| **`seo/structured-data.html`** | ★ Schema.org JSON-LD @graph (Organization + SoftwareApplication + WebSite + FAQPage with all 11 Q&As + BreadcrumbList). |
+| **`seo/llms.txt`** | ★ LLM-friendly summary served at `/llms.txt` for ChatGPT Search / Perplexity / Claude / Bing Copilot / AI Overviews. |
 | `README.md` | This file. |
 
 ---
@@ -270,6 +273,110 @@ Tested in:
 
 No JavaScript frameworks. No build step. No external dependencies
 beyond Google Fonts (which loads via `<link>`).
+
+---
+
+## SEO + GEO (AI search) — `seo/` folder
+
+Three files give the site full coverage across classic Google search,
+social previews, and the new generation of AI answer engines
+(Google AI Overviews, ChatGPT Search, Perplexity, Bing Copilot, Claude).
+
+| File | What it does | Where it goes |
+|---|---|---|
+| `seo/page-meta.html` | Title, description, canonical, robots, Open Graph (Facebook/LinkedIn/iMessage/Slack), Twitter Card, AI-search hints, favicon. | `<head>` of the page |
+| `seo/structured-data.html` | Schema.org JSON-LD `@graph` with Organization, SoftwareApplication (3 Offers + 4.8/1240 rating), WebSite, FAQPage (11 Q&As), BreadcrumbList. | `<head>` OR per-page Schema field in SEO plugin |
+| `seo/llms.txt` | Plain-Markdown product summary for LLM crawlers (the emerging `/llms.txt` convention). | Site root: `https://yourdomain.com/llms.txt` |
+
+### Heads-up: JSON-LD is already inlined in full-landing.html
+
+If you paste `full-landing.html` into one Elementor HTML widget as in
+the TL;DR, you're already shipping the full Schema.org `@graph` —
+look for the `<script type="application/ld+json">` block just above
+the closing JS `<script>` tag. **Don't add `seo/structured-data.html`
+on top of it** or Google will see duplicate schema and pick the wrong
+one.
+
+The two SEO pieces that are NOT in full-landing.html and which you
+still need to install separately are:
+
+1. `seo/page-meta.html` — these are `<head>` tags, not body HTML, so
+   Elementor's HTML widget can't host them
+2. `seo/llms.txt` — this lives at `/llms.txt`, not inside the page
+
+### Where to install each file in WordPress
+
+**1. `seo/page-meta.html` — head tags**
+
+Pick ONE of these three install paths:
+
+| Path | How |
+|---|---|
+| **Yoast SEO** (cleanest) | Page → Yoast SEO → "Edit snippet" → paste Title + Description; Social tab for OG + Twitter; Advanced tab for canonical/robots. |
+| **RankMath SEO** | Page → RankMath SEO → General + Social + Advanced tabs. |
+| **AIOSEO** | Page → AIOSEO Settings → fill the same fields. |
+| Theme `header.php` | Copy literal tags into `header.php` inside `<head>`. Use a child theme so you don't lose them on theme update. |
+| Insert Headers and Footers plugin | Paste the entire file content into "Scripts in Header". |
+
+Whichever path you pick, swap `https://www.imai.com/` for your real
+WordPress URL, and replace the OG image URL with a 1200×630 image
+you've uploaded to Media Library.
+
+**2. `seo/structured-data.html` — JSON-LD (skip if you used full-landing.html)**
+
+| Plugin | How |
+|---|---|
+| **Yoast SEO** | Yoast → Schema → "Custom" tab → paste the `<script>` block. |
+| **RankMath SEO** | Page → RankMath SEO → Schema tab → "Add Custom Schema" → paste. |
+| **AIOSEO** | Page → AIOSEO Settings → Schema → "Add Schema" → "Other" → paste. |
+| No plugin | Drop the `<script>` block into `header.php` just before `</head>`. |
+
+**3. `seo/llms.txt` — site-root LLM summary**
+
+Must be served at `https://yourdomain.com/llms.txt` (no subfolder).
+Two options:
+
+| Path | How |
+|---|---|
+| **SFTP** (recommended) | Upload `llms.txt` to the WordPress install root, same directory as `wp-config.php`. WordPress serves it as a static asset. |
+| **WP Code / Insert Headers and Footers + redirect** | Upload via Media Library, then add a `/llms.txt` → media-URL rewrite in `.htaccess` or via Redirection plugin. |
+
+Verify after install: visit `https://yourdomain.com/llms.txt` and you
+should see the markdown content (NOT a 404 or WordPress 404 page).
+
+### Before going live — the 3 placeholders to swap
+
+`https://www.imai.com/` appears throughout all 3 SEO files. Find-and-
+replace it with your actual production URL **before** publishing, or
+Google will reject the schema for canonical mismatch.
+
+| Placeholder | What to replace with |
+|---|---|
+| `https://www.imai.com/` | Your real domain (e.g. `https://imai.com/` or `https://www.influencermarketing.ai/`) |
+| `https://www.imai.com/logo.png` | URL of your uploaded logo (PNG, square, 200×200 minimum) |
+| `https://www.imai.com/og-image.png` | URL of your social-preview image (1200×630 PNG/JPG) |
+| `@imai` (twitter site handle) | Your real X / Twitter handle |
+
+### How to verify SEO is wired up correctly
+
+After publishing, test in this order:
+
+1. **Page meta** — view-source on the live page, confirm `<title>`,
+   `<meta name="description">`, `<link rel="canonical">`, and the
+   `og:*` / `twitter:*` tags are present in `<head>`.
+2. **JSON-LD** — paste your live URL into
+   [Google's Rich Results Test](https://search.google.com/test/rich-results).
+   It should detect: Organization, SoftwareApplication, FAQPage,
+   BreadcrumbList. Zero errors.
+3. **Open Graph preview** — paste your URL into
+   [opengraph.xyz](https://www.opengraph.xyz/) — confirm the image,
+   title, description render.
+4. **llms.txt** — visit `yourdomain.com/llms.txt` in a browser and
+   confirm it loads as plain text.
+5. **AI-search readiness** — over the next 1–2 weeks, search ChatGPT
+   for "what is the best AI influencer marketing platform" and see
+   whether your domain appears as a citation. The schema + llms.txt
+   make this far more likely.
 
 ---
 
