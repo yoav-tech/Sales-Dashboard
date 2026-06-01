@@ -1,10 +1,38 @@
-# IMAI — Features section · WordPress Elementor handoff
+# IMAI — WordPress Elementor handoff
 
-Drop-in package for the **Features section only** of the IMAI landing page
-(everything under `#features` — the section titled "Everything you need to
-work with creators." with the three alternating feature cards).
+Two packages in this folder:
 
-**Live reference:** https://sales-dashboard-steel-zeta.vercel.app/#features
+- **Full landing page** (`full-landing.*`) — all 12 sections from
+  the live site, in one self-contained HTML widget.
+- **Features section only** (`features-section.*`) — just the
+  "Everything you need to work with creators" section if that's all
+  you want.
+
+**Live reference:** https://sales-dashboard-steel-zeta.vercel.app/
+
+---
+
+## TL;DR for the developer
+
+### Full page
+
+```
+1. Open the page in Elementor.
+2. Page Settings → "Elementor Canvas" template (hides your theme's
+   header/footer; the file ships its own sticky nav and footer).
+3. Drag an "HTML" widget onto the page.
+4. Open full-landing.html, select ALL, copy, paste into the widget.
+5. Save. Open the page — entire landing renders.
+```
+
+### Features section only
+
+```
+1. Edit page in Elementor.
+2. Drag an "HTML" widget where the Features section should go.
+3. Open features-section.html, copy all, paste in.
+4. Save.
+```
 
 ---
 
@@ -12,99 +40,134 @@ work with creators." with the three alternating feature cards).
 
 | File | Purpose |
 |---|---|
-| `features-section.html` | **The fastest path.** Single self-contained HTML file with embedded `<style>` + Google Fonts `<link>`. Paste into an Elementor HTML widget and you're done. |
-| `features-section.css` | Same CSS extracted as a standalone file. Use this if you'd rather put the styles in **Elementor → Site Settings → Custom CSS** and keep the markup separate. |
-| `elementor-build-guide.md` | Step-by-step instructions for both approaches: Option A (HTML widget — recommended) and Option B (native Elementor widgets + Custom CSS, with HTML islands for the table/filter mockups). |
+| **`full-landing.html`** | ★ Full page in one file. 101 KB. Embedded `<style>` + Google Fonts `<link>` + `<script>` for the 3 interactive bits (hamburger / FAQ / ICP rotator). Paste into ONE Elementor HTML widget. |
+| `full-landing.css` | Same CSS as the inline block in `full-landing.html`, broken out. Use this if you'd rather put styles in **Elementor → Site Settings → Custom CSS** and keep the HTML separate. |
+| `full-landing.js` | Same JS as the inline `<script>` in `full-landing.html`. Use this if you'd rather upload a `.js` file and enqueue it (e.g. with WP Code or Code Snippets). |
+| `features-section.html` | Just the Features section (3 alternating cards with the filter panel / platform graph / campaign table mockups). |
+| `features-section.css` | CSS for the Features section, standalone. |
+| `elementor-build-guide.md` | Step-by-step build instructions for both options (HTML widget vs native Elementor widgets) for the Features section. |
 | `README.md` | This file. |
 
 ---
 
-## TL;DR for the developer
+## What the full page contains
 
-```
-1. Open the page in Elementor.
-2. Drag an "HTML" widget where the Features section should go.
-3. Open features-section.html, copy everything, paste into the widget.
-4. Save. Done.
-```
+12 sections, in order:
 
-The section is fully self-contained — fonts load from Google, all CSS is
-scoped under `.imai-features` so it won't interfere with the rest of your
-theme.
+| # | Section | Notes |
+|---|---|---|
+| 1 | **Sticky nav** | Dark pill, logo + 5 nav links + Sign in + Start free CTA + hamburger on mobile |
+| 2 | **Hero** | "The #1 influencer marketing platform" + powered by AI + sub + 2 CTAs + 5-face avatar stack |
+| 3 | **Logos marquee** | Auto-scrolling brand strip (Lufthansa / CLINIQUE / ESTRID / PRETTYLITTLETHING / SAMSUNG / CATRICE / boohooMAN / Budweiser) |
+| 4 | **Inside the product (bento)** | 4 tiles in a 4-col grid: AI Search, 400M+ Database, ROI sparkline, Live Campaign with 4 horizontal stats. AI Search auto-rotates 4 ICPs every 4.2s. |
+| 5 | **Problem** | 4 quiet purple-icon cards (Database / Email Outreach / Spreadsheets / Separate Payments) |
+| 6 | **Features** | 3 alternating cards: AI Search (filter panel mockup) / Creator Discovery (dark + platform graph + world map) / Campaign Management (SS26 launch table with face avatars) |
+| 7 | **How it works** | 4 step cards with portrait images: Search (teal) / Vet (purple) / Activate (ink) / Measure (white) |
+| 8 | **Compare table** | IMAI vs Modash / Upfluence / GRIN / CreatorIQ across 9 rows, IMAI column highlighted teal |
+| 9 | **Pricing** | 3 tiers: Starter $175 · Growth $349 (popular, dark) · Enterprise custom |
+| 10 | **FAQ** | 11 accordion items, first open by default. Click to expand. |
+| 11 | **Final CTA** | Purple block with "Stop guessing. Start paying creators who work." + 5-face joined-by stack |
+| 12 | **Footer** | 5-col link grid + bottom legal row |
+
+Section IDs (`#features`, `#how`, `#compare`, `#pricing`, `#faq`, `#problem`)
+are wired so the nav's smooth-scroll anchors work.
+
+---
+
+## Interactive bits (the JS)
+
+3 vanilla JS interactions, ~150 lines total, no dependencies:
+
+1. **Hamburger menu** — On mobile (≤980px) the nav's `<ul>` is hidden
+   and a burger button appears. Click toggles `.menu-open` on the nav,
+   which animates the burger into an X and drops the menu sheet under
+   the pill. Click outside / press Escape / click a link to close.
+   Body scroll-locks while open.
+
+2. **FAQ accordion** — Click any `.faq-q` button to toggle `.open` on
+   its parent `.faq-item`. The answer expands via CSS `max-height`
+   transition. First item is open by default.
+
+3. **AI Search ICP rotator** — Every 4.2 seconds the hero bento's AI
+   Search tile cycles through 4 ICPs (Beauty / Fitness / B2B SaaS / PR
+   Agency). The active tab gets a progress-bar fill animation, the
+   query line and result cards fade-swap with a stagger.
+
+If you don't want any JS (or want to disable interactions), simply
+remove the entire `<script>` block at the bottom of `full-landing.html`
+— the page still works, the menu just stays hidden on mobile (visitors
+have to use the Start free CTA at top) and the FAQ stays closed.
 
 ---
 
 ## Brand tokens
 
-These are baked into the CSS as custom properties on `.imai-features`. Edit
-them once at the top of the embedded `<style>` block (or in
-`features-section.css`) and the whole section retunes.
+These are baked into the CSS as custom properties on `.v-c`. Edit them
+once at the top and the whole page retunes.
 
 | Token | Hex | Used for |
 |---|---|---|
 | `--ink` | `#1d1d1b` | Primary text, borders, dark backgrounds |
 | `--ink-muted` | `#444444` | Secondary text |
-| `--ink-soft` | `#8f8f8f` | Tertiary text / placeholders |
+| `--ink-soft` | `#8f8f8f` | Tertiary / placeholder |
 | `--accent` | `#8564ff` | IMAI purple (CTAs, accents on light bg) |
-| `--lime` / `--teal` | `#06c7a9` | IMAI teal (accents on dark bg, status pills) |
+| `--accent-dark` | `#6442dd` | Purple hover |
+| `--lime` / `--teal` | `#06c7a9` | IMAI teal (accents on dark bg, status pills, marquee fade) |
 | `--bg` | `#ffffff` | Section background |
-| `--line` / `--line-soft` | `#ececec` / `#e9e9e9` | Hairlines |
+| `--lavender` | `#eeecff` | Purple tint (problem icons, "vet" how-it-works card) |
+| `--mint` | `#e0f8f2` | Teal tint |
 
 ## Fonts
 
-Loaded via Google Fonts at the top of `features-section.html`:
+Loaded from Google Fonts via the `<link>` at the top:
 
-- **Poppins** — 400 / 500 / 600 / 700 / 800 — body, headings, list items
-- **JetBrains Mono** — 500 / 600 — eyebrows, microcopy, monospaced data
-  (creator handles, payouts, status pills)
-
-If your theme already loads Poppins or has a different sans-serif you'd
-prefer, delete the `<link>` at the top of the HTML and update
-`font-family` on `.imai-features` to your preferred stack.
+- **Poppins** 300/400/500/600/700/800/900 — body, headings, list items
+- **JetBrains Mono** 400/500/600 — eyebrows, microcopy, monospaced data
+- **Bodoni Moda** 400/500/600/700 (regular + italic) — Budweiser
+  wordmark, CLINIQUE wordmark
 
 ---
 
-## What this section contains
+## The logo (brand mark)
 
-```
-.imai-features
-└── .container
-    ├── .section-head
-    │   ├── Eyebrow pill  "Three pillars · One platform"
-    │   ├── H2           "Everything you need to work with creators."
-    │   └── Sub          "From the first idea to the final invoice…"
-    │
-    ├── .feature (Feature 1 — light)
-    │   ├── .f-copy      AI Influencer Search · copy + 3-item list + CTA
-    │   └── .f-visual.v-search   Filter-panel mockup (4 chip groups + toggles)
-    │
-    ├── .feature.dark.flip (Feature 2 — dark, mockup-left)
-    │   ├── .f-copy      Creator Discovery · copy + 3-item list + CTA
-    │   └── .f-visual.v-disc     Platform stats (4 cards) + world map with 10 pins
-    │
-    └── .feature (Feature 3 — light)
-        ├── .f-copy      Campaign Management · copy + 3-item list + CTA
-        └── .f-visual.v-camp     SS26 launch table (5 tabs, search, 5-row table, footer)
+The IMAI hashtag-logo is rendered as inline SVG (no image files
+needed). 4 rounded rectangles forming a `#`:
+
+```svg
+<svg class="logo-mark" viewBox="0 0 32 32">
+  <rect x="6"    y="2.5"  width="5.5" height="27"  rx="2.75" fill="#f9476c" /> <!-- pink left -->
+  <rect x="20.5" y="2.5"  width="5.5" height="27"  rx="2.75" fill="#efcc01" /> <!-- yellow right -->
+  <rect x="2.5"  y="9"    width="27"  height="5.5" rx="2.75" fill="#06c7a9" /> <!-- teal top -->
+  <rect x="2.5"  y="17.5" width="27"  height="5.5" rx="2.75" fill="#8564ff" /> <!-- purple bottom -->
+</svg>
 ```
 
-Section ID is `features` — anchor links like `#features` from other pages
-will scroll here.
+It appears twice — top nav and footer. If you ever need to swap the
+brand mark, search for `class="logo-mark"` in the HTML and replace both
+SVGs.
 
 ---
 
-## Asset list
+## Image assets
 
-Five Unsplash portrait URLs are referenced in the campaign-management table
-(Feature 3) as inline `background-image` styles. They render the creator
-avatars in the campaign rows.
+The page references **15 image URLs**, all from the Unsplash CDN.
+They're inline `background-image` URLs so no Media Library upload is
+strictly required — but if you want to host them yourself, here's the
+list:
 
-If you want to host these on your own server / Media Library:
+### Hero avatar stack (5 faces, also reused in Final CTA stack)
 
-1. Download each URL (96×96 crop, faces, q=80, ~3–5 KB each)
-2. Upload to **WordPress Media → Library**
-3. Find-and-replace inside `features-section.html`:
+| Photo ID |
+|---|
+| `photo-1494790108377-be9c29b29330` |
+| `photo-1500648767791-00dcc994a43e` |
+| `photo-1573497019940-1c28c88b4f3e` |
+| `photo-1438761681033-6461ffad8d80` |
+| `photo-1507003211169-0a1dd7228f2d` |
 
-| Creator | Current URL (Unsplash) |
+### Campaign-table avatars (5 creators in Feature 3)
+
+| Creator | Photo ID |
 |---|---|
 | Mara Linde | `photo-1494790108377-be9c29b29330` |
 | Jonas Becker | `photo-1500648767791-00dcc994a43e` |
@@ -112,69 +175,87 @@ If you want to host these on your own server / Media Library:
 | Lea Vogel | `photo-1573497019940-1c28c88b4f3e` |
 | Sofia Kraus | `photo-1531123897727-8f129e1688ce` |
 
-Otherwise the Unsplash CDN serves them with caching headers — no action
-needed.
+### How-it-works step cards (4 portrait images)
+
+| Step | Photo ID |
+|---|---|
+| 01 SEARCH | `photo-1573497019940-1c28c88b4f3e` |
+| 02 VET | `photo-1554151228-14d9def656e4` |
+| 03 ACTIVATE | `photo-1620916566398-39f1143ab7be` |
+| 04 MEASURE | `photo-1554224155-6726b3ff858f` |
+
+To swap to your own Media Library uploads, find-and-replace each
+`https://images.unsplash.com/photo-...?...` URL in `full-landing.html`
+with your `/wp-content/uploads/...` URLs.
 
 ---
 
-## Responsive behavior
+## Responsive behaviour
 
-Built mobile-first with three breakpoints, all baked into the embedded CSS:
+Three breakpoints, all baked in:
 
 | Viewport | Layout |
 |---|---|
-| **≥980px** | Each `.feature` is 2-col (`1fr 1.2fr`), 48px padding, 48px gap |
-| **640–980px** | `.feature` stacks to 1-col (copy above mockup, even on `.flip`), 24px gap |
-| **<640px** | Tightens padding (20px), shrinks H3 (48 → 30px), hides "Deliverables" and "Payout" columns in the campaign table so only Creator + Status + ⋯ show |
+| ≥1080px | Desktop. Bento 4-col, Features 2-col cards, Personas-style grids, 5 nav links inline |
+| 980–1080px | Bento collapses to 2-col (AI Search still spans both cols on top row) |
+| 640–980px | Most multi-col grids stack to 1-col. Compare table gets horizontal scroll. Sign-in CTA hides; hamburger appears. |
+| <640px | Tighter padding, smaller H1, table hides Deliverables + Payout columns, bento becomes pure 1-col stack, nav pill shrinks |
+
+Tested in Chrome / Safari / Firefox (current) + iOS Safari + Android
+Chrome. No exotic CSS — uses Flexbox, Grid, custom properties,
+`clamp()`, `background-image` masks.
 
 ---
 
-## Editing copy without breaking layout
+## Editing copy safely
 
-Inside `features-section.html`, search for these strings to find the text
-you can change:
+Search-and-replace in `full-landing.html`:
 
 | What you'd want to edit | Search for |
 |---|---|
-| Eyebrow text | `Three pillars · One platform` |
-| Section title | `Everything you need to` |
-| Feature 1 number | `01 · AI Influencer Search` |
-| Feature 1 title | `Search the way` |
-| Feature 1 body / list | the `<p>` and `<li>` items right under it |
-| Feature 1 CTA | `Try AI Search →` |
-| Feature 2 number | `02 · Creator Discovery` |
-| Feature 2 title | `The world's largest` |
-| Feature 3 number | `03 · Campaign Management` |
-| Feature 3 title | `From brief to` |
-| Campaign rows | `Mara Linde`, `Jonas Becker`, etc. |
-| Campaign payouts | `€2,400`, `€1,200`, etc. |
-| Campaign totals | `€7,200 ready to pay` |
+| Hero headline | `The <span class="accent">#1</span> influencer` |
+| "powered by AI." tag | `>powered by AI.<` |
+| Hero sub-copy | `Find, evaluate, and activate creators` |
+| Hero "joined this week" | `Joined this week by` |
+| Bento heading | `Search, vet, activate, measure` |
+| Bento Live Campaign label | `Live campaign · SS26 launch` |
+| Problem section title | `The problem with every other` |
+| Features section title | `Everything you need to` |
+| How section title | `Four steps.` |
+| Compare table competitor names | `Modash`, `Upfluence`, `GRIN`, `CreatorIQ` |
+| Pricing tier prices | `$175`, `$349`, `Custom` |
+| FAQ questions | Any text between `<button class="faq-q">` and `<span class="pl">+</span>` |
+| Final CTA | `Stop guessing.` |
+| Footer column titles | `<h5>Product</h5>`, `<h5>Resources</h5>` etc. |
 
-The CTAs all currently link to `/register` — change `href="/register"` to
-your actual signup URL in three places.
+CTAs all link to `/register` — find `href="/register"` and replace
+with your actual signup URL (appears ~11 times across the page).
 
 ---
 
-## Known limitations / things this section can't do via Elementor UI
+## What CANNOT be edited via Elementor's native UI
 
-These pieces are too custom for Elementor's native widgets and will always
-need to live in an HTML widget:
+These pieces are too custom for native widgets and will always live
+inside the HTML widget:
 
-1. The **AI Search filter panel mockup** (Feature 1's right side) — too many
-   micro-pieces (chip groups, "AI" sparkle markers, the iOS-style toggles
-   at the bottom). All in `.v-search`.
+1. **Hero h1** with the rotated black "platform" pill — uses custom
+   transform + inline-block + asymmetric padding
+2. **Bento section's 4 tiles** — custom grid spans + the AI Search
+   ICP rotator animation
+3. **Logo marquee** — CSS keyframe animation + duplicated set + mask
+   gradient for the edge fade
+4. **AI Search filter panel** (Feature 1) — 4 chip groups with
+   AI-flagged subtype + toggle knobs
+5. **Discovery platform graph + world map** (Feature 2) — 2×2 grid +
+   absolute-positioned pins
+6. **Campaign Management table** (Feature 3) — 6-col CSS Grid with
+   status pills, face avatars, deliverable tags
+7. **Compare table** — sticky teal-highlighted "IMAI" column
+8. **Final CTA** — corner-blob decoration with `::before`
 
-2. The **Creator Discovery platform graph + world map** (Feature 2's
-   left side, since it's flipped) — uses CSS Grid for the 2×2 platform
-   stats and absolute-positioned pins for the map. All in `.v-disc`.
-
-3. The **Campaign Management table** (Feature 3's right side) — 6-column
-   CSS Grid with status pills, deliverable tags, currency-formatted
-   payouts. All in `.v-camp`.
-
-For the headings, body copy, CTAs, and lists — those CAN be ported to
-native Elementor widgets (see `elementor-build-guide.md` Option B). But
-the mockups stay HTML islands either way.
+Everything else (eyebrows, H2 titles, body paragraphs, button labels,
+list items, prices, FAQ questions/answers) is just plain HTML you can
+edit inline.
 
 ---
 
@@ -187,18 +268,16 @@ Tested in:
 - iOS Safari (iPhone 15)
 - Android Chrome
 
-CSS used: Flexbox, CSS Grid, custom properties, `clamp()`, `background-image`
-on `<div>`s. Nothing exotic — works in everything from ~2022 onward. No
-JavaScript dependencies.
+No JavaScript frameworks. No build step. No external dependencies
+beyond Google Fonts (which loads via `<link>`).
 
 ---
 
-## Questions
+## Source
 
-If you have any issues during the import, the live React source for this
-section is at:
-`src/app/page.tsx` lines 377–560
-`src/app/variation-c.css` (search for `.features`, `.feature`, `.v-search`,
-`.v-disc`, `.v-camp`)
+The React Next.js source this was extracted from:
+- HTML: `src/app/page.tsx`
+- CSS: `src/app/variation-c.css`
+- Logo SVG: `src/app/LogoMark.tsx`
 
-Both files in this repo.
+Same git repo as this file.
