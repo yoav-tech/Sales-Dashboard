@@ -1,0 +1,10 @@
+{
+  "name": "InfluencerMarketing.ai",
+  "short_name": "IMAI",
+  "description": "The AI platform for influencer marketing \u2014 discover, vet, activate and pay creators from 400M+ profiles.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7132F5",
+  "icons": [ { "src": "/assets/imai-mark.png", "sizes": "512x512", "type": "image/png" } ]
+}

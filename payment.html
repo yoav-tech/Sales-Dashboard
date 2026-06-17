@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Start your 7-day free trial · InfluencerMarketing.Ai</title>
+<meta name="description" content="Activate your IMAI 7-day free trial. Cancel anytime with one click." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f7f7fa;
+    --surface-3: #ececf2;
+    --line: #ececec;
+    --line-2: #dcdce0;
+
+    --ink: #1d1d1b;
+    --ink-muted: #555555;
+    --ink-soft: #8f8f8f;
+
+    /* IM.Ai brand dots */
+    --pink: #f9476c;
+    --purple: #8564ff;
+    --teal: #06c7a9;
+    --yellow: #efcc01;
+    --green: #299d88;
+    --blue: #8564ff;
+
+    --accent: var(--purple);
+    --accent-hover: #6442dd;
+    --success: var(--green);
+    --on-accent: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { min-height: 100vh; padding-bottom: 48px; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; font-size: inherit; }
+  input, select { font-family: inherit; font-size: 13.5px; color: var(--ink); }
+  input::placeholder { color: var(--ink-soft); }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ============ TOP NAV + STEPPER ============ */
+  nav.top {
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0; margin-bottom: 36px;
+  }
+  nav.top .inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+
+  .logo { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; line-height: 1.05; }
+  .logo-mark {
+    width: 22px; height: 22px; position: relative; flex-shrink: 0;
+    background:
+      radial-gradient(circle at 28% 28%, var(--pink) 0 4px, transparent 5px),
+      radial-gradient(circle at 72% 28%, var(--purple) 0 4px, transparent 5px),
+      radial-gradient(circle at 28% 72%, var(--teal) 0 4px, transparent 5px),
+      radial-gradient(circle at 72% 72%, var(--yellow) 0 4px, transparent 5px);
+  }
+  .logo .name { display: flex; flex-direction: column; }
+  .logo .name .ai { color: var(--pink); }
+
+  .stepper { display: flex; align-items: center; flex: 1; max-width: 640px; justify-content: center; gap: 14px; }
+  .step { display: inline-flex; align-items: center; gap: 10px; line-height: 1; }
+  .step .circle {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--surface-3); border: 1px solid var(--line-2);
+    color: var(--ink-soft); font-size: 11px; font-weight: 700; line-height: 1;
+    flex-shrink: 0;
+  }
+  .step.done .circle { background: transparent; color: var(--ink); border-color: var(--line-2); }
+  .step.done .circle::after { content: "✓"; color: var(--ink); font-size: 11px; line-height: 1; }
+  .step.done .circle .num { display: none; }
+  .step.active .circle { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 3px rgba(133,100,255,0.22); }
+  .step .label { font-size: 13px; font-weight: 500; color: var(--ink-soft); letter-spacing: -0.005em; line-height: 1; }
+  .step.done .label, .step.active .label { color: var(--ink); }
+  .stepper > .line { width: 36px; height: 1px; background: var(--line-2); flex-shrink: 0; }
+
+  .help { font-size: 13px; color: var(--ink-soft); }
+  .help:hover { color: var(--ink); }
+
+  /* ============ HEADING ============ */
+  .heading { text-align: center; margin-bottom: 28px; }
+  .heading h1 { font-size: 28px; letter-spacing: -0.025em; line-height: 1.1; font-weight: 700; margin-bottom: 6px; }
+  .heading p { font-size: 14px; color: var(--ink-muted); max-width: 50ch; margin: 0 auto; line-height: 1.5; }
+
+  /* ============ TWO-COL ============ */
+  .grid { display: grid; grid-template-columns: 0.85fr 1fr; gap: 16px; align-items: start; }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 22px;
+  }
+  .panel + .panel { margin-top: 12px; }
+
+  /* ============ PLAN SUMMARY (LEFT) ============ */
+  .plan-head { padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+  .plan-head .lab { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); }
+  .plan-head h3 { font-size: 19px; letter-spacing: -0.02em; font-weight: 700; margin-top: 3px; }
+  .plan-head .users { font-size: 12.5px; color: var(--ink-muted); margin-top: 4px; }
+  .plan-head .users b { color: var(--ink); font-weight: 600; }
+
+  .feat-list { display: flex; flex-direction: column; }
+  .feat-row {
+    display: grid; grid-template-columns: 16px 1fr auto;
+    gap: 10px; padding: 8px 0; align-items: center;
+    font-size: 13.5px;
+  }
+  .feat-row + .feat-row { border-top: 1px solid var(--line); }
+  .feat-row .ic { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); }
+  .feat-row .ic svg { width: 14px; height: 14px; }
+  .feat-row .ic.pink { color: var(--pink); }
+  .feat-row .ic.purple { color: var(--purple); }
+  .feat-row .ic.teal { color: var(--teal); }
+  .feat-row .ic.yellow { color: var(--yellow); }
+  .feat-row .nm { font-weight: 500; letter-spacing: -0.005em; color: var(--ink); }
+  .feat-row .val { font-size: 12px; color: var(--ink-muted); font-family: 'JetBrains Mono', monospace; }
+  .feat-row .val.check { color: var(--success); font-size: 14px; font-family: 'Poppins', sans-serif; }
+
+  .switch-plan {
+    display: block; width: 100%; margin-top: 14px;
+    padding: 9px; text-align: center;
+    background: var(--surface-3); border: 1px solid var(--line-2);
+    border-radius: 8px; font-size: 12.5px; color: var(--ink-muted);
+    transition: color .15s, border-color .15s;
+  }
+  .switch-plan:hover { color: var(--ink); border-color: var(--line-2); }
+
+  /* trust block */
+  .trust .row { display: flex; align-items: start; gap: 12px; padding: 10px 0; }
+  .trust .row + .row { border-top: 1px solid var(--line); }
+  .trust .ic2 { width: 22px; height: 22px; flex-shrink: 0; color: var(--ink-muted); }
+  .trust .ic2 svg { width: 22px; height: 22px; }
+  .trust .ttl { font-weight: 600; font-size: 13.5px; letter-spacing: -0.005em; color: var(--ink); }
+  .trust .desc { font-size: 12px; color: var(--ink-soft); margin-top: 1px; line-height: 1.4; }
+
+  /* ============ RIGHT: PAYMENT FORM ============ */
+  .pricing-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+  .ptab {
+    border: 1px solid var(--line-2); border-radius: 12px;
+    padding: 14px 14px; background: var(--surface-2);
+    text-align: left; cursor: pointer; position: relative;
+    transition: border-color .15s, background .15s;
+  }
+  .ptab:hover { border-color: rgba(0,0,0,0.18); }
+  .ptab.on { border-color: var(--accent); background: rgba(133,100,255,0.06); box-shadow: 0 0 0 1px var(--accent) inset; }
+  .ptab .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .ptab .amt { display: flex; align-items: baseline; gap: 5px; margin-top: 2px; }
+  .ptab .amt .n { font-size: 22px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; }
+  .ptab .amt .per { font-size: 12px; color: var(--ink-muted); }
+  .ptab .meta { font-size: 11.5px; color: var(--ink-muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+  .ptab .meta .save { color: var(--success); font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+  .ptab .meta .save::before { content: "$"; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; background: var(--success); color: #fff; border-radius: 50%; font-size: 9px; font-weight: 800; }
+  .ptab .radio { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--line-2); flex-shrink: 0; position: relative; }
+  .ptab.on .radio { border-color: var(--accent); }
+  .ptab.on .radio::after { content: ""; position: absolute; inset: 2px; border-radius: 50%; background: var(--accent); }
+
+  /* method tabs */
+  .method-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .mtab {
+    border: 1px solid var(--line-2); border-radius: 10px;
+    padding: 10px 12px; display: flex; align-items: center; gap: 8px;
+    background: #ffffff; cursor: pointer; transition: border-color .15s, box-shadow .15s;
+    font-size: 13px; font-weight: 500; color: #5a5a5a;
+  }
+  .mtab.on { background: #ffffff; border-color: var(--accent); color: #0a0a0a; box-shadow: 0 0 0 1px var(--accent) inset; }
+  .mtab svg { width: 14px; height: 14px; }
+  .mtab .badge {
+    margin-left: auto; background: var(--success); color: #fff;
+    font-size: 9.5px; padding: 2px 7px; border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+
+  label { display: block; font-size: 12px; font-weight: 500; color: var(--ink-muted); margin-bottom: 5px; letter-spacing: -0.005em; }
+  .fld {
+    width: 100%; padding: 10px 12px;
+    border: 1px solid var(--line-2); border-radius: 10px;
+    background: var(--surface-2); transition: border-color .15s, box-shadow .15s;
+    font-weight: 400;
+  }
+  .fld:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(133,100,255,0.18); }
+  .field { margin-bottom: 12px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .card-field { position: relative; }
+  .card-field .brands {
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    display: flex; gap: 4px; align-items: center; pointer-events: none;
+  }
+  .card-field .brands .brand {
+    height: 14px; padding: 0 4px; border-radius: 2px;
+    background: var(--surface-3); border: 1px solid var(--line-2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7.5px; font-weight: 800; letter-spacing: -0.04em; color: var(--ink-soft);
+  }
+  .card-field .brands .brand.on { color: var(--ink); }
+  .card-field .brands .link {
+    height: 14px; padding: 0 6px; border-radius: 2px;
+    background: #e0f8f2; color: #1d6055;
+    display: flex; align-items: center; gap: 4px;
+    font-size: 8.5px; font-weight: 700;
+  }
+  .card-field .brands .link::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--success); }
+
+  .link-banner {
+    background: var(--surface-2); border: 1px solid var(--line-2);
+    border-radius: 10px; padding: 9px 12px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; margin-bottom: 12px; color: var(--ink-muted);
+  }
+  .link-banner b { color: var(--success); font-weight: 600; }
+  .link-banner .chev { margin-left: auto; color: var(--ink-soft); }
+
+  .coupon-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
+  .coupon-row .apply-btn {
+    padding: 10px 16px; border-radius: 10px;
+    background: var(--surface-3); color: var(--ink-muted);
+    font-weight: 500; font-size: 13px;
+    border: 1px solid var(--line-2);
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .coupon-row .apply-btn:hover { background: var(--surface-2); color: var(--ink); border-color: rgba(0,0,0,0.18); }
+  .coupon-row .apply-btn.applied { background: var(--success); color: #fff; border-color: var(--success); }
+
+  .total-row {
+    margin-top: 16px; padding-top: 14px;
+    border-top: 1px dashed var(--line-2);
+    display: grid; grid-template-columns: 1fr auto; gap: 4px; align-items: baseline;
+  }
+  .total-row .ttl-lab { font-size: 12.5px; color: var(--ink-muted); }
+  .total-row .ttl-amt { font-size: 20px; font-weight: 700; letter-spacing: -0.025em; text-align: right; }
+  .total-row .ttl-amt .strike { color: var(--ink-soft); text-decoration: line-through; font-weight: 400; margin-right: 6px; font-size: 14px; }
+  .total-row .ttl-meta { grid-column: 1 / -1; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-soft); margin-top: 4px; }
+  .total-row .ttl-meta b { color: var(--ink-muted); font-weight: 600; }
+
+  /* ============ ADD-ONS (from personalize) ============ */
+  /* LEFT panel — list inside plan summary */
+  .addons-included {
+    margin-top: 10px; padding: 12px; background: var(--surface-2);
+    border: 1px solid var(--line); border-radius: 10px;
+  }
+  .addons-included .ai-head {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted);
+    margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+  }
+  .addons-included .ai-head .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .addons-included .ai-row {
+    display: grid; grid-template-columns: 22px 1fr auto; align-items: center;
+    gap: 10px; padding: 6px 0; font-size: 13px;
+  }
+  .addons-included .ai-row + .ai-row { border-top: 1px dashed var(--line); }
+  .addons-included .ai-row .ai-ic {
+    width: 22px; height: 22px; border-radius: 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff;
+  }
+  .addons-included .ai-row .ai-ic svg { width: 12px; height: 12px; }
+  .addons-included .ai-row.pr .ai-ic { background: var(--pink, #f9476c); }
+  .addons-included .ai-row.ugc .ai-ic { background: var(--teal, #06c7a9); }
+  .addons-included .ai-row.llm .ai-ic { background: var(--yellow, #efcc01); color: var(--ink); }
+  .addons-included .ai-row.agents .ai-ic { background: var(--ink); }
+  .addons-included .ai-row .ai-nm { font-weight: 600; }
+  .addons-included .ai-row .ai-pr { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-muted); font-weight: 600; }
+  .addons-included .ai-row.agents .ai-pr { color: var(--accent); }
+  .addons-included .ai-empty { font-size: 12.5px; color: var(--ink-soft); font-style: italic; }
+  .edit-addons {
+    display: inline-block; margin-top: 10px;
+    font-size: 11.5px; color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .edit-addons:hover { color: var(--accent); }
+
+  /* RIGHT panel — line items above total */
+  .addons-summary {
+    margin-top: 16px; padding-top: 12px;
+    border-top: 1px dashed var(--line-2);
+    display: none; /* shown by JS only when add-ons exist */
+  }
+  .addons-summary.visible { display: block; }
+  .addons-summary .as-head {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .addons-summary .as-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 5px 0; font-size: 13px;
+  }
+  .addons-summary .as-row .as-nm { color: var(--ink); font-weight: 500; }
+  .addons-summary .as-row .as-pr { font-weight: 700; letter-spacing: -0.01em; }
+  .addons-summary .as-row.custom .as-pr { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .addons-summary .as-base { padding-top: 6px; margin-top: 4px; border-top: 1px dashed var(--line-2); font-weight: 600; }
+
+  .agents-banner {
+    margin-top: 10px; padding: 10px 12px;
+    background: var(--lavender, #eeecff); border: 1px solid var(--accent);
+    border-radius: 10px; font-size: 12px; line-height: 1.4;
+    display: flex; align-items: start; gap: 8px;
+    display: none;
+  }
+  .agents-banner.visible { display: flex; }
+  .agents-banner .ab-ic { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+  .agents-banner b { font-weight: 700; }
+
+  .cta-btn {
+    width: 100%; padding: 14px; margin-top: 14px;
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 15px;
+    border: 1.5px solid var(--ink); border-radius: 12px;
+    box-shadow: 4px 4px 0 0 var(--ink);
+    transition: transform .12s ease, box-shadow .12s ease, background .15s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    cursor: pointer;
+  }
+  .cta-btn:hover { background: var(--accent-hover); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 0 var(--ink); }
+  .cta-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--ink); }
+  .cta-btn svg { width: 14px; height: 14px; }
+
+  .below-cta {
+    margin-top: 12px; text-align: center; font-size: 11.5px; color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .below-cta a { color: var(--ink-muted); text-decoration: underline; }
+
+  .stripe-row {
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-soft);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .stripe-row .stripe {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--ink); font-weight: 500; text-transform: none; letter-spacing: 0;
+  }
+  .stripe-row .stripe svg { width: 32px; height: 12px; }
+
+  /* ============ HOW IT WORKS + FAQ ============ */
+  .below-grid { margin-top: 36px; display: grid; grid-template-columns: 0.9fr 1fr; gap: 16px; align-items: start; }
+
+  .below-grid .panel h3 {
+    font-size: 14px; letter-spacing: -0.015em; font-weight: 700; margin-bottom: 16px;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px 6px 6px; border: 1px solid var(--line-2); border-radius: 999px;
+  }
+  .below-grid .panel h3 .hash {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--purple); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  }
+  .faq-panel h3 .hash { background: var(--teal); color: #fff; }
+
+  .timeline { display: flex; flex-direction: column; gap: 16px; }
+  .tline { display: grid; grid-template-columns: 22px 1fr; gap: 12px; position: relative; }
+  .tline::after {
+    content: ""; position: absolute; left: 10.5px; top: 24px;
+    width: 1px; height: calc(100% + 12px); background: var(--line);
+  }
+  .tline:last-child::after { display: none; }
+  .tline .dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--surface-3); border: 1px solid var(--line-2);
+    color: var(--ink-muted);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+    z-index: 1;
+  }
+  .tline:nth-child(1) .dot { background: var(--surface-3); color: var(--teal); border-color: var(--teal); }
+  .tline:nth-child(2) .dot { background: var(--surface-3); color: var(--yellow); border-color: var(--yellow); }
+  .tline:nth-child(3) .dot { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+  .tline .body .ttl { font-size: 13.5px; font-weight: 600; letter-spacing: -0.005em; }
+  .tline .body .ttl .when { color: var(--ink-muted); font-weight: 500; margin-right: 6px; }
+  .tline .body p { font-size: 12.5px; color: var(--ink-muted); line-height: 1.5; margin-top: 3px; }
+
+  .fq-item + .fq-item { border-top: 1px solid var(--line); }
+  .fq-q {
+    width: 100%; text-align: left; padding: 12px 0;
+    display: flex; justify-content: space-between; align-items: center; gap: 14px;
+    font-weight: 500; font-size: 13.5px; letter-spacing: -0.005em;
+  }
+  .fq-q .pl { font-size: 16px; transition: transform .2s; color: var(--ink-muted); line-height: 1; }
+  .fq-item.open .fq-q .pl { transform: rotate(45deg); color: var(--accent); }
+  .fq-a { overflow: hidden; max-height: 0; transition: max-height .25s; color: var(--ink-muted); font-size: 12.5px; line-height: 1.55; }
+  .fq-a-inner { padding: 0 0 12px; max-width: 60ch; }
+  .fq-item.open .fq-a { max-height: 240px; }
+
+  /* badges strip */
+  .badges-strip {
+    margin-top: 24px; padding: 16px 22px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    display: flex; align-items: center; gap: 24px; justify-content: center; flex-wrap: wrap;
+  }
+  .tbadge { display: flex; align-items: center; gap: 8px; color: var(--ink-muted); }
+  .tbadge .ic {
+    width: 26px; height: 26px; border-radius: 6px;
+    background: var(--surface-2); border: 1px solid var(--line-2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9.5px;
+    color: var(--ink);
+  }
+  .tbadge .nm { font-size: 11.5px; font-weight: 600; color: var(--ink); letter-spacing: -0.005em; }
+  .tbadge .sub { font-size: 10px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* trust badges block (under CTA) */
+  .trust-badges {
+    margin-top: 16px;
+    padding: 14px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .trust-badges img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* responsive */
+  @media (max-width: 960px) {
+    .grid, .below-grid { grid-template-columns: 1fr; }
+    .step .label { display: none; }
+    .stepper > .line { width: 18px; }
+    .stepper { gap: 8px; max-width: none; flex: 0 0 auto; }
+    nav.top .help { display: none; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 14px; }
+    nav.top { padding: 12px 0; margin-bottom: 24px; }
+    nav.top .inner { gap: 12px; flex-wrap: wrap; }
+    .stepper { order: 3; width: 100%; justify-content: flex-start; gap: 6px; }
+    .stepper > .line { width: 12px; }
+    .heading { margin-bottom: 18px; }
+    .heading h1 { font-size: 22px; line-height: 1.2; }
+    .heading p { font-size: 13px; }
+    .panel { padding: 18px; border-radius: 12px; }
+    .pricing-tabs, .field-row, .method-row { grid-template-columns: 1fr; }
+    .below-grid { margin-top: 24px; gap: 12px; }
+  }
+</style>
+<style>
+  /* ===== Brand logo (LOCKED — assets/imai-logo.png) ===== */
+  .logo { width: 112px !important; height: 32px; padding: 0; gap: 0; background: #ffffff url('assets/imai-logo.png') center / auto 20px no-repeat; border-radius: 8px; display: inline-flex; align-items: center; }
+  .logo .logo-mark, .logo .name { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV + STEPPER ============ -->
+<nav class="top">
+  <div class="container inner">
+    <a class="logo" href="/">
+      <span class="logo-mark"></span>
+      <span class="name">
+        <span>Influencer</span>
+        <span>Marketing<span class="ai">.Ai</span></span>
+      </span>
+    </a>
+
+    <div class="stepper">
+      <div class="step done"><span class="circle"><span class="num">1</span></span><span class="label">Register</span></div>
+      <div class="line"></div>
+      <div class="step done"><span class="circle"><span class="num">2</span></span><span class="label">Personalize</span></div>
+      <div class="line"></div>
+      <div class="step active"><span class="circle">3</span><span class="label">Confirm</span></div>
+      <div class="line"></div>
+      <div class="step"><span class="circle">4</span><span class="label">Setup</span></div>
+    </div>
+
+    <a href="#" class="help">Need help?</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HEADING -->
+  <div class="heading">
+    <h1>Enter card details to activate your trial</h1>
+    <p>Your trial is 100% free. Cancel anytime with one click.</p>
+  </div>
+
+  <!-- TWO-COL -->
+  <div class="grid">
+
+    <!-- LEFT: PLAN SUMMARY -->
+    <div>
+      <div class="panel">
+        <div class="plan-head">
+          <div class="lab">Starter plan</div>
+          <h3>2 seats · in-house teams</h3>
+          <div class="users"><b>Unlimited</b> discovery · 250 creator unlocks / month</div>
+        </div>
+
+        <div class="feat-list">
+          <div class="feat-row">
+            <span class="ic pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+            <span class="nm">AI Influencer Search</span>
+            <span class="val">Unlimited</span>
+          </div>
+          <div class="feat-row">
+            <span class="ic purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></span>
+            <span class="nm">Creator Discovery <span style="color:var(--ink-soft);font-weight:400">· 400M+</span></span>
+            <span class="val">Unlimited</span>
+          </div>
+          <div class="feat-row">
+            <span class="ic teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <span class="nm">Analyze creators</span>
+            <span class="val">50 / mo</span>
+          </div>
+          <div class="feat-row">
+            <span class="ic yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+            <span class="nm">Email export</span>
+            <span class="val">250 / mo</span>
+          </div>
+          <div class="feat-row">
+            <span class="ic pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+            <span class="nm">Creator database</span>
+            <span class="val">400M+</span>
+          </div>
+          <div class="feat-row">
+            <span class="ic teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            <span class="nm">Priority support</span>
+            <span class="val check">✓</span>
+          </div>
+        </div>
+
+        <a href="#" class="switch-plan">← Switch to a different plan</a>
+
+        <!-- ADD-ONS from personalize (populated by JS) -->
+        <div class="addons-included" id="addonsIncluded">
+          <div class="ai-head"><span class="dot"></span>Active workspaces</div>
+          <div id="addonsIncludedBody"><div class="ai-empty">Influencer Marketing only.</div></div>
+          <a class="edit-addons" href="personalize.html">← Edit add-ons</a>
+        </div>
+      </div>
+
+      <div class="panel trust">
+        <div class="row">
+          <span class="ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <div>
+            <div class="ttl">Money-back guarantee</div>
+            <div class="desc">Full refund within 15 days of purchase.</div>
+          </div>
+        </div>
+        <div class="row">
+          <span class="ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg></span>
+          <div>
+            <div class="ttl">Cancel anytime</div>
+            <div class="desc">One-click cancellation, no strings attached.</div>
+          </div>
+        </div>
+        <div class="row">
+          <span class="ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+          <div>
+            <div class="ttl">21/5 livechat support</div>
+            <div class="desc">Real humans Mon–Fri, 6am–5pm.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: PAYMENT FORM -->
+    <div>
+      <div class="panel">
+
+        <!-- billing cycle -->
+        <div class="pricing-tabs" id="cycleTabs">
+          <button class="ptab on" data-cycle="year">
+            <div class="top">
+              <div>
+                <div style="font-size:11px;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Annual</div>
+                <div class="amt"><span class="n">$1,788</span><span class="per">/year</span></div>
+              </div>
+              <span class="radio"></span>
+            </div>
+            <div class="meta"><span class="save">Save $312</span></div>
+          </button>
+          <button class="ptab" data-cycle="month">
+            <div class="top">
+              <div>
+                <div style="font-size:11px;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Monthly</div>
+                <div class="amt"><span class="n">$175</span><span class="per">/mo</span></div>
+              </div>
+              <span class="radio"></span>
+            </div>
+            <div class="meta">~15% more than annual</div>
+          </button>
+        </div>
+
+        <!-- method tabs -->
+        <div class="method-row">
+          <button class="mtab on">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+            Card
+          </button>
+          <button class="mtab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+            Bank
+            <span class="badge">$5 back</span>
+          </button>
+        </div>
+
+        <!-- Link banner -->
+        <div class="link-banner">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 11V9a7 7 0 0 0-14 0v2"/><rect x="3" y="11" width="18" height="11" rx="2"/></svg>
+          <span><b>Secure, fast checkout with Link</b></span>
+          <span class="chev">›</span>
+        </div>
+
+        <!-- card -->
+        <div class="field card-field">
+          <label>Card number</label>
+          <input class="fld" placeholder="1234 1234 1234 1234" style="padding-right:120px" />
+          <div class="brands">
+            <span class="brand link">link</span>
+            <span class="brand on">VISA</span>
+            <span class="brand">MC</span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Expiration date</label>
+            <input class="fld" placeholder="MM / YY" />
+          </div>
+          <div class="field">
+            <label>Security code</label>
+            <input class="fld" placeholder="CVC" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Country</label>
+          <select class="fld">
+            <option>United States</option>
+            <option>Israel</option>
+            <option>United Kingdom</option>
+            <option>Germany</option>
+            <option>France</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Coupon code</label>
+          <div class="coupon-row">
+            <input class="fld" id="couponInput" placeholder="Add coupon code" />
+            <button class="apply-btn" id="applyBtn">Apply</button>
+          </div>
+        </div>
+
+        <!-- ADD-ONS line items (populated by JS) -->
+        <div class="addons-summary" id="addonsSummary"></div>
+        <div class="agents-banner" id="agentsBanner">
+          <svg class="ab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <div><b>AI Agents quote pending.</b> Our team will follow up within 24h with custom pricing — not charged today.</div>
+        </div>
+
+        <!-- total -->
+        <div class="total-row">
+          <div class="ttl-lab">Total due today</div>
+          <div class="ttl-amt"><span class="strike" id="strikePrice">$1,788</span>$0.00</div>
+          <div class="ttl-meta">After your 7-day trial: <b id="afterTrial">$1,788 / year</b></div>
+        </div>
+
+        <!-- CTA -->
+        <a class="cta-btn" href="setup.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Pay $0 and start your 7-day trial</a>
+
+        <!-- trust badges -->
+        <div class="trust-badges">
+          <img src="assets/trust-badges.png" alt="G2 High Performer (EMEA & Summer 2024), Digital Awards 2022, Forbes Technology Council, Top 10 Software" />
+        </div>
+
+        <p class="below-cta">
+          You won't be charged during your 7-day trial. End your subscription anytime with one click. By providing your card, you agree to our <a href="#">Terms</a>.
+        </p>
+
+        <!-- stripe -->
+        <div class="stripe-row">
+          <span>256-bit SSL · PCI-DSS</span>
+          <span class="stripe">
+            Powered by
+            <svg viewBox="0 0 60 25" xmlns="http://www.w3.org/2000/svg" fill="#9a9a9a"><path d="M59.64 14.28h-8.06c.19 1.93 1.6 2.55 3.2 2.55 1.64 0 2.96-.37 4.05-.95v3.32a8.33 8.33 0 0 1-4.56 1.1c-4.01 0-6.83-2.5-6.83-7.48 0-4.19 2.39-7.52 6.3-7.52 3.92 0 5.96 3.28 5.96 7.5 0 .4-.04 1.26-.06 1.48zm-5.92-5.62c-1.03 0-2.17.73-2.17 2.58h4.25c0-1.85-1.07-2.58-2.08-2.58zM40.95 20.3c-1.44 0-2.32-.6-2.9-1.04l-.02 4.63-4.12.87V5.57h3.76l.08 1.02a4.7 4.7 0 0 1 3.23-1.29c2.9 0 5.62 2.6 5.62 7.4 0 5.23-2.7 7.6-5.65 7.6zM40 9.05c-.95 0-1.54.34-1.97.81l.02 6.12c.4.44.98.78 1.95.78 1.52 0 2.54-1.65 2.54-3.87 0-2.15-1.04-3.84-2.54-3.84zM28.24 5.57h4.13v14.44h-4.13V5.57zm0-4.7L32.37 0v3.36l-4.13.88V.88zm-4.36 9.4v9.74h-4.12V5.57h3.7l.12 1.22c1-1.77 3.07-1.41 3.62-1.22v3.79c-.52-.17-2.29-.43-3.32.86zm-8.55 4.72c0 2.43 2.6 1.68 3.12 1.46v3.36c-.55.3-1.54.54-2.89.54a4.15 4.15 0 0 1-4.27-4.24l.01-13.17 4.02-.86v3.54h3.14V9.1h-3.13v5.88zm-4.91.7c0 2.43-2.07 3.86-5.06 3.86a8.79 8.79 0 0 1-3.39-.71v-3.78c1.18.6 2.69 1.08 3.42 1.08.49 0 .85-.13.85-.54 0-1.06-4.34-.66-4.34-3.77 0-2.4 1.85-3.84 4.78-3.84 1.07 0 2.14.16 3.21.54v3.76c-.98-.55-2.23-.85-3.21-.85-.46 0-.76.13-.76.5 0 .99 4.5.52 4.5 3.76z" fill-rule="evenodd"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ============ PRICING CALCULATOR ============
+  // Base plan: $175/mo monthly OR $1,788/yr annual ($149/mo equiv, ~15% off)
+  // Add-ons: annual = monthly × 10 (2 months free) — common upsell pattern.
+  const BASE = { month: 175, year: 1788 };
+  const ADDONS = {
+    pr:     { label: 'PR & Media',    month: 59,  year: 590,  ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8v18l-18-8z"/></svg>' },
+    ugc:    { label: 'UGC Video Ads', month: 249, year: 2490, ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="m21 7-4 4 4 4z"/></svg>' },
+    llm:    { label: 'LLM Visibility',month: 39,  year: 390,  ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9 7.8 7.8M16.2 16.2l2.9 2.9M4.9 19.1 7.8 16.2M16.2 7.8l2.9-2.9"/></svg>' },
+    agents: { label: 'AI Agents',     month: null, year: null, ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M9 12h.01M15 12h.01M8 3v3M16 3v3"/></svg>' }
+  };
+
+  function loadSelection() {
+    try {
+      const raw = localStorage.getItem('imai_addons');
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr.filter(k => k !== 'influencer') : [];
+    } catch (e) { return []; }
+  }
+  function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+
+  const cycleTabs = document.querySelectorAll('#cycleTabs .ptab');
+  const strikeEl  = document.getElementById('strikePrice');
+  const afterTrial = document.getElementById('afterTrial');
+  const incBody   = document.getElementById('addonsIncludedBody');
+  const sumEl     = document.getElementById('addonsSummary');
+  const ctaBtn    = document.querySelector('.cta-btn');
+  const agentsBanner = document.getElementById('agentsBanner');
+
+  function getCycle() {
+    const on = document.querySelector('#cycleTabs .ptab.on');
+    return on?.dataset.cycle === 'month' ? 'month' : 'year';
+  }
+
+  function render() {
+    const cycle = getCycle();
+    const selection = loadSelection();
+    const paid = selection.filter(k => ADDONS[k]?.[cycle] != null);
+    const hasAgents = selection.includes('agents');
+
+    const baseAmt = BASE[cycle];
+    const addonsAmt = paid.reduce((s, k) => s + ADDONS[k][cycle], 0);
+    const total = baseAmt + addonsAmt;
+    const period = cycle === 'year' ? 'year' : 'month';
+    const periodAbbrev = cycle === 'year' ? '/yr' : '/mo';
+
+    // LEFT panel — active workspaces list
+    if (selection.length === 0) {
+      incBody.innerHTML = '<div class="ai-empty">Influencer Marketing only.</div>';
+    } else {
+      incBody.innerHTML = selection.map(k => {
+        const a = ADDONS[k]; if (!a) return '';
+        const price = a[cycle] != null ? fmt(a[cycle]) + periodAbbrev : 'Custom quote';
+        return `<div class="ai-row ${k}">
+          <span class="ai-ic">${a.ico}</span>
+          <span class="ai-nm">${a.label}</span>
+          <span class="ai-pr">${price}</span>
+        </div>`;
+      }).join('');
+    }
+
+    // RIGHT panel — line items
+    if (paid.length === 0 && !hasAgents) {
+      sumEl.classList.remove('visible');
+      sumEl.innerHTML = '';
+    } else {
+      sumEl.classList.add('visible');
+      const rows = [
+        `<div class="as-head">Workspace add-ons</div>`,
+        `<div class="as-row as-base"><span class="as-nm">Base plan · 2 seats</span><span class="as-pr">${fmt(baseAmt)}${periodAbbrev}</span></div>`,
+        ...paid.map(k => {
+          const a = ADDONS[k];
+          return `<div class="as-row"><span class="as-nm">${a.label}</span><span class="as-pr">+${fmt(a[cycle])}${periodAbbrev}</span></div>`;
+        }),
+        ...(hasAgents ? [`<div class="as-row custom"><span class="as-nm">AI Agents</span><span class="as-pr">Talk to us</span></div>`] : [])
+      ];
+      sumEl.innerHTML = rows.join('');
+    }
+
+    // Agents banner
+    agentsBanner.classList.toggle('visible', hasAgents);
+
+    // Total
+    strikeEl.textContent = fmt(total);
+    afterTrial.textContent = fmt(total) + ' / ' + period;
+
+    // CTA — keep dollar amount in label aligned with today's charge ($0 trial)
+    if (ctaBtn) {
+      const labelText = `Pay $0 and start your 7-day trial`;
+      // preserve the svg, just update the trailing text node
+      const svg = ctaBtn.querySelector('svg');
+      ctaBtn.innerHTML = '';
+      if (svg) ctaBtn.appendChild(svg);
+      ctaBtn.appendChild(document.createTextNode(labelText));
+    }
+  }
+
+  cycleTabs.forEach(t => t.addEventListener('click', () => {
+    cycleTabs.forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    render();
+  }));
+
+  // Re-render if user comes back to this tab after editing add-ons in another window
+  window.addEventListener('storage', e => { if (e.key === 'imai_addons') render(); });
+
+  render();
+
+  const applyBtn = document.getElementById('applyBtn');
+  const couponInput = document.getElementById('couponInput');
+  applyBtn.addEventListener('click', () => {
+    if (couponInput.value.trim()) {
+      applyBtn.textContent = '✓ Applied';
+      applyBtn.classList.add('applied');
+    }
+  });
+
+  document.querySelectorAll('#faqList .fq-q').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.fq-item')?.classList.toggle('open'));
+  });
+</script>
+
+</body>
+</html>

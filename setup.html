@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your first AI search is ready · InfluencerMarketing.Ai</title>
+<meta name="description" content="Your IMAI workspace is set up — here's your first AI search." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #fafaff;
+    --surface-2: #f7f7fa;
+    --surface-3: #ececf2;
+    --line: #ececec;
+    --line-2: #dcdce0;
+    --ink: #1d1d1b;
+    --ink-muted: #555555;
+    --ink-soft: #8f8f8f;
+    --pink: #f9476c;
+    --purple: #8564ff;
+    --teal: #06c7a9;
+    --yellow: #efcc01;
+    --green: #299d88;
+    --lavender: #eeecff;
+    --mint: #e0f8f2;
+    --pink-l: #ffecf0;
+    --yellow-l: #fdf4c0;
+    --accent: var(--purple);
+    --accent-hover: #6442dd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { min-height: 100vh; padding-bottom: 48px; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; font-size: inherit; }
+  input { font-family: inherit; font-size: 14px; color: var(--ink); }
+  input::placeholder { color: var(--ink-soft); }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  /* ============ NAV + STEPPER ============ */
+  nav.top { border-bottom: 1px solid var(--line); padding: 16px 0; margin-bottom: 40px; }
+  nav.top .inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; line-height: 1.05; }
+  .logo-mark {
+    width: 22px; height: 22px; flex-shrink: 0;
+    background:
+      radial-gradient(circle at 28% 28%, var(--pink) 0 4px, transparent 5px),
+      radial-gradient(circle at 72% 28%, var(--purple) 0 4px, transparent 5px),
+      radial-gradient(circle at 28% 72%, var(--teal) 0 4px, transparent 5px),
+      radial-gradient(circle at 72% 72%, var(--yellow) 0 4px, transparent 5px);
+  }
+  .logo .name { display: flex; flex-direction: column; line-height: 1.04; }
+  .logo .name span { display: block; }
+  .logo .name .ai { color: var(--pink); }
+
+  .stepper { display: flex; align-items: center; flex: 1; max-width: 640px; justify-content: center; gap: 14px; }
+  .step { display: inline-flex; align-items: center; gap: 10px; line-height: 1; color: var(--ink-soft); }
+  .step .circle { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--surface-3); border: 1px solid var(--line-2); color: var(--ink-soft); font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .step.done .circle { background: transparent; color: var(--ink); border-color: var(--line-2); }
+  .step.done .circle::after { content: "✓"; color: var(--ink); font-size: 11px; }
+  .step.done .circle .num { display: none; }
+  .step.active .circle { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 3px rgba(133,100,255,0.22); }
+  .step .label { font-size: 13px; font-weight: 500; }
+  .step.done .label, .step.active .label { color: var(--ink); font-weight: 600; }
+  .stepper > .line { width: 36px; height: 1px; background: var(--line-2); flex-shrink: 0; }
+  .help { font-size: 13px; color: var(--ink-soft); }
+
+  /* ============ HEADING ============ */
+  .heading { text-align: center; margin-bottom: 28px; }
+  .heading .eyebrow { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; background: var(--teal); color: var(--ink); padding: 4px 10px 4px 8px; border-radius: 999px; margin-bottom: 16px; font-weight: 700; }
+  .heading .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink); }
+  .heading h1 { font-size: clamp(48px, 6vw, 80px); letter-spacing: -0.045em; line-height: 0.95; font-weight: 800; margin-bottom: 14px; }
+  .heading h1 .wrap { display: inline-block; background: var(--ink); color: #fff; padding: 0 14px 6px; border-radius: 16px; transform: rotate(-1.5deg); }
+  .heading h1 .accent { color: var(--accent); }
+  .heading p { font-size: 17px; color: var(--ink-muted); max-width: 60ch; margin: 0 auto; line-height: 1.55; }
+  .heading p b { color: var(--ink); }
+
+  /* ============ MAIN GRID ============ */
+  .main-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; }
+
+  /* ---------- HERO SEARCH WIDGET ---------- */
+  .search-widget {
+    background: var(--ink); color: #fff;
+    border: 1.5px solid var(--ink); border-radius: 24px;
+    padding: 26px;
+  }
+  .search-widget .sw-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .search-widget .sw-lab { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 6px; }
+  .search-widget .sw-lab .d { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+  .search-widget .sw-pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 9px; background: var(--teal); color: var(--ink); border-radius: 999px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .search-widget .q-input {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 12px; padding: 14px 16px;
+    font-size: 15px; line-height: 1.5; color: #fff;
+    display: flex; align-items: flex-start; gap: 8px;
+    margin-bottom: 8px;
+  }
+  .search-widget .q-input .gt { color: rgba(255,255,255,0.45); flex-shrink: 0; }
+  .search-widget .q-input .em {
+    color: var(--teal);
+    font-weight: 600;
+    border-bottom: 1px dashed rgba(6,199,169,0.45);
+    padding-bottom: 1px;
+    white-space: nowrap;
+  }
+  .search-widget .q-input .cursor { display: inline-block; width: 7px; height: 16px; background: var(--teal); animation: blink 1s steps(1) infinite; margin-left: 2px; vertical-align: middle; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .search-widget .q-meta { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 18px; }
+  .search-widget .q-meta .count { color: var(--teal); font-weight: 700; }
+
+  .search-widget .results { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+  .res-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px; padding: 12px 14px;
+    display: grid; grid-template-columns: 36px 1fr auto auto; gap: 14px; align-items: center;
+    animation: slideIn .4s ease both;
+  }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .res-card .av { width: 36px; height: 36px; border-radius: 50%; }
+  .res-card .nm { font-weight: 700; font-size: 14px; }
+  .res-card .hd { font-size: 11.5px; color: rgba(255,255,255,0.55); font-family: 'JetBrains Mono', monospace; margin-top: 2px; }
+  .res-card .stats { display: flex; gap: 14px; }
+  .res-card .stat { text-align: right; }
+  .res-card .stat .v { font-weight: 700; font-size: 13px; }
+  .res-card .stat .l { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.06em; }
+  .res-card .match {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    background: var(--teal); color: var(--ink);
+    padding: 4px 9px; border-radius: 7px; font-weight: 700;
+  }
+
+  .sw-cta-row { display: flex; gap: 10px; align-items: center; }
+  .sw-cta-row .primary {
+    flex: 1;
+    padding: 14px 20px;
+    background: var(--accent); color: #fff;
+    font-weight: 700; font-size: 15px;
+    border: 1.5px solid var(--ink); border-radius: 12px;
+    box-shadow: 4px 4px 0 0 #fff;
+    transition: background .15s, transform .12s ease, box-shadow .12s ease;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    cursor: pointer;
+  }
+  .sw-cta-row .primary:hover { background: var(--accent-hover); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 0 #fff; }
+  .sw-cta-row .primary:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 #fff; }
+  .sw-cta-row .primary svg { width: 16px; height: 16px; }
+  .sw-cta-row .ghost {
+    padding: 12px 18px;
+    background: transparent; color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.45); border-radius: 12px;
+    font-weight: 700; font-size: 13.5px;
+    transition: background .15s, transform .12s ease;
+    cursor: pointer;
+  }
+  .sw-cta-row .ghost:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
+
+  /* refine panel */
+  .refine-panel {
+    margin-top: 14px; padding: 16px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 14px;
+    max-height: 0; opacity: 0; overflow: hidden;
+    transition: max-height .35s ease, opacity .25s ease, margin-top .35s ease, padding .35s ease;
+  }
+  .refine-panel.open { max-height: 320px; opacity: 1; padding: 16px; margin-top: 14px; }
+  .refine-panel.closing { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; }
+  .refine-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .refine-head .lab { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); }
+  .refine-head .close { font-size: 16px; color: rgba(255,255,255,0.55); padding: 2px 6px; }
+  .refine-head .close:hover { color: #fff; }
+  .refine-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+  .refine-fld { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 8px 12px; cursor: pointer; transition: border-color .15s, background .15s; }
+  .refine-fld:hover { border-color: rgba(255,255,255,0.28); background: rgba(255,255,255,0.07); }
+  .refine-fld .l { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.5); }
+  .refine-fld .v { font-size: 13px; font-weight: 600; color: #fff; margin-top: 2px; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .refine-fld .v .chev { font-size: 10px; opacity: .6; }
+  .refine-actions { display: flex; gap: 8px; align-items: center; }
+  .refine-actions .apply { flex: 1; padding: 10px; background: var(--teal); color: var(--ink); border-radius: 10px; font-weight: 700; font-size: 13px; }
+  .refine-actions .apply:hover { background: #00b69a; }
+  .refine-actions .reset { padding: 10px 14px; color: rgba(255,255,255,0.6); font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  .refine-actions .reset:hover { color: #fff; }
+
+  /* ---------- SIDE CHECKLIST ---------- */
+  .side { display: flex; flex-direction: column; gap: 12px; }
+  .panel-head {
+    background: #fff; border: 1.5px solid var(--ink);
+    border-radius: 18px; padding: 18px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  }
+  .panel-head h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .panel-head .progress { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted); }
+  .panel-head .progress b { color: var(--ink); }
+  .progress-bar {
+    height: 4px; background: var(--surface-3); border-radius: 2px;
+    overflow: hidden; width: 80px;
+  }
+  .progress-bar > div { height: 100%; background: var(--teal); transition: width .3s; }
+
+  .task-card {
+    background: #fff; border: 1.5px solid var(--ink); border-radius: 16px;
+    padding: 14px 16px;
+    display: grid; grid-template-columns: 36px 1fr auto; gap: 14px; align-items: center;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s, background .15s;
+  }
+  .task-card:hover { transform: translateY(-2px); box-shadow: 3px 4px 0 0 var(--ink); }
+  .task-card.done { background: var(--mint); }
+  .task-card .ic {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+  }
+  .task-card .ic svg { width: 16px; height: 16px; }
+  .task-card.purple .ic { background: var(--purple); }
+  .task-card.pink .ic { background: var(--pink); }
+  .task-card.yellow .ic { background: var(--yellow); color: var(--ink); }
+  .task-card .body .nm { font-weight: 700; font-size: 15.5px; letter-spacing: -0.015em; line-height: 1.2; }
+  .task-card .body .sub { font-size: 13px; color: var(--ink-muted); margin-top: 4px; line-height: 1.4; }
+  .task-card .check {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 1.5px solid var(--ink); background: #fff;
+    flex-shrink: 0; position: relative;
+  }
+  .task-card.done .check { background: var(--ink); }
+  .task-card.done .check::after { content: "✓"; color: #fff; font-size: 12px; font-weight: 800; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); line-height: 1; }
+  .task-card .body .time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+
+  .skip-link {
+    margin-top: 4px; text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-soft); letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 10px;
+  }
+  .skip-link a { color: var(--ink); font-weight: 700; text-decoration: underline; }
+
+  /* ---------- QA FOOTER ---------- */
+  .qa-footer {
+    text-align: center; margin-top: 60px; padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-soft); letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .qa-footer a { color: var(--ink); font-weight: 600; text-decoration: underline; margin: 0 2px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 920px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .stepper { gap: 8px; max-width: none; flex: 0 0 auto; }
+    .step .label { display: none; }
+    .stepper > .line { width: 18px; }
+    nav.top .help { display: none; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 16px; }
+    nav.top { padding: 12px 0; margin-bottom: 24px; }
+    nav.top .inner { gap: 12px; flex-wrap: wrap; }
+    .stepper { order: 3; width: 100%; justify-content: flex-start; gap: 6px; }
+    .stepper > .line { width: 12px; }
+    .heading { margin-bottom: 22px; }
+    .heading h1 { font-size: clamp(30px, 9vw, 44px); }
+    .heading h1 .wrap { padding: 0 10px 3px; }
+    .heading p { font-size: 14px; }
+
+    .search-widget { padding: 18px; border-radius: 18px; }
+    .search-widget .sw-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .search-widget .q-input { font-size: 13.5px; padding: 12px 14px; }
+    .search-widget .q-input .em { white-space: normal; }
+    .res-card { grid-template-columns: 32px 1fr auto; gap: 10px; padding: 10px 12px; }
+    .res-card .stats { display: none; }
+    .res-card .av { width: 32px; height: 32px; }
+    .res-card .nm { font-size: 13px; }
+    .res-card .hd { font-size: 10.5px; }
+    .res-card .match { font-size: 10.5px; padding: 3px 7px; }
+    .sw-cta-row { flex-direction: column; }
+    .sw-cta-row .primary, .sw-cta-row .ghost { width: 100%; justify-content: center; }
+    .refine-grid { grid-template-columns: 1fr; }
+
+    .panel-head { padding: 14px 16px; }
+    .panel-head h3 { font-size: 13.5px; }
+    .progress-bar { width: 60px; }
+    .task-card { padding: 12px 14px; gap: 10px; grid-template-columns: 32px 1fr auto; }
+    .task-card .ic { width: 32px; height: 32px; }
+    .task-card .body .nm { font-size: 13px; }
+    .task-card .body .sub { font-size: 11.5px; }
+  }
+</style>
+<style>
+  /* ===== Brand logo (LOCKED — assets/imai-logo.png) ===== */
+  .logo { width: 112px !important; height: 32px; padding: 0; gap: 0; background: #ffffff url('assets/imai-logo.png') center / auto 20px no-repeat; border-radius: 8px; display: inline-flex; align-items: center; }
+  .logo .logo-mark, .logo .name { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV + STEPPER ============ -->
+<nav class="top">
+  <div class="container inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark"></span>
+      <span class="name"><span>Influencer</span><span>Marketing<span class="ai">.Ai</span></span></span>
+    </a>
+    <div class="stepper">
+      <div class="step done"><span class="circle"><span class="num">1</span></span><span class="label">Register</span></div>
+      <div class="line"></div>
+      <div class="step done"><span class="circle"><span class="num">2</span></span><span class="label">Personalize</span></div>
+      <div class="line"></div>
+      <div class="step done"><span class="circle"><span class="num">3</span></span><span class="label">Confirm</span></div>
+      <div class="line"></div>
+      <div class="step active"><span class="circle">4</span><span class="label">Setup</span></div>
+    </div>
+    <a href="#" class="help">Need help?</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="heading">
+    <span class="eyebrow"><span class="dot"></span>Step 4 of 4 · Your workspace is live</span>
+    <h1>We already started <span class="wrap">working.</span></h1>
+    <p>Based on what you told us, your first AI search is ready. <b>2,418 creators</b> matched — review them now, or finish setup on the right.</p>
+  </div>
+
+  <div class="main-grid">
+
+    <!-- HERO: AI SEARCH WIDGET -->
+    <div class="search-widget" id="searchWidget">
+      <div class="sw-head">
+        <span class="sw-lab"><span class="d"></span>AI Search · pre-filled from your answers</span>
+        <span class="sw-pill">Live</span>
+      </div>
+
+      <div class="q-input">
+        <span class="gt">›</span>
+        <span><span id="qLead">Find</span> <span class="em" id="qVertical">beauty creators</span> in <span class="em" id="qLocation">LA</span> with <span class="em">80%+ female audience</span> aged <span class="em">25–34</span> and engagement <span class="em">above 3%</span>.<span class="cursor"></span></span>
+      </div>
+      <div class="q-meta">
+        <span>Top matches</span>
+        <span>·</span>
+        <span class="count" id="resultCount">2,418 creators</span>
+        <span>·</span>
+        <span>refreshed 2s ago</span>
+      </div>
+
+      <div class="results" id="resultsBox">
+        <div class="res-card">
+          <div class="av" style="background:linear-gradient(135deg,#ffecf0,#f9476c)"></div>
+          <div>
+            <div class="nm">Aria Wild</div>
+            <div class="hd">@ariawild · IG · LA</div>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="v">187K</div><div class="l">Reach</div></div>
+            <div class="stat"><div class="v">5.4%</div><div class="l">ER</div></div>
+          </div>
+          <span class="match">97%</span>
+        </div>
+        <div class="res-card" style="animation-delay:.08s">
+          <div class="av" style="background:linear-gradient(135deg,#fdf4c0,#efcc01)"></div>
+          <div>
+            <div class="nm">Rosa Mora</div>
+            <div class="hd">@rosamora · IG · LA</div>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="v">112K</div><div class="l">Reach</div></div>
+            <div class="stat"><div class="v">4.8%</div><div class="l">ER</div></div>
+          </div>
+          <span class="match">93%</span>
+        </div>
+        <div class="res-card" style="animation-delay:.16s">
+          <div class="av" style="background:linear-gradient(135deg,#e0f8f2,#06c7a9)"></div>
+          <div>
+            <div class="nm">Mini Maskincare</div>
+            <div class="hd">@minimaskincare · IG · LA</div>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="v">94K</div><div class="l">Reach</div></div>
+            <div class="stat"><div class="v">6.1%</div><div class="l">ER</div></div>
+          </div>
+          <span class="match">89%</span>
+        </div>
+      </div>
+
+      <div class="sw-cta-row">
+        <a class="primary" href="dashboard.html">
+          See all 2,418 matches
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <button class="ghost" id="refineBtn">Refine query</button>
+      </div>
+
+      <div class="refine-panel" id="refinePanel" aria-hidden="true">
+        <div class="refine-head">
+          <span class="lab">Refine your search · click any field to cycle options</span>
+          <button class="close" id="refineClose" aria-label="Close refine panel">×</button>
+        </div>
+        <div class="refine-grid">
+          <button class="refine-fld" data-field="vertical">
+            <div class="l">Vertical</div>
+            <div class="v"><span data-val>Beauty</span><span class="chev">▾</span></div>
+          </button>
+          <button class="refine-fld" data-field="location">
+            <div class="l">Location</div>
+            <div class="v"><span data-val>LA</span><span class="chev">▾</span></div>
+          </button>
+          <button class="refine-fld" data-field="audience">
+            <div class="l">Audience</div>
+            <div class="v"><span data-val>80%+ female, 25–34</span><span class="chev">▾</span></div>
+          </button>
+          <button class="refine-fld" data-field="er">
+            <div class="l">Min engagement</div>
+            <div class="v"><span data-val>3%</span><span class="chev">▾</span></div>
+          </button>
+        </div>
+        <div class="refine-actions">
+          <button class="apply" id="refineApply">Apply &amp; re-search</button>
+          <button class="reset" id="refineReset">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDE CHECKLIST -->
+    <div class="side">
+      <div class="panel-head">
+        <h3>Make this search yours</h3>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="progress-bar"><div id="progressFill" style="width:0%"></div></div>
+          <span class="progress"><b id="progressCount">0</b>/3</span>
+        </div>
+      </div>
+
+      <div class="task-card purple" data-task="save-search">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <div class="body">
+          <div class="nm">Save this search</div>
+          <div class="sub">Re-run it weekly. We'll surface new creators that match your prompt.</div>
+          <div class="time">1-click · stays in your sidebar</div>
+        </div>
+        <span class="check"></span>
+      </div>
+
+      <div class="task-card pink" data-task="build-list">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        </span>
+        <div class="body">
+          <div class="nm">Build your first list</div>
+          <div class="sub">Group shortlisted creators into a roster you can brief and outreach in bulk.</div>
+          <div class="time">Optional · ~1 min</div>
+        </div>
+        <span class="check"></span>
+      </div>
+
+      <div class="task-card yellow" data-task="schedule-report">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-6"/></svg>
+        </span>
+        <div class="body">
+          <div class="nm">Schedule a weekly report</div>
+          <div class="sub">Audience, ER, and ROI digest in your inbox every Monday — share with your team.</div>
+          <div class="time">Optional · skip ok</div>
+        </div>
+        <span class="check"></span>
+      </div>
+
+      <div class="skip-link">Skip everything — <a href="dashboard.html">go straight to the dashboard →</a></div>
+    </div>
+
+  </div>
+
+  <div class="qa-footer">
+    QA TEST FLOW · <a href="index.html">Gallery</a> · <a href="variation-b.html">Landing</a> · <a href="register.html">Register</a> · <a href="personalize.html">Personalize</a> · <a href="payment.html">Confirm</a> · Setup · <a href="dashboard.html">Dashboard →</a>
+  </div>
+
+</div>
+
+<script>
+  // Checklist progress
+  const tasks = document.querySelectorAll('.task-card');
+  const fill = document.getElementById('progressFill');
+  const countEl = document.getElementById('progressCount');
+  function updateProgress() {
+    const done = document.querySelectorAll('.task-card.done').length;
+    countEl.textContent = done;
+    fill.style.width = (done / tasks.length * 100) + '%';
+  }
+  tasks.forEach(t => t.addEventListener('click', () => {
+    t.classList.toggle('done');
+    updateProgress();
+  }));
+
+  // Animate result count tick-down (give a sense of live filtering)
+  const counter = document.getElementById('resultCount');
+  let n = 2418;
+  setInterval(() => {
+    n += Math.random() > .5 ? 1 : -1;
+    counter.textContent = n.toLocaleString() + ' creators';
+  }, 2200);
+
+  /* Refine query — open inline panel, cycle filter values, apply re-renders results */
+  (function(){
+    const btn = document.getElementById('refineBtn');
+    const panel = document.getElementById('refinePanel');
+    const closeBtn = document.getElementById('refineClose');
+    const applyBtn = document.getElementById('refineApply');
+    const resetBtn = document.getElementById('refineReset');
+    const qVertical = document.getElementById('qVertical');
+    const qLocation = document.getElementById('qLocation');
+    const resultsBox = document.getElementById('resultsBox');
+    if (!btn || !panel) return;
+
+    // Options per field
+    const opts = {
+      vertical: [
+        { v:'Beauty',   q:'beauty creators',   res:[
+          {nm:'Aria Wild',         hd:'@ariawild',      reach:'187K', er:'5.4%', m:97, bg:'linear-gradient(135deg,#ffecf0,#f9476c)'},
+          {nm:'Rosa Mora',         hd:'@rosamora',      reach:'112K', er:'4.8%', m:93, bg:'linear-gradient(135deg,#fdf4c0,#efcc01)'},
+          {nm:'Mini Maskincare',   hd:'@minimaskincare', reach:'94K',  er:'6.1%', m:89, bg:'linear-gradient(135deg,#e0f8f2,#06c7a9)'},
+        ]},
+        { v:'Fitness',  q:'fitness creators',  res:[
+          {nm:'Hadley Fit',        hd:'@hadleyfit',     reach:'241K', er:'5.8%', m:96, bg:'linear-gradient(135deg,#fdf4c0,#efcc01)'},
+          {nm:'Run With JP',       hd:'@runwith.jp',    reach:'128K', er:'4.9%', m:92, bg:'linear-gradient(135deg,#e0f8f2,#06c7a9)'},
+          {nm:'Maeli Strong',      hd:'@maeli',         reach:'88K',  er:'6.3%', m:90, bg:'linear-gradient(135deg,#eeecff,#8564ff)'},
+        ]},
+        { v:'Fashion',  q:'fashion creators',  res:[
+          {nm:'Mara Linde',        hd:'@maralinde',     reach:'128K', er:'5.2%', m:98, bg:'linear-gradient(135deg,#eeecff,#8564ff)'},
+          {nm:'Anika Roth',        hd:'@anikaroth_',    reach:'311K', er:'3.8%', m:91, bg:'linear-gradient(135deg,#fdf4c0,#efcc01)'},
+          {nm:'Jonas Becker',      hd:'@jonasthrift',   reach:'84K',  er:'4.7%', m:88, bg:'linear-gradient(135deg,#ffecf0,#f9476c)'},
+        ]},
+        { v:'Food',     q:'food creators',     res:[
+          {nm:'Cribs &amp; Cooks',     hd:'@cribsncooks',   reach:'201K', er:'5.9%', m:95, bg:'linear-gradient(135deg,#fdf4c0,#efcc01)'},
+          {nm:'Salt &amp; Slice',      hd:'@saltslice',     reach:'132K', er:'4.4%', m:91, bg:'linear-gradient(135deg,#e0f8f2,#06c7a9)'},
+          {nm:'Pantry Picks',      hd:'@pantrypicks',   reach:'78K',  er:'7.2%', m:88, bg:'linear-gradient(135deg,#ffecf0,#c94865)'},
+        ]},
+      ],
+      location: [
+        { v:'LA',     mult:1.0,  count:2418 },
+        { v:'NYC',    mult:1.15, count:2780 },
+        { v:'London', mult:0.82, count:1985 },
+        { v:'Berlin', mult:0.6,  count:1450 },
+        { v:'Tokyo',  mult:0.45, count:1090 },
+        { v:'Global', mult:5.4,  count:13050 },
+      ],
+      audience: [
+        { v:'80%+ female, 25\u201334' },
+        { v:'60%+ male, 18\u201324' },
+        { v:'Gen-Z, mixed' },
+        { v:'Millennials, mixed' },
+        { v:'Parents, 30\u201345' },
+      ],
+      er: [
+        { v:'2%', mult:1.4 },
+        { v:'3%', mult:1.0 },
+        { v:'4%', mult:0.68 },
+        { v:'5%', mult:0.42 },
+        { v:'7%', mult:0.21 },
+      ],
+    };
+    const state = { vertical:0, location:0, audience:0, er:1 };
+
+    function openPanel(){
+      panel.classList.remove('closing');
+      panel.classList.add('open');
+      panel.setAttribute('aria-hidden','false');
+      btn.textContent = 'Close';
+    }
+    function closePanel(){
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden','true');
+      btn.textContent = 'Refine query';
+    }
+    btn.addEventListener('click', () => panel.classList.contains('open') ? closePanel() : openPanel());
+    closeBtn.addEventListener('click', closePanel);
+
+    // Cycle field values
+    document.querySelectorAll('.refine-fld').forEach(fld => {
+      fld.addEventListener('click', () => {
+        const f = fld.dataset.field;
+        state[f] = (state[f] + 1) % opts[f].length;
+        fld.querySelector('[data-val]').innerHTML = opts[f][state[f]].v;
+      });
+    });
+
+    function applyRefine(){
+      // Update query line
+      const vData = opts.vertical[state.vertical];
+      const lData = opts.location[state.location];
+      qVertical.textContent = vData.q;
+      qLocation.textContent = lData.v;
+
+      // Update results
+      resultsBox.style.opacity = '0';
+      resultsBox.style.transform = 'translateY(4px)';
+      resultsBox.style.transition = 'opacity .22s, transform .22s';
+      setTimeout(() => {
+        resultsBox.innerHTML = vData.res.map((r, i) =>
+          '<div class="res-card" style="animation-delay:' + (i * 0.08) + 's">' +
+            '<div class="av" style="background:' + r.bg + '"></div>' +
+            '<div><div class="nm">' + r.nm + '</div><div class="hd">' + r.hd + ' \u00b7 IG \u00b7 ' + lData.v + '</div></div>' +
+            '<div class="stats"><div class="stat"><div class="v">' + r.reach + '</div><div class="l">Reach</div></div>' +
+            '<div class="stat"><div class="v">' + r.er + '</div><div class="l">ER</div></div></div>' +
+            '<span class="match">' + r.m + '%</span>' +
+          '</div>'
+        ).join('');
+        resultsBox.style.opacity = '';
+        resultsBox.style.transform = '';
+      }, 220);
+
+      // Update count + ticker baseline
+      const erMult = opts.er[state.er].mult;
+      n = Math.round(lData.count * erMult);
+      counter.textContent = n.toLocaleString() + ' creators';
+
+      closePanel();
+    }
+    applyBtn.addEventListener('click', applyRefine);
+
+    resetBtn.addEventListener('click', () => {
+      state.vertical = 0; state.location = 0; state.audience = 0; state.er = 1;
+      document.querySelectorAll('.refine-fld').forEach(fld => {
+        const f = fld.dataset.field;
+        fld.querySelector('[data-val]').innerHTML = opts[f][state[f]].v;
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

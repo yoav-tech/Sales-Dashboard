@@ -1,0 +1,392 @@
+/* ============================================================
+   IMAI — InfluencerMarketing.ai — Design System
+   colors_and_type.css
+   Core foundations: color tokens + typography.
+   Light theme primary. Clean, modern, data-dense enterprise SaaS.
+
+   ⚑ GROUNDED IN FIGMA — "IMAI - Video Content" source file.
+   All values below were extracted from the real Figma file (platform
+   app + marketing site). Where the prior reconstruction guessed, the
+   real value now wins. Key corrections vs the old reconstruction:
+     • Type is POPPINS for everything (display AND body). No Roboto.
+       Passion One is the heavy marketing display face.
+     • Primary action is VIOLET #7132F5 (rgb 113,50,245), and the
+       primary button shape is a full PILL (radius 9999) — not 8px.
+     • Lighter violet #8055FD (rgb 128,85,253) = links / accents /
+       focus ring / secondary emphasis.
+     • Body text ink #2F313C; labels/headings #272934.
+     • Hairline borders #E9EBF0 (light) and #CFD5E0 (strong) —
+       the two most-used colors in the entire file (~9k uses each).
+     • Canvas #F5F7F9, card surface #FCFCFC / #FFFFFF.
+   ============================================================ */
+
+/* ---- Webfonts (Google Fonts CDN) ----------------------------
+   Real IMAI type stack, confirmed from the Figma file:
+   - Poppins      -> EVERYTHING: display, headings, body, UI, data
+   - Passion One  -> heavy marketing display headlines only
+   Mono is a system stack (the file ships no monospace face). */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Passion+One:wght@400;700;900&display=swap');
+
+:root {
+  /* ========================================================
+     1. BRAND PALETTE  (the four hashtag-mark bars + ink)
+     Violet pair is verified from real components; teal / rose /
+     yellow are the logo's hashtag-bar hues (brand constants).
+     ======================================================== */
+  --brand-violet:       #7132F5;   /* primary action / AI — rgb(113,50,245) */
+  --brand-violet-light: #8055FD;   /* links / accents / focus — rgb(128,85,253) */
+  --brand-teal:         #06C8AA;   /* positive / growth / verified (logo bar) */
+  --brand-rose:         #ED4C5C;   /* alert / live / hot — rgb(237,76,92) */
+  --brand-yellow:       #F0CD01;   /* highlight / attention (logo bar) */
+  --brand-ink:          #1D1D1B;   /* logo wordmark black */
+
+  /* ========================================================
+     2. PRIMARY — Violet scale (built around the real #7132F5 /
+     #8055FD pair and the real soft tints #FAF9FF / #EBE8FF /
+     #DAD4FF / #BFB2FF and deep #290C69).
+     ======================================================== */
+  --violet-50:  #FAF9FF;   /* rgb(250,249,255) tint fill */
+  --violet-100: #EBE8FF;   /* rgb(235,232,255) soft fill */
+  --violet-200: #DAD4FF;   /* rgb(218,212,255) soft border */
+  --violet-300: #BFB2FF;   /* rgb(191,178,255) */
+  --violet-400: #8055FD;   /* rgb(128,85,253) light / links / accent */
+  --violet-500: #7132F5;   /* rgb(113,50,245) BRAND / primary action */
+  --violet-600: #5C1FD6;   /* hover (darker) */
+  --violet-700: #4A18B0;   /* active */
+  --violet-800: #350F80;
+  --violet-900: #290C69;   /* rgb(41,12,105) deep violet text */
+
+  /* ========================================================
+     3. TEAL scale (success / growth / verified)
+     ======================================================== */
+  --teal-50:  #E5FBF6;
+  --teal-100: #C2F5EA;
+  --teal-200: #8DEAD7;
+  --teal-300: #4FDCC0;
+  --teal-400: #18CEAB;
+  --teal-500: #06C8AA;   /* brand */
+  --teal-600: #06A88F;
+  --teal-700: #0A8573;
+  --teal-800: #0C685A;
+
+  /* ========================================================
+     4. ROSE scale (danger / live) — real #ED4C5C + soft #FFC9C9
+     ======================================================== */
+  --rose-50:  #FFECEF;
+  --rose-100: #FFC9C9;   /* rgb(255,201,201) soft */
+  --rose-200: #FFA9B4;
+  --rose-300: #F8808F;
+  --rose-400: #F26173;
+  --rose-500: #ED4C5C;   /* rgb(237,76,92) brand red */
+  --rose-600: #D63048;
+  --rose-700: #B01D38;
+
+  /* ========================================================
+     5. AMBER / YELLOW scale (highlight / warning)
+     ======================================================== */
+  --amber-50:  #FEF9DB;
+  --amber-100: #FCF0A8;
+  --amber-200: #F8E25C;
+  --amber-300: #F0CD01;   /* brand yellow */
+  --amber-400: #D9B500;
+  --amber-500: #B88F00;   /* legible warning text on light bg */
+  --amber-600: #8A6A00;
+
+  /* ========================================================
+     6. BLUE scale (secondary accent — real #595FFC + soft #C3D0FF,
+     used for links/secondary tags and chart series)
+     ======================================================== */
+  --blue-50:  #EEF1FF;
+  --blue-100: #D7DEFF;
+  --blue-200: #C3D0FF;   /* rgb(195,208,255) soft */
+  --blue-300: #9BAAFF;
+  --blue-400: #7A82FD;
+  --blue-500: #595FFC;   /* rgb(89,95,252) */
+  --blue-600: #3D43E0;
+  --blue-700: #2D32B0;
+
+  /* ========================================================
+     7. NEUTRALS — cool slate scale (UI surfaces, text, borders)
+     Anchored to the file's most-used colors.
+     ======================================================== */
+  --n-0:   #FFFFFF;   /* card / pure white */
+  --n-25:  #FCFCFC;   /* rgb(252,252,252) raised surface */
+  --n-50:  #F5F7F9;   /* rgb(245,247,249) app canvas / subtle fill */
+  --n-100: #EEF1F5;   /* hover fill / chips */
+  --n-200: #E9EBF0;   /* rgb(233,235,240) hairline border (light) */
+  --n-300: #CFD5E0;   /* rgb(207,213,224) strong border / divider */
+  --n-400: #9CA8BE;   /* rgb(156,168,190) placeholder / disabled icon */
+  --n-500: #8490AD;   /* rgb(132,144,173) muted / tertiary text */
+  --n-600: #5C677A;   /* secondary text */
+  --n-700: #2F313C;   /* rgb(47,49,60) PRIMARY body text */
+  --n-800: #272934;   /* rgb(39,41,52) labels / headings */
+  --n-900: #13151F;   /* rgb(19,21,31) ink / near-black */
+
+  /* ========================================================
+     8. SEMANTIC TOKENS  (use these in product UI)
+     ======================================================== */
+  /* Surfaces */
+  --bg-canvas:      var(--n-50);
+  --bg-surface:     var(--n-0);
+  --bg-raised:      var(--n-25);
+  --bg-subtle:      var(--n-50);
+  --bg-muted:       var(--n-100);
+  --bg-inverse:     var(--n-900);
+
+  /* Text */
+  --fg1: var(--n-700);   /* primary body — #2F313C */
+  --fg-strong: var(--n-800);  /* headings / labels — #272934 */
+  --fg2: var(--n-600);   /* secondary */
+  --fg3: var(--n-500);   /* tertiary / muted — #8490AD */
+  --fg-inverse: var(--n-0);
+  --fg-brand: var(--violet-500);
+  --fg-link:  var(--violet-400);   /* links use the lighter #8055FD */
+
+  /* Borders */
+  --border:        var(--n-200);   /* #E9EBF0 default hairline */
+  --border-strong: var(--n-300);   /* #CFD5E0 */
+  --border-focus:  var(--violet-400);
+
+  /* Primary action — REAL Figma primary button: violet #7132F5,
+     full PILL shape, white text, Poppins 700. Hover one step darker. */
+  --action:         var(--violet-500);
+  --action-hover:   var(--violet-600);
+  --action-active:  var(--violet-700);
+  --on-action:      #FFFFFF;
+  --action-radius:  var(--radius-pill);   /* buttons are pills */
+  /* Dark-ink action — kept for app surfaces that use a near-black CTA */
+  --action-ink:        #1E1E2D;
+  --action-ink-hover:  #2E2E40;
+
+  --primary:        var(--violet-500);  /* brand: AI, selected, primary */
+  --primary-hover:  var(--violet-600);
+  --primary-active: var(--violet-700);
+  --primary-soft:   var(--violet-100);
+  --on-primary:     #FFFFFF;
+  --select-soft:    var(--violet-100);  /* selected segmented pill bg */
+
+  /* Pastel hero gradient (home / welcome band) sampled from the app */
+  --hero-grad: linear-gradient(105deg, #C7F6F1 0%, #CCDEF5 48%, #D0C9FA 100%); /* @kind color */
+  --hero-mint: #C7F6F1;
+  --hero-blue: #CCDEF5;
+  --hero-lav:  #D0C9FA;
+  --pill-teal-bg: #A9E8CF;   /* "+N new" count pill */
+  --pill-teal-fg: #0C5A4C;
+
+  /* Status */
+  --success:      var(--teal-600);
+  --success-soft: #DDFBE1;   /* rgb(221,251,225) real success fill */
+  --success-fg:   var(--teal-700);
+  --danger:       var(--rose-500);
+  --danger-soft:  var(--rose-50);
+  --danger-fg:    var(--rose-700);
+  --warning:      var(--amber-400);
+  --warning-soft: var(--amber-50);
+  --warning-fg:   var(--amber-600);
+  --info:         var(--violet-500);
+  --info-soft:    var(--violet-50);
+  --info-fg:      var(--violet-700);
+
+  /* Data-viz sequence — the file's real pastel chart palette
+     (one channel pinned to 150, hue rotated). */
+  --viz-1: #B996EE;   /* rgb(185,150,238) violet  */
+  --viz-2: #EE96DC;   /* rgb(238,150,220) pink    */
+  --viz-3: #EE9696;   /* rgb(238,150,150) rose    */
+  --viz-4: #EEBF96;   /* rgb(238,191,150) orange  */
+  --viz-5: #EEE896;   /* rgb(238,232,150) yellow  */
+  --viz-6: #96BFEE;   /* blue (harmonized w/ set) */
+  /* Bolder accents for emphasis lines on charts */
+  --viz-solid-1: var(--violet-500);
+  --viz-solid-2: var(--blue-500);
+  --viz-solid-3: var(--teal-500);
+
+  /* ========================================================
+     9. TYPOGRAPHY  — Poppins everywhere, Passion One heavy display.
+     ======================================================== */
+  --font-display: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;   /* headings / brand */
+  --font-heavy:   'Passion One', 'Poppins', sans-serif;                           /* heavy marketing display */
+  --font-sans:    'Poppins', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; /* UI / body / data */
+  --font-serif:   'Times New Roman', Times, Georgia, serif;                       /* occasional serif accent */
+  --font-mono:    ui-monospace, 'SF Mono', Menlo, Consolas, monospace;            /* IDs / raw data (system) */
+
+  /* Type scale — product base 16px (real Poppins body), dense
+     tables drop to 14/13. Marketing display climbs via Passion One. */
+  --text-xs:   12px;   /* meta, table sub-labels, captions */
+  --text-sm:   13px;   /* dense table cells, secondary UI */
+  --text-md:   14px;   /* labels, compact controls */
+  --text-base: 16px;   /* default product body / inputs / buttons */
+  --text-lg:   18px;
+  --text-xl:   20px;   /* card titles */
+  --text-2xl:  24px;   /* section headings */
+  --text-3xl:  32px;   /* page titles */
+  --text-4xl:  36px;   /* metric numbers */
+  --text-5xl:  48px;   /* marketing display (Poppins ExtraBold) */
+  --text-6xl:  64px;   /* hero (Passion One) */
+
+  --leading-tight:  1.15;
+  --leading-snug:   1.3;
+  --leading-normal: 1.5;
+  --leading-loose:  2;      /* Poppins 16/32 marketing body */
+  --leading-relaxed:1.65;
+
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;   /* eyebrows / overlines */
+
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    800;
+
+  /* ========================================================
+     10. RADIUS / SHADOW / SPACING / ELEVATION
+     ======================================================== */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;    /* inputs / default control radius (real) */
+  --radius-lg: 12px;   /* cards */
+  --radius-xl: 16px;   /* large panels / modals */
+  --radius-2xl:32px;   /* big feature cards (real radius var) */
+  --radius-pill: 9999px;   /* buttons, tags, segmented pills (real) */
+
+  /* Soft, low-contrast elevation — near-black tint at low alpha,
+     matching the file's rgba(10,13,18,…) shadows. */
+  --shadow-xs: 0 1px 2px rgba(10,13,18,0.05);
+  --shadow-sm: 0 1px 3px rgba(10,13,18,0.07), 0 1px 2px rgba(10,13,18,0.04);
+  --shadow-md: 0 4px 12px rgba(10,13,18,0.08), 0 2px 4px rgba(10,13,18,0.04);
+  --shadow-lg: 0 12px 28px rgba(10,13,18,0.12), 0 4px 8px rgba(10,13,18,0.05);
+  --shadow-xl: 0 24px 56px rgba(10,13,18,0.18);
+  /* Real focus = 2px inset violet-light ring + tiny drop shadow */
+  --ring-focus: inset 0 0 0 2px var(--violet-400), 0 1px 2px rgba(10,13,18,0.05);
+  --ring-focus-outer: 0 0 0 3px var(--violet-200);
+
+  /* 4px base spacing scale (real var set adds a 2px half-step) */
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-30: 120px;
+
+  /* Layout */
+  --container-desktop: 1440px;   /* real desktop frame width */
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT DEFAULTS
+   Apply var-driven type styles to real elements so prototypes
+   inherit the system without per-element classes.
+   ============================================================ */
+.imai, body.imai {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--fg1);
+  background: var(--bg-canvas);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'tnum' 0;  /* proportional by default */
+}
+
+/* tabular numbers helper for data tables & metrics */
+.tnum { font-feature-settings: 'tnum' 1; font-variant-numeric: tabular-nums; }
+
+.imai h1, .h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-strong);
+  margin: 0;
+}
+.imai h2, .h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-strong);
+  margin: 0;
+}
+.imai h3, .h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-snug);
+  color: var(--fg-strong);
+  margin: 0;
+}
+.imai h4, .h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  color: var(--fg-strong);
+  margin: 0;
+}
+.imai p, .body {
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--fg2);
+  margin: 0;
+}
+/* Marketing body — Poppins 16/32 as seen on the platform pages */
+.body-marketing {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-loose);
+  color: var(--fg2);
+}
+/* Heavy marketing hero display */
+.display-heavy, .display {
+  font-family: var(--font-heavy);
+  font-weight: 700;
+  font-size: var(--text-6xl);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-strong);
+}
+.eyebrow, .overline {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--fg3);
+}
+.metric {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-strong);
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  color: var(--fg-strong);
+}
+.caption {
+  font-size: var(--text-xs);
+  color: var(--fg3);
+}
+code, .code, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+.imai a, .link { color: var(--fg-link); text-decoration: none; }
+.imai a:hover, .link:hover { text-decoration: underline; }

@@ -1,0 +1,38 @@
+# InfluencerMarketing.ai
+
+> InfluencerMarketing.ai (IMAI) is an all-in-one AI platform for influencer marketing. Brands and agencies use it to discover, vet, activate, measure and pay creators from a database of 400M+ profiles across Instagram, TikTok, YouTube and X. It replaces the typical stack of a creator database, an outreach inbox, a reporting spreadsheet and a separate payments tool with one connected platform.
+
+## Key facts
+- Creator database: 400M+ profiles across Instagram, TikTok, YouTube and X; profiles refresh within 24 hours.
+- AI natural-language search across 50+ audience and content signals, with fake-follower and brand-safety screening.
+- Creator payouts in 135+ currencies across 100+ countries, with tax forms, VAT/GST and currency conversion handled automatically.
+- ROI tracking: sales attribution via SDK, UTMs and discount codes; EMV, GMV, CAC and ROAS roll-ups by creator, campaign or brand.
+- Shopify integration: one-click connection (Shopify and Shopify Plus) that attributes every order to the creator who drove it via synced discount codes, affiliate links and a tracking pixel; pays creators commission on real Shopify sales automatically.
+- Trusted by 1,000+ brands and agencies in 50+ countries, including Estee Lauder, Samsung and Playtika.
+- Pricing: Personal $129/mo, Starter $299/mo, Growth $499/mo, Scale $1,200/mo, and custom Enterprise. 7-day free trial, no card required. Full 412M+ creator database on every plan.
+- Six connected workspaces: Influencer Marketing, Consumer Intelligence, PR & Media, UGC Video Ads, LLM Visibility and AI Agents.
+
+## Platform
+- [Creator Discovery](https://influencermarketing.ai/platform/discovery): AI natural-language search and vetting across 400M+ creators.
+- [Influencer CRM](https://influencermarketing.ai/platform/influencer-crm): one pipeline with AI outreach and automatic follow-ups (62% average reply rate).
+- [Campaign Management](https://influencermarketing.ai/platform/campaign-management): brief, contracts, e-sign, content approval and payouts in one workflow.
+- [Tracking & ROI](https://influencermarketing.ai/platform/tracking-roi): sales attribution, Shopify GMV attribution and EMV/GMV/CAC/ROAS reporting in real time.
+- [Creator Payouts](https://influencermarketing.ai/platform/creator-payouts): pay creators in 135+ currencies across 100+ countries.
+- [Competitive Intelligence](https://influencermarketing.ai/platform/competitive-intelligence): share of voice, brand mentions and the creators driving them.
+
+## Solutions
+- [Enterprise](https://influencermarketing.ai/solutions/enterprise): SSO, SOC 2 Type II, role-based access, six workspaces in one login.
+- [Agencies](https://influencermarketing.ai/solutions/agencies): white-label platform, multi-client management, client-ready reports.
+- [SMB & startups](https://influencermarketing.ai/solutions/smb): launch campaigns in minutes; 7-day free trial.
+- [Ecommerce](https://influencermarketing.ai/solutions/ecommerce): Shopify GMV attribution per creator and UGC video ads at scale.
+- [UGC Video Ads](https://influencermarketing.ai/solutions/ugc): AI avatar video in 40+ languages with rights and whitelisting handled.
+- [PR & Media](https://influencermarketing.ai/solutions/pr): pitch 1M+ journalists with AI and track coverage and EMV.
+- [Consumer Intelligence](https://influencermarketing.ai/solutions/consumer-intelligence): monitor 2T+ conversations and activate the creators driving them.
+- [LLM Visibility](https://influencermarketing.ai/solutions/llm-visibility): track and shape how ChatGPT, Perplexity and AI Overviews describe your brand.
+- [AI Agents](https://influencermarketing.ai/solutions/ai-agents): voice and chat agents that qualify, book and support 24/7.
+
+## Key pages
+- [Pricing](https://influencermarketing.ai/pricing): plans and packages.
+- [Find influencers](https://influencermarketing.ai/find-influencers): search 400M+ creators by niche, platform and audience.
+- [Customers](https://influencermarketing.ai/customers): case studies and results.
+- [About](https://influencermarketing.ai/about): company and mission.
