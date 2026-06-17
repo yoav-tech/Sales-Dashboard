@@ -14,7 +14,7 @@
 
 .searchbar{display:flex;align-items:center;gap:8px;width:100%;max-width:660px;margin:34px auto 0;
   background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-pill);
-  padding:8px 8px 8px 10px;box-shadow:var(--shadow-lg);}
+  padding:8px 8px 8px 10px;box-shadow:var(--shadow-lg);position:relative;z-index:40;}
 .sb-platform{display:flex;align-items:center;gap:7px;flex:none;font-size:var(--text-md);font-weight:var(--weight-medium);
   color:var(--fg-strong);background:var(--n-50);border:1px solid var(--border);border-radius:var(--radius-pill);padding:9px 14px;cursor:pointer;}
 .sb-platform .chev{color:var(--fg3);font-size:11px;}
