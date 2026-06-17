@@ -1,11 +1,28 @@
 # -*- coding: utf-8 -*-
-import re, os, shutil, html as _html
+import re, os, shutil, hashlib, html as _html
 SRC='/Users/ppc/sales-dashboard-imai'
 SITE=f'{SRC}/site'
 OUT=f'{SRC}/public'
 DS='imai-design-system-4a6d94c2-7a00-44fd-bb33-ebaf204eaa53'
 BASE='https://influencermarketing.ai'
 BRAND='InfluencerMarketing.ai'
+
+# ---------------- cache-busting: content-hash CSS/JS/DS so immutable caching is safe ----------------
+def _fh(path):
+    try: return hashlib.md5(open(path,'rb').read()).hexdigest()[:8]
+    except Exception: return '1'
+VER={
+ '/css/ds-components.css': _fh(f'{SITE}/css/ds-components.css'),
+ '/css/site.css':          _fh(f'{SITE}/css/site.css'),
+ '/css/home.css':          _fh(f'{SITE}/css/home.css'),
+ '/css/pages.css':         _fh(f'{SITE}/css/pages.css'),
+ '/js/motion.js':          _fh(f'{SITE}/js/motion.js'),
+ '/ds/colors_and_type.css':_fh(f'{SRC}/_ds/{DS}/colors_and_type.css'),
+}
+def add_versions(h):
+    for path,v in VER.items():
+        h=h.replace(path+'"', path+'?v='+v+'"')
+    return h
 
 # ---------------- URL MAP (old filename -> clean url) ----------------
 URL={
@@ -259,7 +276,7 @@ def transform(src, raw, url):
         skip=''
     new_head=build_head(src,url,head_inner)
     lang='<html lang="en">'
-    return f'<!DOCTYPE html>\n{lang}\n{new_head}\n{body_open}\n{skip}{body_inner}{body_close}\n</html>\n'
+    return add_versions(f'<!DOCTYPE html>\n{lang}\n{new_head}\n{body_open}\n{skip}{body_inner}{body_close}\n</html>\n')
 
 def main():
     if os.path.exists(OUT): shutil.rmtree(OUT)
