@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# InfluencerMarketing.ai — Marketing Site
 
-## Getting Started
+Static, multi-page marketing site for **InfluencerMarketing.ai (IMAI)**, deployed to Vercel.
 
-First, run the development server:
+## Build
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+python3 build_site.py    # site/*.html (+ flow pages) -> clean-URL pages under public/
+python3 build_extras.py  # sitemap.xml, robots.txt, llms.txt, site.webmanifest, 404.html
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Vercel serves the `public/` directory (see `vercel.json` — `outputDirectory: public`, `cleanUrls: true`). Re-running `build_site.py` wipes and regenerates `public/`, so always run `build_extras.py` after it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `site/` — source pages, `css/`, `js/`, `assets/`
+- `_ds/` — design-system tokens (`colors_and_type.css`)
+- `register.html`, `personalize.html`, `payment.html`, `setup.html` — sign-up flow
+- `public/` — generated build output (what gets deployed)
 
-## Learn More
+## Pages
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Home, Platform (+ 6 feature pages), Solutions (+ 9 solution pages), Pricing, Find influencers, Customers, About, and the sign-up flow. Clean URLs, full SEO/GEO (canonicals, Open Graph, JSON-LD, sitemap, robots, `llms.txt`), mobile responsive.
