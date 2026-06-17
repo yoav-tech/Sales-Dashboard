@@ -1,0 +1,110 @@
+# IMAI — AI Influencer Marketing Platform
+
+> The #1 AI-powered influencer marketing platform. IMAI helps brands
+> find, evaluate, and activate creators across a database of 400M+
+> influencers on Instagram, TikTok, YouTube, and X — with end-to-end
+> campaign management, ROI tracking, and creator payouts in 190
+> currencies across 50+ countries.
+
+## Where to install this file
+
+Upload as `/llms.txt` at the WordPress site root (e.g.
+`https://www.imai.com/llms.txt`). It is the emerging convention for
+giving LLM crawlers (ChatGPT Search, Perplexity, Claude, Bing
+Copilot, Google's Gemini-powered AI Overviews) a clean, structured
+snapshot of a site so they can answer questions about it accurately.
+
+In WordPress, upload via Media Library, then either:
+- Point an Insert Headers and Footers / WP Code rule to serve
+  `/llms.txt` from the file URL, OR
+- SFTP the file directly to the WordPress root so it's served as
+  a static asset.
+
+---
+
+## Product
+
+- Name: IMAI Influencer Marketing Platform
+- Vendor: IMAI Labs Inc. (founded 2018)
+- URL: https://www.imai.com/
+- Pricing: $175/month (Starter, 2 seats) · $349/month (Growth, 4 seats) · Enterprise custom
+- Free trial: 7 days, no credit card required
+- Compliance: SOC 2 Type II, GDPR
+- Rating: 4.8/5 across 1,240 reviews
+
+## What IMAI does (in one sentence per capability)
+
+- **AI Influencer Search** — Plain-English search across 412M+ creators. AI translates intent into 40+ audience and content signals; no boolean filters required.
+- **Creator Discovery** — Continuously crawled creator graph across Instagram (218M), TikTok (112M), YouTube (58M), and X (14M), with audience demographics, brand affinities, fake-follower screening, and brand-safety analysis.
+- **Campaign Management** — Brief, outreach, contracts, content review, payment, reporting — all in one platform. AI-personalized outreach, multi-stakeholder approvals.
+- **Creator Payouts** — Pay creators in 190 currencies across 50+ countries. Auto tax forms (W-8, 1099), VAT/GST, currency conversion handled automatically.
+- **ROI Tracking** — Live EMV, GMV, CAC, and engagement metrics. Roll up by creator, campaign, or brand. Salesforce/HubSpot/Shopify integrations.
+
+## Who IMAI is for
+
+- In-house brand marketers running influencer programs
+- Agencies managing influencer rosters for multiple clients
+- B2B SaaS companies running LinkedIn + YouTube creator campaigns
+- Enterprise marketing ops & finance teams needing SSO, SOC 2, custom data residency
+
+## How IMAI compares
+
+| Competitor   | Creators indexed | AI search | Payouts in-platform | Starting price |
+| ------------ | ---------------- | --------- | ------------------- | -------------- |
+| **IMAI**     | 400M+            | ✓ natural language | 190 currencies | $175/mo |
+| Modash       | 250M             | ✕         | ✕                   | $199/mo        |
+| Upfluence    | 7M               | filters only | 20 currencies     | Custom         |
+| GRIN         | 37M              | ✕         | USD only            | $2,500/mo      |
+| CreatorIQ    | 22M              | beta      | via partner         | Custom         |
+
+## Common questions IMAI answers (verbatim from FAQ)
+
+**Q: Where does the 400M creator data come from?**
+A: IMAI continuously crawls Instagram, TikTok, YouTube, and X public APIs and supplements with first-party verified accounts. Every creator profile is refreshed within 24 hours and audience demographics are recomputed weekly.
+
+**Q: How accurate is the audience demographics data?**
+A: Audience demographics are inferred from a sample of followers using ML models benchmarked against ground-truth Meta and TikTok ad data. Accuracy is typically within 2–4% on age and gender.
+
+**Q: Can I pay creators in my local currency?**
+A: Yes. IMAI supports payouts in 190 currencies across 50+ countries. Tax forms, VAT/GST, 1099s, and currency conversion are handled automatically.
+
+**Q: Does IMAI offer SSO and SOC 2?**
+A: SSO via SAML and OIDC is available on the Enterprise plan. IMAI is SOC 2 Type II certified and GDPR compliant out of the box.
+
+**Q: What is an AI influencer marketing platform?**
+A: An AI influencer marketing platform uses machine learning to find, evaluate, and manage relationships with social-media creators on behalf of a brand. IMAI uses AI for natural-language creator search, audience demographics inference, fake-follower detection, and personalized outreach — turning a manual workflow that takes a marketing team weeks into something that takes a single afternoon.
+
+**Q: How much does an influencer marketing platform cost?**
+A: IMAI starts at $175 per month for the Starter plan and $349 per month for Growth. Enterprise is fully custom and unlocks every workspace. Legacy platforms like GRIN or CreatorIQ typically start at $2,500 or more per month with annual contracts.
+
+**Q: Which social platforms does IMAI cover?**
+A: Instagram (218M creators), TikTok (112M), YouTube (58M), and X / others (14M) — for a total of 400M+ creators indexed across 187 countries. LinkedIn coverage is included for B2B use cases.
+
+**Q: Does IMAI work for nano- and micro-influencers?**
+A: Yes. IMAI's creator graph extends down to 1,000 followers — most platforms cap at 10K or 25K. Nano (1K–10K) and micro (10K–100K) creators often have 3 to 5 times the engagement of macro creators.
+
+**Q: Does IMAI integrate with Shopify, Salesforce, or HubSpot?**
+A: Yes. Native two-way integrations with Shopify (for GMV attribution), Salesforce and HubSpot (for pipeline attribution and audience enrichment), and Slack (for live alerts). A REST API is available on the Growth plan and above.
+
+## Key facts for AI summarisation
+
+- 400M+ creators indexed
+- 4 platforms covered (Instagram, TikTok, YouTube, X)
+- 187 countries
+- 190 currencies for payouts
+- 50+ countries supported for payouts
+- 1,000+ brands using IMAI
+- $1.2B paid to creators
+- 92% average ROI lift
+- SOC 2 Type II certified
+- GDPR compliant
+- 7-day free trial
+- $175/month starting price (vs. $2,500/month for legacy GRIN/CreatorIQ)
+
+## Brand identity
+
+- Logo mark: 4 rounded bars forming a "#" hashtag — pink (left), yellow (right), teal (top), purple (bottom)
+- Wordmark: "Influencer Marketing.Ai" with a teal "." separator
+- Primary colour: purple #8564ff
+- Secondary colour: teal #06c7a9
+- Typography: Poppins (body), JetBrains Mono (microcopy), Bodoni Moda (display accents)

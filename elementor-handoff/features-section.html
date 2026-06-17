@@ -1,0 +1,960 @@
+<!--
+  IMAI — Features section (drop-in for Elementor HTML widget)
+  ===========================================================
+  Source: sales-dashboard-steel-zeta.vercel.app/#features
+  Last sync: commit d1ca5d9
+
+  How to use:
+  1. In Elementor, drag a "HTML" widget into the page.
+  2. Paste this ENTIRE file's contents into that widget.
+  3. Set the section's "Stretch" option ON (Advanced → Layout → Stretch Section) so
+     the white background fills the viewport edge-to-edge.
+  4. Disable Elementor's default container padding for this row if you want the
+     section to span full-width; the inner `.container` here already manages
+     max-width and padding.
+
+  Notes:
+  - All CSS is scoped under `.imai-features` so it won't leak into other widgets.
+  - Google Fonts are loaded via `<link>` at top — Elementor will respect this.
+  - 5 face avatars are pulled live from Unsplash; swap to local /wp-content/uploads
+    URLs once you've uploaded the images to Media Library.
+  - Bento background is white. If your theme has a body bg color set, the
+    `.imai-features` wrapper forces white so it always matches the design.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+<style>
+  /* =========================================================
+     IMAI "Everything you need" features section
+     Self-contained — all selectors scoped under .imai-features
+     ========================================================= */
+  .imai-features {
+    /* tokens */
+    --ink: #1d1d1b;
+    --ink-2: #ffffff;
+    --ink-muted: #444444;
+    --ink-soft: #8f8f8f;
+    --accent: #8564ff;
+    --lime: #06c7a9;
+    --teal: #06c7a9;
+    --bg: #ffffff;
+    --line: #ececec;
+    --line-soft: #e9e9e9;
+
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 112px 0;
+    box-sizing: border-box;
+  }
+  .imai-features *,
+  .imai-features *::before,
+  .imai-features *::after { box-sizing: border-box; }
+  .imai-features button { font-family: inherit; cursor: pointer; border: 0; background: 0; color: inherit; }
+  .imai-features a { color: inherit; text-decoration: none; }
+
+  .imai-features .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* --- Section head --- */
+  .imai-features .section-head {
+    margin-bottom: 48px;
+    text-align: center;
+  }
+  .imai-features .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: var(--ink);
+    color: var(--ink-2);
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+  .imai-features .section-eyebrow .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime);
+  }
+  .imai-features .section-title {
+    font-size: clamp(40px, 5vw, 72px);
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    font-weight: 800;
+    margin: 18px auto 12px;
+    max-width: 18ch;
+  }
+  .imai-features .section-title .accent { color: var(--accent); }
+  .imai-features .section-sub {
+    font-size: 18px;
+    color: var(--ink-muted);
+    max-width: 56ch;
+    line-height: 1.5;
+    margin: 0 auto;
+  }
+
+  /* --- Feature card --- */
+  .imai-features .feature {
+    border: 1.5px solid var(--ink);
+    border-radius: 28px;
+    padding: 48px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
+    align-items: center;
+    background: #fff;
+  }
+  .imai-features .feature.dark { background: var(--ink); color: var(--ink-2); }
+  .imai-features .feature.flip > .f-copy { order: 2; }
+  .imai-features .feature .f-copy .lab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .imai-features .feature.dark .f-copy .lab { color: var(--lime); }
+  .imai-features .feature .f-copy .lab::before {
+    content: "›";
+    color: inherit;
+    font-weight: 700;
+  }
+  .imai-features .feature .f-copy h3 {
+    font-size: 48px;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    font-weight: 800;
+    margin: 0 0 18px;
+  }
+  .imai-features .feature .f-copy h3 .accent { color: var(--accent); }
+  .imai-features .feature.dark .f-copy h3 .accent { color: var(--lime); }
+  .imai-features .feature .f-copy p {
+    font-size: 16px;
+    line-height: 1.55;
+    color: inherit;
+    opacity: 0.8;
+    max-width: 44ch;
+    margin: 0;
+  }
+  .imai-features .feature .f-copy ul {
+    list-style: none;
+    margin: 22px 0;
+    padding: 0;
+  }
+  .imai-features .feature .f-copy ul li {
+    font-size: 14px;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid currentColor;
+    opacity: 0.9;
+  }
+  .imai-features .feature .f-copy ul li:last-child { border-bottom: 1px solid currentColor; }
+  .imai-features .feature.dark .f-copy ul li { border-color: rgba(255, 255, 255, 0.15); }
+  .imai-features .feature .f-copy ul li::before {
+    content: "→";
+    color: var(--accent);
+    font-weight: 700;
+    user-select: none;
+  }
+  .imai-features .feature.dark .f-copy ul li::before { color: var(--lime); }
+  .imai-features .f-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--ink-2);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .imai-features .feature.dark .f-link { background: var(--lime); color: var(--ink); }
+  .imai-features .feature .f-link:hover { background: var(--accent); color: white; }
+
+  .imai-features .f-visual {
+    background: var(--bg);
+    border: 1.5px solid var(--ink);
+    border-radius: 20px;
+    padding: 20px;
+    min-width: 0;
+  }
+  .imai-features .feature.dark .f-visual {
+    background: #0f0f0f;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--ink-2);
+  }
+
+  /* ===== Feature 1 — AI Search filter panel ===== */
+  .imai-features .v-search { background: #fafaff; padding: 18px; }
+  .imai-features .v-search .vs-top {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .imai-features .v-search .vs-platform {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px 7px 8px;
+    background: white;
+    border: 1px solid #e0e0e6;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .imai-features .v-search .vs-platform .ig {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #fdf4c0 0%, #f9476c 45%, #8564ff 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .imai-features .v-search .vs-platform .ig::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid #fff;
+  }
+  .imai-features .v-search .vs-platform .chev,
+  .imai-features .v-search .vs-chip .chev {
+    color: var(--ink-muted);
+    font-size: 10px;
+    margin-left: 4px;
+  }
+  .imai-features .v-search .vs-url {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: white;
+    border: 1px solid #e0e0e6;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    min-width: 0;
+  }
+  .imai-features .v-search .vs-url .at { color: var(--ink-muted); font-weight: 600; }
+  .imai-features .v-search .vs-ai-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: white;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .imai-features .v-search .vs-ai-btn .arrow { font-weight: 700; }
+  .imai-features .v-search .vs-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .imai-features .v-search .vs-title-row h4 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .imai-features .v-search .vs-reset {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 5px 10px;
+    border: 1px solid #e0e0e6;
+    border-radius: 6px;
+    background: white;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .imai-features .v-search .vs-section { margin-bottom: 14px; }
+  .imai-features .v-search .vs-section:last-child { margin-bottom: 0; }
+  .imai-features .v-search .vs-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .imai-features .v-search .vs-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .imai-features .v-search .vs-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: white;
+    border: 1px solid #e0e0e6;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .imai-features .v-search .vs-chip.ai { border-color: rgba(133, 100, 255, 0.35); }
+  .imai-features .v-search .vs-chip.ai .sp { color: var(--accent); font-size: 10px; }
+  .imai-features .v-search .vs-chip.ai-on {
+    border-color: var(--teal);
+    background: rgba(6, 199, 169, 0.05);
+  }
+  .imai-features .v-search .vs-toggles {
+    display: inline-flex;
+    gap: 16px;
+    align-items: center;
+    margin-left: 8px;
+  }
+  .imai-features .v-search .vs-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    color: var(--ink-muted);
+  }
+  .imai-features .v-search .vs-toggle .knob {
+    width: 22px;
+    height: 12px;
+    border-radius: 999px;
+    background: #e0e0e6;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .imai-features .v-search .vs-toggle .knob::after {
+    content: "";
+    position: absolute;
+    left: 1.5px;
+    top: 1.5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ===== Feature 2 — Creator Discovery (dark) ===== */
+  .imai-features .v-disc { color: inherit; }
+  .imai-features .v-disc .grid4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .imai-features .v-disc .platform {
+    border: 1.5px solid currentColor;
+    border-radius: 14px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .imai-features .v-disc .platform .l {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    opacity: 0.6;
+  }
+  .imai-features .v-disc .platform .n {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-top: 4px;
+  }
+  .imai-features .v-disc .platform .n .a { color: var(--lime); }
+  .imai-features .v-disc .platform .bar {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  .imai-features .v-disc .platform .bar > div {
+    height: 100%;
+    background: var(--lime);
+    border-radius: 2px;
+  }
+  .imai-features .v-disc .map {
+    margin-top: 12px;
+    height: 140px;
+    position: relative;
+    border: 1.5px solid currentColor;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .imai-features .v-disc .map .pin {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--lime);
+    box-shadow: 0 0 0 4px rgba(6, 199, 169, 0.18);
+  }
+
+  /* ===== Feature 3 — Campaign Management table ===== */
+  .imai-features .v-camp { background: #fafaff; padding: 18px; }
+  .imai-features .v-camp .cm-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .imai-features .v-camp .cm-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .imai-features .v-camp .cm-title h4 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .imai-features .v-camp .cm-title .live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(6, 199, 169, 0.12);
+    color: #1d6055;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .imai-features .v-camp .cm-title .live-pill .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+  .imai-features .v-camp .cm-actions { display: flex; gap: 6px; }
+  .imai-features .v-camp .cm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: white;
+    border: 1px solid #e0e0e6;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .imai-features .v-camp .cm-btn.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .imai-features .v-camp .cm-tabs {
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    background: #f0f0f6;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow-x: auto;
+  }
+  .imai-features .v-camp .cm-tab {
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-muted);
+    border-radius: 6px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .imai-features .v-camp .cm-tab.on {
+    background: white;
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+  .imai-features .v-camp .cm-tab .ct {
+    font-size: 10.5px;
+    padding: 1px 6px;
+    background: #e9e9ef;
+    border-radius: 999px;
+    font-weight: 700;
+    color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .imai-features .v-camp .cm-tab.on .ct { background: var(--accent); color: #fff; }
+  .imai-features .v-camp .cm-toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .imai-features .v-camp .cm-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    background: white;
+    border: 1px solid #e0e0e6;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .imai-features .v-camp .cm-search svg {
+    width: 12px;
+    height: 12px;
+    color: var(--ink-muted);
+  }
+  .imai-features .v-camp .cm-table {
+    background: white;
+    border: 1px solid #e0e0e6;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .imai-features .v-camp .cm-row {
+    display: grid;
+    grid-template-columns: 18px 1.6fr 1.2fr auto auto 18px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+  }
+  .imai-features .v-camp .cm-row + .cm-row { border-top: 1px solid #f0f0f3; }
+  .imai-features .v-camp .cm-row.head {
+    background: #f7f7fa;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    font-weight: 600;
+    padding: 8px 12px;
+  }
+  .imai-features .v-camp .cm-check {
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid #d4d4dc;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .imai-features .v-camp .cm-check.on {
+    background: var(--accent);
+    border-color: var(--accent);
+    position: relative;
+  }
+  .imai-features .v-camp .cm-check.on::after {
+    content: "✓";
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+  }
+  .imai-features .v-camp .cm-creator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .imai-features .v-camp .cm-av {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    background-color: #eeecff;
+  }
+  .imai-features .v-camp .cm-nm { font-weight: 700; font-size: 12.5px; color: var(--ink); }
+  .imai-features .v-camp .cm-hd {
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .imai-features .v-camp .cm-deliv {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .imai-features .v-camp .cm-tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: #f0f0f6;
+    color: var(--ink-muted);
+    font-weight: 600;
+  }
+  .imai-features .v-camp .cm-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .imai-features .v-camp .cm-status.paid { background: rgba(41, 157, 136, 0.12); color: #1d6055; }
+  .imai-features .v-camp .cm-status.live { background: rgba(6, 199, 169, 0.18); color: #1d6055; }
+  .imai-features .v-camp .cm-status.negotiating { background: rgba(239, 204, 1, 0.18); color: #886e00; }
+  .imai-features .v-camp .cm-status.draft { background: #f0f0f6; color: var(--ink-muted); }
+  .imai-features .v-camp .cm-status .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .imai-features .v-camp .cm-pay {
+    font-weight: 700;
+    font-size: 12.5px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink);
+    text-align: right;
+  }
+  .imai-features .v-camp .cm-more {
+    color: var(--ink-soft);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .imai-features .v-camp .cm-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .imai-features .v-camp .cm-footer .tot { font-weight: 700; color: var(--ink); }
+
+  /* --- Responsive --- */
+  @media (max-width: 980px) {
+    .imai-features { padding: 72px 0; }
+    .imai-features .feature {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+    }
+    .imai-features .feature.flip > .f-copy { order: 0; }
+  }
+  @media (max-width: 640px) {
+    .imai-features { padding: 56px 0; }
+    .imai-features .container { padding: 0 16px; }
+    .imai-features .section-title { font-size: clamp(32px, 8vw, 48px); }
+    .imai-features .section-sub { font-size: 16px; }
+    .imai-features .feature { padding: 20px; gap: 20px; border-radius: 20px; margin-bottom: 16px; }
+    .imai-features .feature .f-copy h3 { font-size: 30px; margin-bottom: 12px; }
+    .imai-features .feature .f-copy p { font-size: 15px; }
+    .imai-features .f-visual { padding: 12px; overflow: hidden; max-width: 100%; }
+    .imai-features .v-search, .imai-features .v-camp { padding: 12px; }
+    .imai-features .v-search .vs-top { grid-template-columns: 1fr; gap: 8px; }
+    .imai-features .v-camp .cm-toolbar { grid-template-columns: 1fr; }
+    .imai-features .v-camp .cm-row {
+      grid-template-columns: 16px minmax(0, 1fr) auto 14px;
+      gap: 6px;
+      padding: 8px 10px;
+    }
+    .imai-features .v-camp .cm-row > .cm-deliv,
+    .imai-features .v-camp .cm-row > .cm-pay { display: none; }
+    .imai-features .v-camp .cm-row.head > :nth-child(3),
+    .imai-features .v-camp .cm-row.head > :nth-child(5) { display: none; }
+    .imai-features .v-camp .cm-status { font-size: 9.5px; padding: 2px 6px; }
+    .imai-features .v-disc .platform .n { font-size: 28px; }
+  }
+</style>
+
+<section class="imai-features" id="features">
+  <div class="container">
+
+    <!-- Section head -->
+    <div class="section-head">
+      <span class="section-eyebrow"><span class="dot"></span>Three pillars · One platform</span>
+      <h2 class="section-title">Everything you need to <span class="accent">work with creators.</span></h2>
+      <p class="section-sub">From the first idea to the final invoice — IMAI replaces the spreadsheet, the inbox, and the agency.</p>
+    </div>
+
+    <!-- ============ FEATURE 1 — AI Influencer Search ============ -->
+    <div class="feature">
+      <div class="f-copy">
+        <div class="lab">01 · AI Influencer Search</div>
+        <h3>Search the way <span class="accent">you think.</span></h3>
+        <p>No more boolean filters from 2014. Describe who you want to reach in plain language and our AI does the rest — translating intent into 40+ audience &amp; content signals.</p>
+        <ul>
+          <li>Natural-language search across 412M+ creators</li>
+          <li>Audience overlap with your existing buyers</li>
+          <li>Lookalikes from any creator, list, or competitor</li>
+        </ul>
+        <a class="f-link" href="/register">Try AI Search →</a>
+      </div>
+      <div class="f-visual v-search">
+        <div class="vs-top">
+          <button class="vs-platform"><span class="ig"></span>Instagram<span class="chev">▾</span></button>
+          <div class="vs-url"><span class="at">@</span>Influencer profile URL, user ID or @handle</div>
+          <button class="vs-ai-btn"><span class="spark">✦</span>AI Search<span class="arrow">›</span></button>
+        </div>
+        <div class="vs-title-row">
+          <h4>Narrow your discovered influencers…</h4>
+          <button class="vs-reset">START OVER</button>
+        </div>
+
+        <div class="vs-section">
+          <div class="vs-label">Demographics</div>
+          <div class="vs-chips">
+            <span class="vs-chip">Location<span class="chev">▾</span></span>
+            <span class="vs-chip">Gender<span class="chev">▾</span></span>
+            <span class="vs-chip">Language<span class="chev">▾</span></span>
+            <span class="vs-chip">Age<span class="chev">▾</span></span>
+            <span class="vs-chip">Audience Type<span class="chev">▾</span></span>
+            <span class="vs-chip">Ethnicity<span class="chev">▾</span></span>
+          </div>
+        </div>
+
+        <div class="vs-section">
+          <div class="vs-label">Performance</div>
+          <div class="vs-chips">
+            <span class="vs-chip">Followers<span class="chev">▾</span></span>
+            <span class="vs-chip">Engagements<span class="chev">▾</span></span>
+            <span class="vs-chip">Trending<span class="chev">▾</span></span>
+            <span class="vs-chip">Reels Plays<span class="chev">▾</span></span>
+            <span class="vs-chip">Hidden Likes<span class="chev">▾</span></span>
+          </div>
+        </div>
+
+        <div class="vs-section">
+          <div class="vs-label">Content</div>
+          <div class="vs-chips">
+            <span class="vs-chip ai">NICHE AI<span class="sp">✦</span><span class="chev">▾</span></span>
+            <span class="vs-chip ai">TOPICS AI<span class="sp">✦</span><span class="chev">▾</span></span>
+            <span class="vs-chip ai ai-on">LOOKALIKES AI<span class="sp">✦</span><span class="chev">▾</span></span>
+            <span class="vs-chip">Mentions<span class="chev">▾</span></span>
+            <span class="vs-chip">Interests<span class="chev">▾</span></span>
+            <span class="vs-chip">Caption Keyword<span class="chev">▾</span></span>
+            <span class="vs-chip">Partnerships<span class="chev">▾</span></span>
+            <span class="vs-chip">Brands<span class="chev">▾</span></span>
+          </div>
+        </div>
+
+        <div class="vs-section">
+          <div class="vs-label">Account</div>
+          <div class="vs-chips">
+            <span class="vs-chip">Last Post<span class="chev">▾</span></span>
+            <span class="vs-chip">Account Type<span class="chev">▾</span></span>
+            <span class="vs-chip">Contacts<span class="chev">▾</span></span>
+            <span class="vs-toggles">
+              <span class="vs-toggle"><span class="knob"></span>Only verified</span>
+              <span class="vs-toggle"><span class="knob"></span>Only credible</span>
+              <span class="vs-toggle"><span class="knob"></span>Exclude private</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ FEATURE 2 — Creator Discovery (dark, flipped) ============ -->
+    <div class="feature dark flip">
+      <div class="f-copy">
+        <div class="lab">02 · Creator Discovery</div>
+        <h3>The world's largest <span class="accent">creator graph.</span></h3>
+        <p>IMAI continuously crawls every major platform — Instagram, TikTok, YouTube, X. The result: audience demographics, brand affinities, and content semantics on creators most tools have never even heard of.</p>
+        <ul>
+          <li>400M+ creators · 187 countries · 4 platforms</li>
+          <li>Audience demographics &amp; psychographics</li>
+          <li>Fake-follower &amp; brand-safety screening</li>
+        </ul>
+        <a class="f-link" href="/register">See the data →</a>
+      </div>
+      <div class="f-visual v-disc">
+        <div class="grid4">
+          <div class="platform">
+            <div class="l">Instagram</div>
+            <div class="n"><span class="a">218</span>M</div>
+            <div class="bar"><div style="width:88%"></div></div>
+          </div>
+          <div class="platform">
+            <div class="l">TikTok</div>
+            <div class="n"><span class="a">112</span>M</div>
+            <div class="bar"><div style="width:62%"></div></div>
+          </div>
+          <div class="platform">
+            <div class="l">YouTube</div>
+            <div class="n"><span class="a">58</span>M</div>
+            <div class="bar"><div style="width:40%"></div></div>
+          </div>
+          <div class="platform">
+            <div class="l">X / others</div>
+            <div class="n"><span class="a">14</span>M</div>
+            <div class="bar"><div style="width:18%"></div></div>
+          </div>
+        </div>
+        <div class="map">
+          <div class="pin" style="left:18%;top:32%"></div>
+          <div class="pin" style="left:30%;top:24%"></div>
+          <div class="pin" style="left:42%;top:38%"></div>
+          <div class="pin" style="left:55%;top:30%"></div>
+          <div class="pin" style="left:64%;top:48%"></div>
+          <div class="pin" style="left:75%;top:38%"></div>
+          <div class="pin" style="left:82%;top:58%"></div>
+          <div class="pin" style="left:24%;top:60%"></div>
+          <div class="pin" style="left:50%;top:72%"></div>
+          <div class="pin" style="left:36%;top:78%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ FEATURE 3 — Campaign Management ============ -->
+    <div class="feature">
+      <div class="f-copy">
+        <div class="lab">03 · Campaign Management</div>
+        <h3>From brief to <span class="accent">bank transfer.</span></h3>
+        <p>Brief, outreach, contracts, content review, payment, reporting. Nothing falls outside the platform — and nothing falls through the cracks.</p>
+        <ul>
+          <li>AI-personalized outreach with templates</li>
+          <li>Contracts &amp; payouts in 190 currencies · 50+ countries</li>
+          <li>Live ROI tracking — EMV, CPM, CAC, GMV</li>
+        </ul>
+        <a class="f-link" href="/register">See campaigns →</a>
+      </div>
+      <div class="f-visual v-camp">
+        <div class="cm-head">
+          <div class="cm-title">
+            <h4>SS26 launch</h4>
+            <span class="live-pill"><span class="dot"></span>Live</span>
+          </div>
+          <div class="cm-actions">
+            <button class="cm-btn">Export</button>
+            <button class="cm-btn primary">+ Add creator</button>
+          </div>
+        </div>
+
+        <div class="cm-tabs">
+          <span class="cm-tab">All <span class="ct">60</span></span>
+          <span class="cm-tab">Outreach <span class="ct">142</span></span>
+          <span class="cm-tab">Negotiating <span class="ct">38</span></span>
+          <span class="cm-tab on">Live <span class="ct">19</span></span>
+          <span class="cm-tab">Paid <span class="ct">11</span></span>
+        </div>
+
+        <div class="cm-toolbar">
+          <div class="cm-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            Search creators in this campaign…
+          </div>
+          <button class="cm-btn">Filter</button>
+          <button class="cm-btn">Sort: Status</button>
+        </div>
+
+        <div class="cm-table">
+          <div class="cm-row head">
+            <span class="cm-check"></span>
+            <span>Creator</span>
+            <span>Deliverables</span>
+            <span>Status</span>
+            <span style="text-align:right">Payout</span>
+            <span></span>
+          </div>
+
+          <div class="cm-row">
+            <span class="cm-check on"></span>
+            <div class="cm-creator">
+              <div class="cm-av" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&amp;h=96&amp;fit=crop&amp;crop=faces&amp;auto=format&amp;q=80')"></div>
+              <div><div class="cm-nm">Mara Linde</div><div class="cm-hd">@maralinde · IG</div></div>
+            </div>
+            <div class="cm-deliv"><span class="cm-tag">2 posts</span><span class="cm-tag">1 reel</span></div>
+            <span class="cm-status paid"><span class="dot"></span>Paid</span>
+            <span class="cm-pay">€2,400</span>
+            <span class="cm-more">⋯</span>
+          </div>
+
+          <div class="cm-row">
+            <span class="cm-check on"></span>
+            <div class="cm-creator">
+              <div class="cm-av" style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&amp;h=96&amp;fit=crop&amp;crop=faces&amp;auto=format&amp;q=80')"></div>
+              <div><div class="cm-nm">Jonas Becker</div><div class="cm-hd">@jonasthrift · IG</div></div>
+            </div>
+            <div class="cm-deliv"><span class="cm-tag">1 reel</span></div>
+            <span class="cm-status live"><span class="dot"></span>Live</span>
+            <span class="cm-pay">€1,200</span>
+            <span class="cm-more">⋯</span>
+          </div>
+
+          <div class="cm-row">
+            <span class="cm-check on"></span>
+            <div class="cm-creator">
+              <div class="cm-av" style="background-image:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&amp;h=96&amp;fit=crop&amp;crop=faces&amp;auto=format&amp;q=80')"></div>
+              <div><div class="cm-nm">Anika Roth</div><div class="cm-hd">@anikaroth_ · IG</div></div>
+            </div>
+            <div class="cm-deliv"><span class="cm-tag">3 stories</span><span class="cm-tag">1 post</span></div>
+            <span class="cm-status live"><span class="dot"></span>Live</span>
+            <span class="cm-pay">€3,600</span>
+            <span class="cm-more">⋯</span>
+          </div>
+
+          <div class="cm-row">
+            <span class="cm-check"></span>
+            <div class="cm-creator">
+              <div class="cm-av" style="background-image:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=96&amp;h=96&amp;fit=crop&amp;crop=faces&amp;auto=format&amp;q=80')"></div>
+              <div><div class="cm-nm">Lea Vogel</div><div class="cm-hd">@lea.vogel · TT</div></div>
+            </div>
+            <div class="cm-deliv"><span class="cm-tag">1 TikTok</span></div>
+            <span class="cm-status negotiating"><span class="dot"></span>Negotiating</span>
+            <span class="cm-pay">€900</span>
+            <span class="cm-more">⋯</span>
+          </div>
+
+          <div class="cm-row">
+            <span class="cm-check"></span>
+            <div class="cm-creator">
+              <div class="cm-av" style="background-image:url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=96&amp;h=96&amp;fit=crop&amp;crop=faces&amp;auto=format&amp;q=80')"></div>
+              <div><div class="cm-nm">Sofia Kraus</div><div class="cm-hd">@sofiakraus · IG</div></div>
+            </div>
+            <div class="cm-deliv"><span class="cm-tag">Draft brief</span></div>
+            <span class="cm-status draft"><span class="dot"></span>Draft</span>
+            <span class="cm-pay">—</span>
+            <span class="cm-more">⋯</span>
+          </div>
+        </div>
+
+        <div class="cm-footer">
+          <span>3 selected · <span class="tot">€7,200 ready to pay</span></span>
+          <span>1–5 of 19</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
