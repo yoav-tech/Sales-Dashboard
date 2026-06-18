@@ -25,289 +25,9 @@
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/onboarding-tal.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<style>
-  :root {
-    --bg: #ffffff;
-    --bg-soft: #fafaff;
-    --surface-2: #f7f7fa;
-    --surface-3: #ececf2;
-    --line: #ececec;
-    --line-2: #dcdce0;
-    --ink: #1d1d1b;
-    --ink-muted: #555555;
-    --ink-soft: #8f8f8f;
-    --pink: #f9476c;
-    --purple: #8564ff;
-    --teal: #06c7a9;
-    --yellow: #efcc01;
-    --green: #299d88;
-    --lavender: #eeecff;
-    --mint: #e0f8f2;
-    --pink-l: #ffecf0;
-    --yellow-l: #fdf4c0;
-    --accent: var(--purple);
-    --accent-hover: #6442dd;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--ink); font-family: 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  body { min-height: 100vh; padding-bottom: 48px; }
-  a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; font-size: inherit; }
-  input { font-family: inherit; font-size: 14px; color: var(--ink); }
-  input::placeholder { color: var(--ink-soft); }
-  .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
-
-  /* ============ NAV + STEPPER ============ */
-  nav.top { border-bottom: 1px solid var(--line); padding: 16px 0; margin-bottom: 40px; }
-  nav.top .inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; line-height: 1.05; }
-  .logo-mark {
-    width: 22px; height: 22px; flex-shrink: 0;
-    background:
-      radial-gradient(circle at 28% 28%, var(--pink) 0 4px, transparent 5px),
-      radial-gradient(circle at 72% 28%, var(--purple) 0 4px, transparent 5px),
-      radial-gradient(circle at 28% 72%, var(--teal) 0 4px, transparent 5px),
-      radial-gradient(circle at 72% 72%, var(--yellow) 0 4px, transparent 5px);
-  }
-  .logo .name { display: flex; flex-direction: column; line-height: 1.04; }
-  .logo .name span { display: block; }
-  .logo .name .ai { color: var(--pink); }
-
-  .stepper { display: flex; align-items: center; flex: 1; max-width: 640px; justify-content: center; gap: 14px; }
-  .step { display: inline-flex; align-items: center; gap: 10px; line-height: 1; color: var(--ink-soft); }
-  .step .circle { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--surface-3); border: 1px solid var(--line-2); color: var(--ink-soft); font-size: 11px; font-weight: 700; flex-shrink: 0; }
-  .step.done .circle { background: transparent; color: var(--ink); border-color: var(--line-2); }
-  .step.done .circle::after { content: "✓"; color: var(--ink); font-size: 11px; }
-  .step.done .circle .num { display: none; }
-  .step.active .circle { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 3px rgba(133,100,255,0.22); }
-  .step .label { font-size: 13px; font-weight: 500; }
-  .step.done .label, .step.active .label { color: var(--ink); font-weight: 600; }
-  .stepper > .line { width: 36px; height: 1px; background: var(--line-2); flex-shrink: 0; }
-  .help { font-size: 13px; color: var(--ink-soft); }
-
-  /* ============ HEADING ============ */
-  .heading { text-align: center; margin-bottom: 28px; }
-  .heading .eyebrow { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; background: var(--teal); color: var(--ink); padding: 4px 10px 4px 8px; border-radius: 999px; margin-bottom: 16px; font-weight: 700; }
-  .heading .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink); }
-  .heading h1 { font-size: clamp(48px, 6vw, 80px); letter-spacing: -0.045em; line-height: 0.95; font-weight: 800; margin-bottom: 14px; }
-  .heading h1 .wrap { display: inline-block; background: var(--ink); color: #fff; padding: 0 14px 6px; border-radius: 16px; transform: rotate(-1.5deg); }
-  .heading h1 .accent { color: var(--accent); }
-  .heading p { font-size: 17px; color: var(--ink-muted); max-width: 60ch; margin: 0 auto; line-height: 1.55; }
-  .heading p b { color: var(--ink); }
-
-  /* ============ MAIN GRID ============ */
-  .main-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; }
-
-  /* ---------- HERO SEARCH WIDGET ---------- */
-  .search-widget {
-    background: var(--ink); color: #fff;
-    border: 1.5px solid var(--ink); border-radius: 24px;
-    padding: 26px;
-  }
-  .search-widget .sw-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .search-widget .sw-lab { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 6px; }
-  .search-widget .sw-lab .d { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 1.6s ease-in-out infinite; }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
-  .search-widget .sw-pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 9px; background: var(--teal); color: var(--ink); border-radius: 999px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
-
-  .search-widget .q-input {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 12px; padding: 14px 16px;
-    font-size: 15px; line-height: 1.5; color: #fff;
-    display: flex; align-items: flex-start; gap: 8px;
-    margin-bottom: 8px;
-  }
-  .search-widget .q-input .gt { color: rgba(255,255,255,0.45); flex-shrink: 0; }
-  .search-widget .q-input .em {
-    color: var(--teal);
-    font-weight: 600;
-    border-bottom: 1px dashed rgba(6,199,169,0.45);
-    padding-bottom: 1px;
-    white-space: nowrap;
-  }
-  .search-widget .q-input .cursor { display: inline-block; width: 7px; height: 16px; background: var(--teal); animation: blink 1s steps(1) infinite; margin-left: 2px; vertical-align: middle; }
-  @keyframes blink { 50% { opacity: 0; } }
-  .search-widget .q-meta { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 18px; }
-  .search-widget .q-meta .count { color: var(--teal); font-weight: 700; }
-
-  .search-widget .results { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
-  .res-card {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10);
-    border-radius: 12px; padding: 12px 14px;
-    display: grid; grid-template-columns: 36px 1fr auto auto; gap: 14px; align-items: center;
-    animation: slideIn .4s ease both;
-  }
-  @keyframes slideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-  .res-card .av { width: 36px; height: 36px; border-radius: 50%; }
-  .res-card .nm { font-weight: 700; font-size: 14px; }
-  .res-card .hd { font-size: 11.5px; color: rgba(255,255,255,0.55); font-family: 'JetBrains Mono', monospace; margin-top: 2px; }
-  .res-card .stats { display: flex; gap: 14px; }
-  .res-card .stat { text-align: right; }
-  .res-card .stat .v { font-weight: 700; font-size: 13px; }
-  .res-card .stat .l { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.06em; }
-  .res-card .match {
-    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
-    background: var(--teal); color: var(--ink);
-    padding: 4px 9px; border-radius: 7px; font-weight: 700;
-  }
-
-  .sw-cta-row { display: flex; gap: 10px; align-items: center; }
-  .sw-cta-row .primary {
-    flex: 1;
-    padding: 14px 20px;
-    background: var(--accent); color: #fff;
-    font-weight: 700; font-size: 15px;
-    border: 1.5px solid var(--ink); border-radius: 12px;
-    box-shadow: 4px 4px 0 0 #fff;
-    transition: background .15s, transform .12s ease, box-shadow .12s ease;
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    cursor: pointer;
-  }
-  .sw-cta-row .primary:hover { background: var(--accent-hover); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 0 #fff; }
-  .sw-cta-row .primary:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 #fff; }
-  .sw-cta-row .primary svg { width: 16px; height: 16px; }
-  .sw-cta-row .ghost {
-    padding: 12px 18px;
-    background: transparent; color: #fff;
-    border: 1.5px solid rgba(255,255,255,0.45); border-radius: 12px;
-    font-weight: 700; font-size: 13.5px;
-    transition: background .15s, transform .12s ease;
-    cursor: pointer;
-  }
-  .sw-cta-row .ghost:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
-
-  /* refine panel */
-  .refine-panel {
-    margin-top: 14px; padding: 16px;
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 14px;
-    max-height: 0; opacity: 0; overflow: hidden;
-    transition: max-height .35s ease, opacity .25s ease, margin-top .35s ease, padding .35s ease;
-  }
-  .refine-panel.open { max-height: 320px; opacity: 1; padding: 16px; margin-top: 14px; }
-  .refine-panel.closing { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; }
-  .refine-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .refine-head .lab { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); }
-  .refine-head .close { font-size: 16px; color: rgba(255,255,255,0.55); padding: 2px 6px; }
-  .refine-head .close:hover { color: #fff; }
-  .refine-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
-  .refine-fld { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 8px 12px; cursor: pointer; transition: border-color .15s, background .15s; }
-  .refine-fld:hover { border-color: rgba(255,255,255,0.28); background: rgba(255,255,255,0.07); }
-  .refine-fld .l { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.5); }
-  .refine-fld .v { font-size: 13px; font-weight: 600; color: #fff; margin-top: 2px; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-  .refine-fld .v .chev { font-size: 10px; opacity: .6; }
-  .refine-actions { display: flex; gap: 8px; align-items: center; }
-  .refine-actions .apply { flex: 1; padding: 10px; background: var(--teal); color: var(--ink); border-radius: 10px; font-weight: 700; font-size: 13px; }
-  .refine-actions .apply:hover { background: #00b69a; }
-  .refine-actions .reset { padding: 10px 14px; color: rgba(255,255,255,0.6); font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
-  .refine-actions .reset:hover { color: #fff; }
-
-  /* ---------- SIDE CHECKLIST ---------- */
-  .side { display: flex; flex-direction: column; gap: 12px; }
-  .panel-head {
-    background: #fff; border: 1.5px solid var(--ink);
-    border-radius: 18px; padding: 18px 20px;
-    display: flex; align-items: center; justify-content: space-between; gap: 14px;
-  }
-  .panel-head h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
-  .panel-head .progress { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted); }
-  .panel-head .progress b { color: var(--ink); }
-  .progress-bar {
-    height: 4px; background: var(--surface-3); border-radius: 2px;
-    overflow: hidden; width: 80px;
-  }
-  .progress-bar > div { height: 100%; background: var(--teal); transition: width .3s; }
-
-  .task-card {
-    background: #fff; border: 1.5px solid var(--ink); border-radius: 16px;
-    padding: 14px 16px;
-    display: grid; grid-template-columns: 36px 1fr auto; gap: 14px; align-items: center;
-    cursor: pointer;
-    transition: transform .15s, box-shadow .15s, background .15s;
-  }
-  .task-card:hover { transform: translateY(-2px); box-shadow: 3px 4px 0 0 var(--ink); }
-  .task-card.done { background: var(--mint); }
-  .task-card .ic {
-    width: 36px; height: 36px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff;
-  }
-  .task-card .ic svg { width: 16px; height: 16px; }
-  .task-card.purple .ic { background: var(--purple); }
-  .task-card.pink .ic { background: var(--pink); }
-  .task-card.yellow .ic { background: var(--yellow); color: var(--ink); }
-  .task-card .body .nm { font-weight: 700; font-size: 15.5px; letter-spacing: -0.015em; line-height: 1.2; }
-  .task-card .body .sub { font-size: 13px; color: var(--ink-muted); margin-top: 4px; line-height: 1.4; }
-  .task-card .check {
-    width: 22px; height: 22px; border-radius: 50%;
-    border: 1.5px solid var(--ink); background: #fff;
-    flex-shrink: 0; position: relative;
-  }
-  .task-card.done .check { background: var(--ink); }
-  .task-card.done .check::after { content: "✓"; color: #fff; font-size: 12px; font-weight: 800; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); line-height: 1; }
-  .task-card .body .time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
-
-  .skip-link {
-    margin-top: 4px; text-align: center;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    color: var(--ink-soft); letter-spacing: 0.05em; text-transform: uppercase;
-    padding: 10px;
-  }
-  .skip-link a { color: var(--ink); font-weight: 700; text-decoration: underline; }
-
-  /* ---------- QA FOOTER ---------- */
-  .qa-footer {
-    text-align: center; margin-top: 60px; padding-top: 24px;
-    border-top: 1px solid var(--line);
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    color: var(--ink-soft); letter-spacing: 0.05em; text-transform: uppercase;
-  }
-  .qa-footer a { color: var(--ink); font-weight: 600; text-decoration: underline; margin: 0 2px; }
-
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 920px) {
-    .main-grid { grid-template-columns: 1fr; }
-    .stepper { gap: 8px; max-width: none; flex: 0 0 auto; }
-    .step .label { display: none; }
-    .stepper > .line { width: 18px; }
-    nav.top .help { display: none; }
-  }
-  @media (max-width: 640px) {
-    .container { padding: 0 16px; }
-    nav.top { padding: 12px 0; margin-bottom: 24px; }
-    nav.top .inner { gap: 12px; flex-wrap: wrap; }
-    .stepper { order: 3; width: 100%; justify-content: flex-start; gap: 6px; }
-    .stepper > .line { width: 12px; }
-    .heading { margin-bottom: 22px; }
-    .heading h1 { font-size: clamp(30px, 9vw, 44px); }
-    .heading h1 .wrap { padding: 0 10px 3px; }
-    .heading p { font-size: 14px; }
-
-    .search-widget { padding: 18px; border-radius: 18px; }
-    .search-widget .sw-head { flex-direction: column; align-items: flex-start; gap: 6px; }
-    .search-widget .q-input { font-size: 13.5px; padding: 12px 14px; }
-    .search-widget .q-input .em { white-space: normal; }
-    .res-card { grid-template-columns: 32px 1fr auto; gap: 10px; padding: 10px 12px; }
-    .res-card .stats { display: none; }
-    .res-card .av { width: 32px; height: 32px; }
-    .res-card .nm { font-size: 13px; }
-    .res-card .hd { font-size: 10.5px; }
-    .res-card .match { font-size: 10.5px; padding: 3px 7px; }
-    .sw-cta-row { flex-direction: column; }
-    .sw-cta-row .primary, .sw-cta-row .ghost { width: 100%; justify-content: center; }
-    .refine-grid { grid-template-columns: 1fr; }
-
-    .panel-head { padding: 14px 16px; }
-    .panel-head h3 { font-size: 13.5px; }
-    .progress-bar { width: 60px; }
-    .task-card { padding: 12px 14px; gap: 10px; grid-template-columns: 32px 1fr auto; }
-    .task-card .ic { width: 32px; height: 32px; }
-    .task-card .body .nm { font-size: 13px; }
-    .task-card .body .sub { font-size: 11.5px; }
-  }
-</style>
 <style>
   /* ===== Brand logo (LOCKED — assets/imai-logo.png) ===== */
   .logo { width: 112px !important; height: 32px; padding: 0; gap: 0; background: #ffffff url('/assets/imai-logo.png') center / auto 20px no-repeat; border-radius: 8px; display: inline-flex; align-items: center; }
@@ -443,77 +163,73 @@
       </div>
     </div>
 
-    <!-- SIDE CHECKLIST -->
+    <!-- SIDE: WHAT THE AI ALREADY DID (value / aha) -->
     <div class="side">
       <div class="panel-head">
-        <h3>Make this search yours</h3>
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="progress-bar"><div id="progressFill" style="width:0%"></div></div>
-          <span class="progress"><b id="progressCount">0</b>/3</span>
+        <div>
+          <h3>What our AI already did</h3>
+          <p class="ph-sub">No setup. This ran the moment you signed up.</p>
         </div>
+        <span class="ph-pill"><span class="d"></span>2.4s</span>
       </div>
 
-      <div class="task-card purple" data-task="save-search">
+      <div class="insight-card teal">
         <span class="ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
         </span>
         <div class="body">
-          <div class="nm">Save this search</div>
-          <div class="sub">Re-run it weekly. We'll surface new creators that match your prompt.</div>
-          <div class="time">1-click · stays in your sidebar</div>
+          <div class="lab">Vetted for fake followers</div>
+          <div class="fig"><b id="figVetted">1,914</b> <span class="unit">verified authentic</span></div>
+          <div class="sub"><b id="figFlagged">504</b> profiles flagged for fake followers and hidden — a check only IMAI runs.</div>
+          <span class="only">Only on IMAI</span>
         </div>
-        <span class="check"></span>
       </div>
 
-      <div class="task-card pink" data-task="build-list">
+      <div class="insight-card purple">
         <span class="ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
         </span>
         <div class="body">
-          <div class="nm">Build your first list</div>
-          <div class="sub">Group shortlisted creators into a roster you can brief and outreach in bulk.</div>
-          <div class="time">Optional · ~1 min</div>
+          <div class="lab">Audience match to your target</div>
+          <div class="fig"><b>82%</b> <span class="unit">on-target</span></div>
+          <div class="sub">of their followers are <b>25–34, 80%+ female</b> — benchmarked against category average.</div>
         </div>
-        <span class="check"></span>
       </div>
 
-      <div class="task-card yellow" data-task="schedule-report">
+      <div class="insight-card yellow">
         <span class="ic">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-6"/></svg>
         </span>
         <div class="body">
-          <div class="nm">Schedule a weekly report</div>
-          <div class="sub">Audience, ER, and ROI digest in your inbox every Monday — share with your team.</div>
-          <div class="time">Optional · skip ok</div>
+          <div class="lab">Estimated media value</div>
+          <div class="fig"><b>$486K</b> <span class="unit">EMV</span></div>
+          <div class="sub">projected across your <b>top 50</b> matches — the ROI you'd unlock by activating this shortlist.</div>
         </div>
-        <span class="check"></span>
       </div>
 
-      <div class="skip-link">Skip everything — <a href="/register">go straight to the dashboard →</a></div>
+      <div class="value-foot">
+        <p>You did none of this. Our AI did — before your trial clock started.</p>
+        <a class="vf-cta" href="/register">
+          Open the full report
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
 
-  </div>
-
-  <div class="qa-footer">
-    QA TEST FLOW · <a href="/">Gallery</a> · <a href="variation-b.html">Landing</a> · <a href="/register">Register</a> · <a href="/onboarding/personalize">Personalize</a> · <a href="/onboarding/payment">Confirm</a> · Setup · <a href="/register">Dashboard →</a>
   </div>
 
 </div>
 
 <script>
-  // Checklist progress
-  const tasks = document.querySelectorAll('.task-card');
-  const fill = document.getElementById('progressFill');
-  const countEl = document.getElementById('progressCount');
-  function updateProgress() {
-    const done = document.querySelectorAll('.task-card.done').length;
-    countEl.textContent = done;
-    fill.style.width = (done / tasks.length * 100) + '%';
+  // Keep the vetting figures in sync with the live match count
+  const figVetted = document.getElementById('figVetted');
+  const figFlagged = document.getElementById('figFlagged');
+  function syncVetted(total) {
+    const flagged = Math.round(total * 0.208);
+    if (figVetted) figVetted.textContent = (total - flagged).toLocaleString();
+    if (figFlagged) figFlagged.textContent = flagged.toLocaleString();
   }
-  tasks.forEach(t => t.addEventListener('click', () => {
-    t.classList.toggle('done');
-    updateProgress();
-  }));
+  syncVetted(2418);
 
   // Animate result count tick-down (give a sense of live filtering)
   const counter = document.getElementById('resultCount');
@@ -636,6 +352,7 @@
       const erMult = opts.er[state.er].mult;
       n = Math.round(lData.count * erMult);
       counter.textContent = n.toLocaleString() + ' creators';
+      syncVetted(n);
 
       closePanel();
     }

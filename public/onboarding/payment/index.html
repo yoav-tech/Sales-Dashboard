@@ -25,447 +25,9 @@
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/onboarding-tal.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<style>
-  :root {
-    --bg: #ffffff;
-    --surface: #ffffff;
-    --surface-2: #f7f7fa;
-    --surface-3: #ececf2;
-    --line: #ececec;
-    --line-2: #dcdce0;
-
-    --ink: #1d1d1b;
-    --ink-muted: #555555;
-    --ink-soft: #8f8f8f;
-
-    /* IM.Ai brand dots */
-    --pink: #f9476c;
-    --purple: #8564ff;
-    --teal: #06c7a9;
-    --yellow: #efcc01;
-    --green: #299d88;
-    --blue: #8564ff;
-
-    --accent: var(--purple);
-    --accent-hover: #6442dd;
-    --success: var(--green);
-    --on-accent: #ffffff;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--ink); font-family: 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  body { min-height: 100vh; padding-bottom: 48px; }
-  a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; font-size: inherit; }
-  input, select { font-family: inherit; font-size: 13.5px; color: var(--ink); }
-  input::placeholder { color: var(--ink-soft); }
-  .mono { font-family: 'JetBrains Mono', monospace; }
-  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-
-  /* ============ TOP NAV + STEPPER ============ */
-  nav.top {
-    border-bottom: 1px solid var(--line);
-    padding: 16px 0; margin-bottom: 36px;
-  }
-  nav.top .inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-
-  .logo { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; line-height: 1.05; }
-  .logo-mark {
-    width: 22px; height: 22px; position: relative; flex-shrink: 0;
-    background:
-      radial-gradient(circle at 28% 28%, var(--pink) 0 4px, transparent 5px),
-      radial-gradient(circle at 72% 28%, var(--purple) 0 4px, transparent 5px),
-      radial-gradient(circle at 28% 72%, var(--teal) 0 4px, transparent 5px),
-      radial-gradient(circle at 72% 72%, var(--yellow) 0 4px, transparent 5px);
-  }
-  .logo .name { display: flex; flex-direction: column; }
-  .logo .name .ai { color: var(--pink); }
-
-  .stepper { display: flex; align-items: center; flex: 1; max-width: 640px; justify-content: center; gap: 14px; }
-  .step { display: inline-flex; align-items: center; gap: 10px; line-height: 1; }
-  .step .circle {
-    width: 22px; height: 22px; border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--surface-3); border: 1px solid var(--line-2);
-    color: var(--ink-soft); font-size: 11px; font-weight: 700; line-height: 1;
-    flex-shrink: 0;
-  }
-  .step.done .circle { background: transparent; color: var(--ink); border-color: var(--line-2); }
-  .step.done .circle::after { content: "✓"; color: var(--ink); font-size: 11px; line-height: 1; }
-  .step.done .circle .num { display: none; }
-  .step.active .circle { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 3px rgba(133,100,255,0.22); }
-  .step .label { font-size: 13px; font-weight: 500; color: var(--ink-soft); letter-spacing: -0.005em; line-height: 1; }
-  .step.done .label, .step.active .label { color: var(--ink); }
-  .stepper > .line { width: 36px; height: 1px; background: var(--line-2); flex-shrink: 0; }
-
-  .help { font-size: 13px; color: var(--ink-soft); }
-  .help:hover { color: var(--ink); }
-
-  /* ============ HEADING ============ */
-  .heading { text-align: center; margin-bottom: 28px; }
-  .heading h1 { font-size: 28px; letter-spacing: -0.025em; line-height: 1.1; font-weight: 700; margin-bottom: 6px; }
-  .heading p { font-size: 14px; color: var(--ink-muted); max-width: 50ch; margin: 0 auto; line-height: 1.5; }
-
-  /* ============ TWO-COL ============ */
-  .grid { display: grid; grid-template-columns: 0.85fr 1fr; gap: 16px; align-items: start; }
-
-  .panel {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: 14px; padding: 22px;
-  }
-  .panel + .panel { margin-top: 12px; }
-
-  /* ============ PLAN SUMMARY (LEFT) ============ */
-  .plan-head { padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
-  .plan-head .lab { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); }
-  .plan-head h3 { font-size: 19px; letter-spacing: -0.02em; font-weight: 700; margin-top: 3px; }
-  .plan-head .users { font-size: 12.5px; color: var(--ink-muted); margin-top: 4px; }
-  .plan-head .users b { color: var(--ink); font-weight: 600; }
-
-  .feat-list { display: flex; flex-direction: column; }
-  .feat-row {
-    display: grid; grid-template-columns: 16px 1fr auto;
-    gap: 10px; padding: 8px 0; align-items: center;
-    font-size: 13.5px;
-  }
-  .feat-row + .feat-row { border-top: 1px solid var(--line); }
-  .feat-row .ic { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); }
-  .feat-row .ic svg { width: 14px; height: 14px; }
-  .feat-row .ic.pink { color: var(--pink); }
-  .feat-row .ic.purple { color: var(--purple); }
-  .feat-row .ic.teal { color: var(--teal); }
-  .feat-row .ic.yellow { color: var(--yellow); }
-  .feat-row .nm { font-weight: 500; letter-spacing: -0.005em; color: var(--ink); }
-  .feat-row .val { font-size: 12px; color: var(--ink-muted); font-family: 'JetBrains Mono', monospace; }
-  .feat-row .val.check { color: var(--success); font-size: 14px; font-family: 'Poppins', sans-serif; }
-
-  .switch-plan {
-    display: block; width: 100%; margin-top: 14px;
-    padding: 9px; text-align: center;
-    background: var(--surface-3); border: 1px solid var(--line-2);
-    border-radius: 8px; font-size: 12.5px; color: var(--ink-muted);
-    transition: color .15s, border-color .15s;
-  }
-  .switch-plan:hover { color: var(--ink); border-color: var(--line-2); }
-
-  /* trust block */
-  .trust .row { display: flex; align-items: start; gap: 12px; padding: 10px 0; }
-  .trust .row + .row { border-top: 1px solid var(--line); }
-  .trust .ic2 { width: 22px; height: 22px; flex-shrink: 0; color: var(--ink-muted); }
-  .trust .ic2 svg { width: 22px; height: 22px; }
-  .trust .ttl { font-weight: 600; font-size: 13.5px; letter-spacing: -0.005em; color: var(--ink); }
-  .trust .desc { font-size: 12px; color: var(--ink-soft); margin-top: 1px; line-height: 1.4; }
-
-  /* ============ RIGHT: PAYMENT FORM ============ */
-  .pricing-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
-  .ptab {
-    border: 1px solid var(--line-2); border-radius: 12px;
-    padding: 14px 14px; background: var(--surface-2);
-    text-align: left; cursor: pointer; position: relative;
-    transition: border-color .15s, background .15s;
-  }
-  .ptab:hover { border-color: rgba(0,0,0,0.18); }
-  .ptab.on { border-color: var(--accent); background: rgba(133,100,255,0.06); box-shadow: 0 0 0 1px var(--accent) inset; }
-  .ptab .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-  .ptab .amt { display: flex; align-items: baseline; gap: 5px; margin-top: 2px; }
-  .ptab .amt .n { font-size: 22px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; }
-  .ptab .amt .per { font-size: 12px; color: var(--ink-muted); }
-  .ptab .meta { font-size: 11.5px; color: var(--ink-muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
-  .ptab .meta .save { color: var(--success); font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
-  .ptab .meta .save::before { content: "$"; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; background: var(--success); color: #fff; border-radius: 50%; font-size: 9px; font-weight: 800; }
-  .ptab .radio { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--line-2); flex-shrink: 0; position: relative; }
-  .ptab.on .radio { border-color: var(--accent); }
-  .ptab.on .radio::after { content: ""; position: absolute; inset: 2px; border-radius: 50%; background: var(--accent); }
-
-  /* method tabs */
-  .method-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-  .mtab {
-    border: 1px solid var(--line-2); border-radius: 10px;
-    padding: 10px 12px; display: flex; align-items: center; gap: 8px;
-    background: #ffffff; cursor: pointer; transition: border-color .15s, box-shadow .15s;
-    font-size: 13px; font-weight: 500; color: #5a5a5a;
-  }
-  .mtab.on { background: #ffffff; border-color: var(--accent); color: #0a0a0a; box-shadow: 0 0 0 1px var(--accent) inset; }
-  .mtab svg { width: 14px; height: 14px; }
-  .mtab .badge {
-    margin-left: auto; background: var(--success); color: #fff;
-    font-size: 9.5px; padding: 2px 7px; border-radius: 999px;
-    font-family: 'JetBrains Mono', monospace; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.04em;
-  }
-
-  label { display: block; font-size: 12px; font-weight: 500; color: var(--ink-muted); margin-bottom: 5px; letter-spacing: -0.005em; }
-  .fld {
-    width: 100%; padding: 10px 12px;
-    border: 1px solid var(--line-2); border-radius: 10px;
-    background: var(--surface-2); transition: border-color .15s, box-shadow .15s;
-    font-weight: 400;
-  }
-  .fld:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(133,100,255,0.18); }
-  .field { margin-bottom: 12px; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-  .card-field { position: relative; }
-  .card-field .brands {
-    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-    display: flex; gap: 4px; align-items: center; pointer-events: none;
-  }
-  .card-field .brands .brand {
-    height: 14px; padding: 0 4px; border-radius: 2px;
-    background: var(--surface-3); border: 1px solid var(--line-2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 7.5px; font-weight: 800; letter-spacing: -0.04em; color: var(--ink-soft);
-  }
-  .card-field .brands .brand.on { color: var(--ink); }
-  .card-field .brands .link {
-    height: 14px; padding: 0 6px; border-radius: 2px;
-    background: #e0f8f2; color: #1d6055;
-    display: flex; align-items: center; gap: 4px;
-    font-size: 8.5px; font-weight: 700;
-  }
-  .card-field .brands .link::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--success); }
-
-  .link-banner {
-    background: var(--surface-2); border: 1px solid var(--line-2);
-    border-radius: 10px; padding: 9px 12px;
-    display: flex; align-items: center; gap: 8px;
-    font-size: 12.5px; margin-bottom: 12px; color: var(--ink-muted);
-  }
-  .link-banner b { color: var(--success); font-weight: 600; }
-  .link-banner .chev { margin-left: auto; color: var(--ink-soft); }
-
-  .coupon-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
-  .coupon-row .apply-btn {
-    padding: 10px 16px; border-radius: 10px;
-    background: var(--surface-3); color: var(--ink-muted);
-    font-weight: 500; font-size: 13px;
-    border: 1px solid var(--line-2);
-    transition: background .15s, color .15s, border-color .15s;
-  }
-  .coupon-row .apply-btn:hover { background: var(--surface-2); color: var(--ink); border-color: rgba(0,0,0,0.18); }
-  .coupon-row .apply-btn.applied { background: var(--success); color: #fff; border-color: var(--success); }
-
-  .total-row {
-    margin-top: 16px; padding-top: 14px;
-    border-top: 1px dashed var(--line-2);
-    display: grid; grid-template-columns: 1fr auto; gap: 4px; align-items: baseline;
-  }
-  .total-row .ttl-lab { font-size: 12.5px; color: var(--ink-muted); }
-  .total-row .ttl-amt { font-size: 20px; font-weight: 700; letter-spacing: -0.025em; text-align: right; }
-  .total-row .ttl-amt .strike { color: var(--ink-soft); text-decoration: line-through; font-weight: 400; margin-right: 6px; font-size: 14px; }
-  .total-row .ttl-meta { grid-column: 1 / -1; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-soft); margin-top: 4px; }
-  .total-row .ttl-meta b { color: var(--ink-muted); font-weight: 600; }
-
-  /* ============ ADD-ONS (from personalize) ============ */
-  /* LEFT panel — list inside plan summary */
-  .addons-included {
-    margin-top: 10px; padding: 12px; background: var(--surface-2);
-    border: 1px solid var(--line); border-radius: 10px;
-  }
-  .addons-included .ai-head {
-    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
-    text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted);
-    margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
-  }
-  .addons-included .ai-head .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-  .addons-included .ai-row {
-    display: grid; grid-template-columns: 22px 1fr auto; align-items: center;
-    gap: 10px; padding: 6px 0; font-size: 13px;
-  }
-  .addons-included .ai-row + .ai-row { border-top: 1px dashed var(--line); }
-  .addons-included .ai-row .ai-ic {
-    width: 22px; height: 22px; border-radius: 6px;
-    display: inline-flex; align-items: center; justify-content: center;
-    color: #fff;
-  }
-  .addons-included .ai-row .ai-ic svg { width: 12px; height: 12px; }
-  .addons-included .ai-row.pr .ai-ic { background: var(--pink, #f9476c); }
-  .addons-included .ai-row.ugc .ai-ic { background: var(--teal, #06c7a9); }
-  .addons-included .ai-row.llm .ai-ic { background: var(--yellow, #efcc01); color: var(--ink); }
-  .addons-included .ai-row.agents .ai-ic { background: var(--ink); }
-  .addons-included .ai-row .ai-nm { font-weight: 600; }
-  .addons-included .ai-row .ai-pr { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-muted); font-weight: 600; }
-  .addons-included .ai-row.agents .ai-pr { color: var(--accent); }
-  .addons-included .ai-empty { font-size: 12.5px; color: var(--ink-soft); font-style: italic; }
-  .edit-addons {
-    display: inline-block; margin-top: 10px;
-    font-size: 11.5px; color: var(--ink-muted);
-    font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em;
-    text-decoration: underline; text-underline-offset: 3px;
-  }
-  .edit-addons:hover { color: var(--accent); }
-
-  /* RIGHT panel — line items above total */
-  .addons-summary {
-    margin-top: 16px; padding-top: 12px;
-    border-top: 1px dashed var(--line-2);
-    display: none; /* shown by JS only when add-ons exist */
-  }
-  .addons-summary.visible { display: block; }
-  .addons-summary .as-head {
-    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
-    text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted);
-    margin-bottom: 6px;
-  }
-  .addons-summary .as-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 5px 0; font-size: 13px;
-  }
-  .addons-summary .as-row .as-nm { color: var(--ink); font-weight: 500; }
-  .addons-summary .as-row .as-pr { font-weight: 700; letter-spacing: -0.01em; }
-  .addons-summary .as-row.custom .as-pr { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .addons-summary .as-base { padding-top: 6px; margin-top: 4px; border-top: 1px dashed var(--line-2); font-weight: 600; }
-
-  .agents-banner {
-    margin-top: 10px; padding: 10px 12px;
-    background: var(--lavender, #eeecff); border: 1px solid var(--accent);
-    border-radius: 10px; font-size: 12px; line-height: 1.4;
-    display: flex; align-items: start; gap: 8px;
-    display: none;
-  }
-  .agents-banner.visible { display: flex; }
-  .agents-banner .ab-ic { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
-  .agents-banner b { font-weight: 700; }
-
-  .cta-btn {
-    width: 100%; padding: 14px; margin-top: 14px;
-    background: var(--accent); color: #fff; font-weight: 700; font-size: 15px;
-    border: 1.5px solid var(--ink); border-radius: 12px;
-    box-shadow: 4px 4px 0 0 var(--ink);
-    transition: transform .12s ease, box-shadow .12s ease, background .15s;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    cursor: pointer;
-  }
-  .cta-btn:hover { background: var(--accent-hover); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 0 var(--ink); }
-  .cta-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--ink); }
-  .cta-btn svg { width: 14px; height: 14px; }
-
-  .below-cta {
-    margin-top: 12px; text-align: center; font-size: 11.5px; color: var(--ink-soft);
-    line-height: 1.5;
-  }
-  .below-cta a { color: var(--ink-muted); text-decoration: underline; }
-
-  .stripe-row {
-    margin-top: 14px; padding-top: 12px;
-    border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-soft);
-    text-transform: uppercase; letter-spacing: 0.06em;
-  }
-  .stripe-row .stripe {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: var(--ink); font-weight: 500; text-transform: none; letter-spacing: 0;
-  }
-  .stripe-row .stripe svg { width: 32px; height: 12px; }
-
-  /* ============ HOW IT WORKS + FAQ ============ */
-  .below-grid { margin-top: 36px; display: grid; grid-template-columns: 0.9fr 1fr; gap: 16px; align-items: start; }
-
-  .below-grid .panel h3 {
-    font-size: 14px; letter-spacing: -0.015em; font-weight: 700; margin-bottom: 16px;
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 12px 6px 6px; border: 1px solid var(--line-2); border-radius: 999px;
-  }
-  .below-grid .panel h3 .hash {
-    width: 22px; height: 22px; border-radius: 50%;
-    background: var(--purple); color: #fff;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  }
-  .faq-panel h3 .hash { background: var(--teal); color: #fff; }
-
-  .timeline { display: flex; flex-direction: column; gap: 16px; }
-  .tline { display: grid; grid-template-columns: 22px 1fr; gap: 12px; position: relative; }
-  .tline::after {
-    content: ""; position: absolute; left: 10.5px; top: 24px;
-    width: 1px; height: calc(100% + 12px); background: var(--line);
-  }
-  .tline:last-child::after { display: none; }
-  .tline .dot {
-    width: 22px; height: 22px; border-radius: 50%;
-    background: var(--surface-3); border: 1px solid var(--line-2);
-    color: var(--ink-muted);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
-    z-index: 1;
-  }
-  .tline:nth-child(1) .dot { background: var(--surface-3); color: var(--teal); border-color: var(--teal); }
-  .tline:nth-child(2) .dot { background: var(--surface-3); color: var(--yellow); border-color: var(--yellow); }
-  .tline:nth-child(3) .dot { background: var(--accent); color: var(--ink); border-color: var(--accent); }
-  .tline .body .ttl { font-size: 13.5px; font-weight: 600; letter-spacing: -0.005em; }
-  .tline .body .ttl .when { color: var(--ink-muted); font-weight: 500; margin-right: 6px; }
-  .tline .body p { font-size: 12.5px; color: var(--ink-muted); line-height: 1.5; margin-top: 3px; }
-
-  .fq-item + .fq-item { border-top: 1px solid var(--line); }
-  .fq-q {
-    width: 100%; text-align: left; padding: 12px 0;
-    display: flex; justify-content: space-between; align-items: center; gap: 14px;
-    font-weight: 500; font-size: 13.5px; letter-spacing: -0.005em;
-  }
-  .fq-q .pl { font-size: 16px; transition: transform .2s; color: var(--ink-muted); line-height: 1; }
-  .fq-item.open .fq-q .pl { transform: rotate(45deg); color: var(--accent); }
-  .fq-a { overflow: hidden; max-height: 0; transition: max-height .25s; color: var(--ink-muted); font-size: 12.5px; line-height: 1.55; }
-  .fq-a-inner { padding: 0 0 12px; max-width: 60ch; }
-  .fq-item.open .fq-a { max-height: 240px; }
-
-  /* badges strip */
-  .badges-strip {
-    margin-top: 24px; padding: 16px 22px;
-    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
-    display: flex; align-items: center; gap: 24px; justify-content: center; flex-wrap: wrap;
-  }
-  .tbadge { display: flex; align-items: center; gap: 8px; color: var(--ink-muted); }
-  .tbadge .ic {
-    width: 26px; height: 26px; border-radius: 6px;
-    background: var(--surface-2); border: 1px solid var(--line-2);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9.5px;
-    color: var(--ink);
-  }
-  .tbadge .nm { font-size: 11.5px; font-weight: 600; color: var(--ink); letter-spacing: -0.005em; }
-  .tbadge .sub { font-size: 10px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.04em; }
-
-  /* trust badges block (under CTA) */
-  .trust-badges {
-    margin-top: 16px;
-    padding: 14px 12px;
-    background: var(--surface-2);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .trust-badges img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* responsive */
-  @media (max-width: 960px) {
-    .grid, .below-grid { grid-template-columns: 1fr; }
-    .step .label { display: none; }
-    .stepper > .line { width: 18px; }
-    .stepper { gap: 8px; max-width: none; flex: 0 0 auto; }
-    nav.top .help { display: none; }
-  }
-  @media (max-width: 640px) {
-    .container { padding: 0 14px; }
-    nav.top { padding: 12px 0; margin-bottom: 24px; }
-    nav.top .inner { gap: 12px; flex-wrap: wrap; }
-    .stepper { order: 3; width: 100%; justify-content: flex-start; gap: 6px; }
-    .stepper > .line { width: 12px; }
-    .heading { margin-bottom: 18px; }
-    .heading h1 { font-size: 22px; line-height: 1.2; }
-    .heading p { font-size: 13px; }
-    .panel { padding: 18px; border-radius: 12px; }
-    .pricing-tabs, .field-row, .method-row { grid-template-columns: 1fr; }
-    .below-grid { margin-top: 24px; gap: 12px; }
-  }
-</style>
 <style>
   /* ===== Brand logo (LOCKED — assets/imai-logo.png) ===== */
   .logo { width: 112px !important; height: 32px; padding: 0; gap: 0; background: #ffffff url('/assets/imai-logo.png') center / auto 20px no-repeat; border-radius: 8px; display: inline-flex; align-items: center; }
@@ -504,7 +66,7 @@
 
   <!-- HEADING -->
   <div class="heading">
-    <h1>Enter card details to activate your trial</h1>
+    <h1>Enter card details to activate your 14-day trial</h1>
     <p>Your trial is 100% free. Cancel anytime with one click.</p>
   </div>
 
@@ -515,52 +77,23 @@
     <div>
       <div class="panel">
         <div class="plan-head">
-          <div class="lab">Starter plan</div>
-          <h3>2 seats · in-house teams</h3>
-          <div class="users"><b>Unlimited</b> discovery · 250 creator unlocks / month</div>
+          <div class="lab" id="planLab">Starter plan</div>
+          <h3 id="planSeats">2 seats · in-house teams</h3>
+          <div class="users" id="planUsers"><b>Unlimited</b> discovery · 75 creator unlocks / month</div>
         </div>
 
-        <div class="feat-list">
-          <div class="feat-row">
-            <span class="ic pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
-            <span class="nm">AI Influencer Search</span>
-            <span class="val">Unlimited</span>
-          </div>
-          <div class="feat-row">
-            <span class="ic purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></span>
-            <span class="nm">Creator Discovery <span style="color:var(--ink-soft);font-weight:400">· 400M+</span></span>
-            <span class="val">Unlimited</span>
-          </div>
-          <div class="feat-row">
-            <span class="ic teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-            <span class="nm">Analyze creators</span>
-            <span class="val">50 / mo</span>
-          </div>
-          <div class="feat-row">
-            <span class="ic yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-            <span class="nm">Email export</span>
-            <span class="val">250 / mo</span>
-          </div>
-          <div class="feat-row">
-            <span class="ic pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
-            <span class="nm">Creator database</span>
-            <span class="val">400M+</span>
-          </div>
-          <div class="feat-row">
-            <span class="ic teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-            <span class="nm">Priority support</span>
-            <span class="val check">✓</span>
-          </div>
+        <div class="feat-list" id="featList"></div>
+
+        <div class="plan-switch" id="planSwitch">
+          <button type="button" class="plan-switch-trigger" id="planSwitchBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span class="ps-lead">Plan</span>
+            <span class="ps-cur" id="psCurrent">Starter · $299/mo</span>
+            <svg class="ps-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="plan-switch-menu" id="planSwitchMenu" role="listbox" hidden></div>
         </div>
 
-        <a href="#" class="switch-plan">← Switch to a different plan</a>
-
-        <!-- ADD-ONS from personalize (populated by JS) -->
-        <div class="addons-included" id="addonsIncluded">
-          <div class="ai-head"><span class="dot"></span>Active workspaces</div>
-          <div id="addonsIncludedBody"><div class="ai-empty">Influencer Marketing only.</div></div>
-          <a class="edit-addons" href="/onboarding/personalize">← Edit add-ons</a>
-        </div>
+        
       </div>
 
       <div class="panel trust">
@@ -598,21 +131,21 @@
             <div class="top">
               <div>
                 <div style="font-size:11px;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Annual</div>
-                <div class="amt"><span class="n">$1,788</span><span class="per">/year</span></div>
+                <div class="amt"><span class="n" id="annAmt">$2,868</span><span class="per">/year</span></div>
               </div>
               <span class="radio"></span>
             </div>
-            <div class="meta"><span class="save">Save $312</span></div>
+            <div class="meta"><span class="save" id="annSave">Save $720</span></div>
           </button>
           <button class="ptab" data-cycle="month">
             <div class="top">
               <div>
                 <div style="font-size:11px;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Monthly</div>
-                <div class="amt"><span class="n">$175</span><span class="per">/mo</span></div>
+                <div class="amt"><span class="n" id="monAmt">$299</span><span class="per">/mo</span></div>
               </div>
               <span class="radio"></span>
             </div>
-            <div class="meta">~15% more than annual</div>
+            <div class="meta">25% more than annual</div>
           </button>
         </div>
 
@@ -690,20 +223,20 @@
         <!-- total -->
         <div class="total-row">
           <div class="ttl-lab">Total due today</div>
-          <div class="ttl-amt"><span class="strike" id="strikePrice">$1,788</span>$0.00</div>
-          <div class="ttl-meta">After your 7-day trial: <b id="afterTrial">$1,788 / year</b></div>
+          <div class="ttl-amt"><span class="strike" id="strikePrice">$2,868</span>$0.00</div>
+          <div class="ttl-meta">After your 14-day trial: <b id="afterTrial">$2,868 / year</b></div>
         </div>
 
         <!-- CTA -->
-        <a class="cta-btn" href="/onboarding/setup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Pay $0 and start your 7-day trial</a>
+        <a class="cta-btn" href="/onboarding/setup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Pay $0 and start your 14-day trial</a>
 
         <!-- trust badges -->
         <div class="trust-badges">
-          <img src="/assets/trust-badges.png" alt="G2 High Performer (EMEA & Summer 2024), Digital Awards 2022, Forbes Technology Council, Top 10 Software" />
+          
         </div>
 
         <p class="below-cta">
-          You won't be charged during your 7-day trial. End your subscription anytime with one click. By providing your card, you agree to our <a href="#">Terms</a>.
+          You won't be charged during your 14-day trial. End your subscription anytime with one click. By providing your card, you agree to our <a href="#">Terms</a>.
         </p>
 
         <!-- stripe -->
@@ -722,9 +255,9 @@
 
 <script>
   // ============ PRICING CALCULATOR ============
-  // Base plan: $175/mo monthly OR $1,788/yr annual ($149/mo equiv, ~15% off)
+  // Starter plan: $299/mo monthly OR $2,868/yr annual ($239/mo equiv, 20% off)
   // Add-ons: annual = monthly × 10 (2 months free) — common upsell pattern.
-  const BASE = { month: 175, year: 1788 };
+  const BASE = { month: 299, year: 2868 };
   const ADDONS = {
     pr:     { label: 'PR & Media',    month: 59,  year: 590,  ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8v18l-18-8z"/></svg>' },
     ugc:    { label: 'UGC Video Ads', month: 249, year: 2490, ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="m21 7-4 4 4 4z"/></svg>' },
@@ -768,9 +301,9 @@
 
     // LEFT panel — active workspaces list
     if (selection.length === 0) {
-      incBody.innerHTML = '<div class="ai-empty">Influencer Marketing only.</div>';
+      if (incBody) incBody.innerHTML = '<div class="ai-empty">Influencer Marketing only.</div>';
     } else {
-      incBody.innerHTML = selection.map(k => {
+      if (incBody) incBody.innerHTML = selection.map(k => {
         const a = ADDONS[k]; if (!a) return '';
         const price = a[cycle] != null ? fmt(a[cycle]) + periodAbbrev : 'Custom quote';
         return `<div class="ai-row ${k}">
@@ -808,7 +341,7 @@
 
     // CTA — keep dollar amount in label aligned with today's charge ($0 trial)
     if (ctaBtn) {
-      const labelText = `Pay $0 and start your 7-day trial`;
+      const labelText = `Pay $0 and start your 14-day trial`;
       // preserve the svg, just update the trailing text node
       const svg = ctaBtn.querySelector('svg');
       ctaBtn.innerHTML = '';
@@ -840,6 +373,80 @@
   document.querySelectorAll('#faqList .fq-q').forEach(btn => {
     btn.addEventListener('click', () => btn.closest('.fq-item')?.classList.toggle('open'));
   });
+
+  /* ============ PLAN SWITCHER ============ */
+  (function(){
+    const PLANS = {
+      personal:{ name:'Personal', seats:'1 seat',  tagline:'Freelancers & solo creators',  unlocks:'20',  analyze:'5 / mo',   exp:'25 / mo',  support:'Standard support',  month:129,  year:1236, campaigns:'—', pro:false },
+      starter: { name:'Starter',  seats:'2 seats', tagline:'In-house teams getting started', unlocks:'75',  analyze:'20 / mo',  exp:'100 / mo', support:'Priority support',  month:299,  year:2868, campaigns:'—', pro:false },
+      growth:  { name:'Growth',   seats:'4 seats', tagline:'Teams shipping campaigns weekly', unlocks:'200', analyze:'50 / mo',  exp:'300 / mo', support:'Priority support',  month:499,  year:4788, popular:true, campaigns:'5 active', pro:true },
+      scale:   { name:'Scale',    seats:'7 seats', tagline:'High-volume teams & agencies',    unlocks:'500', analyze:'125 / mo', exp:'750 / mo', support:'Dedicated support', month:1200, year:11520, campaigns:'12 active', pro:true },
+    };
+    const order = ['personal','starter','growth','scale'];
+    let current = 'starter';
+
+    const elLab=document.getElementById('planLab'), elSeats=document.getElementById('planSeats'), elUsers=document.getElementById('planUsers');
+    const featList=document.getElementById('featList');
+    const annAmt=document.getElementById('annAmt'), annSave=document.getElementById('annSave'), monAmt=document.getElementById('monAmt');
+    const psBtn=document.getElementById('planSwitchBtn'), psMenu=document.getElementById('planSwitchMenu'), psCur=document.getElementById('psCurrent'), psWrap=document.getElementById('planSwitch');
+    function money(n){ return '$'+n.toLocaleString('en-US'); }
+
+    function rowHTML(color,label,val){
+      const muted = val === '—';
+      const mstyle = muted ? ' style="color:var(--ink-soft)"' : '';
+      const valHTML = val === '✓'
+        ? '<span class="val check">✓</span>'
+        : '<span class="val"'+mstyle+'>'+val+'</span>';
+      return '<div class="feat-row"><span class="ic '+color+'"'+mstyle+'><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg></span><span class="nm"'+mstyle+'>'+label+'</span>'+valHTML+'</div>';
+    }
+    function planFeats(p){
+      const yn = b => b ? '✓' : '—';
+      return [
+        ['pink','AI Influencer Search','Unlimited'],
+        ['purple','Creator Discovery · 400M+','Unlimited'],
+        ['teal','Analyze creators',p.analyze],
+        ['yellow','Email export',p.exp],
+        ['purple','Campaigns',p.campaigns],
+        ['pink','Influencer IRM & Inbox',yn(p.pro)],
+        ['teal','Creator payouts',p.pro?'Unlimited':'—'],
+        ['yellow','Reports history',yn(p.pro)],
+        ['purple','API & integrations',yn(p.pro)],
+        ['pink',p.support,'✓'],
+      ];
+    }
+
+    function applyPlan(key){
+      const p=PLANS[key]; if(!p) return; current=key;
+      elLab.textContent=p.name+' plan';
+      elSeats.textContent=p.seats+' · '+p.tagline.toLowerCase();
+      elUsers.innerHTML='<b>Unlimited</b> discovery · '+p.unlocks+' creator unlocks / month';
+      featList.innerHTML = planFeats(p).map(f=>rowHTML(f[0],f[1],f[2])).join('');
+      annAmt.textContent=money(p.year); monAmt.textContent=money(p.month);
+      annSave.textContent='Save '+money(p.month*12 - p.year);
+      BASE.month=p.month; BASE.year=p.year;
+      psCur.textContent=p.name+' · '+money(p.month)+'/mo';
+      render(); buildMenu();
+    }
+
+    function buildMenu(){
+      psMenu.innerHTML = order.map(k=>{
+        const p=PLANS[k];
+        return '<button type="button" class="ps-opt'+(k===current?' sel':'')+'" data-plan="'+k+'" role="option">'
+          +'<span><span class="ps-nm">'+p.name+(p.popular?' <span class="ps-badge">Popular</span>':'')+'</span><span class="ps-tag">'+p.seats+' · '+p.tagline+'</span></span>'
+          +'<span class="ps-meta"><span class="ps-price">'+money(p.month)+'/mo</span><span class="ps-per">'+money(Math.round(p.year/12))+'/mo annual</span></span>'
+          +(k===current?'<span class="ps-tick">✓</span>':'')
+          +'</button>';
+      }).join('')
+      + '<a class="ps-opt ps-ent" href="#"><span><span class="ps-nm">Enterprise</span><span class="ps-tag">Custom — every workspace & integration</span></span><span class="ps-meta"><span class="ps-price">Custom</span><span class="ps-per">Talk to sales →</span></span></a>';
+      psMenu.querySelectorAll('.ps-opt[data-plan]').forEach(b=>b.addEventListener('click',()=>{ applyPlan(b.dataset.plan); closeMenu(); }));
+    }
+    function openMenu(){ psMenu.hidden=false; psWrap.classList.add('open'); psBtn.setAttribute('aria-expanded','true'); }
+    function closeMenu(){ psMenu.hidden=true; psWrap.classList.remove('open'); psBtn.setAttribute('aria-expanded','false'); }
+    psBtn.addEventListener('click',(e)=>{ e.stopPropagation(); psMenu.hidden?openMenu():closeMenu(); });
+    document.addEventListener('click',(e)=>{ if(!psWrap.contains(e.target)) closeMenu(); });
+    buildMenu();
+    applyPlan(current);
+  })();
 </script>
 
 </body>

@@ -6,7 +6,7 @@ SRC=os.path.dirname(os.path.abspath(__file__)); OUT=f'{SRC}/public'
 BASE='https://influencermarketing.ai'; TODAY='2026-06-17'
 
 pages=[('/','1.0','weekly'),('/platform','0.9','monthly'),('/solutions','0.9','monthly'),('/pricing','0.9','weekly'),
- ('/find-influencers','0.8','weekly'),('/customers','0.7','monthly'),('/about','0.6','monthly'),
+ ('/find-influencers','0.8','weekly'),('/webinars','0.6','monthly'),('/customers','0.7','monthly'),('/about','0.6','monthly'),
  ('/platform/discovery','0.8','monthly'),('/platform/influencer-crm','0.8','monthly'),('/platform/campaign-management','0.8','monthly'),
  ('/platform/tracking-roi','0.8','monthly'),('/platform/creator-payouts','0.8','monthly'),('/platform/competitive-intelligence','0.8','monthly'),
  ('/solutions/enterprise','0.8','monthly'),('/solutions/agencies','0.8','monthly'),('/solutions/smb','0.8','monthly'),

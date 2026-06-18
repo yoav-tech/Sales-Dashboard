@@ -28,7 +28,7 @@ def add_versions(h):
 URL={
  'index.html':'/', 'platform.html':'/platform', 'solutions.html':'/solutions',
  'pricing.html':'/pricing', 'customers.html':'/customers', 'about.html':'/about',
- 'find-influencers.html':'/find-influencers',
+ 'find-influencers.html':'/find-influencers','webinars.html':'/webinars',
  'discovery.html':'/platform/discovery','influencer-crm.html':'/platform/influencer-crm',
  'campaign-management.html':'/platform/campaign-management','tracking-roi.html':'/platform/tracking-roi',
  'creator-payouts.html':'/platform/creator-payouts','competitive-intelligence.html':'/platform/competitive-intelligence',
@@ -57,6 +57,8 @@ S={
  "The AI platform helping 1,000+ brands discover, vet, activate and pay creators from 400M+ profiles across 50+ countries.","About","page"),
 'find-influencers.html':("Find Influencers — Search 400M+ Creators",
  "Search 400M+ influencers across Instagram, TikTok, YouTube and X by niche, location, audience and engagement. Vet any creator for fake followers and brand safety.","Find influencers","page"),
+'webinars.html':("Live Webinar — Proving Influencer ROI in 2026",
+ "Free live webinar: turn 400M+ creators into measurable revenue. See AI creator discovery, authenticity vetting and client-ready ROI dashboards in action. Thursday, July 16, 2026. Replay included.","Webinars","page"),
 'discovery.html':("AI Creator Discovery — Search 400M+ Influencers",
  "Find and vet creators with natural-language AI search across 400M+ Instagram, TikTok, YouTube and X profiles, with fake-follower and brand-safety screening.","Creator Discovery","feature"),
 'influencer-crm.html':("Influencer CRM & AI Outreach Software",
@@ -113,6 +115,7 @@ def rewrite_assets(h):
     h=re.sub(r'(?<=["\'(])js/','/js/',h)
     h=re.sub(r'(?<=["\'(])assets/','/assets/',h)
     h=re.sub(r'(?<=["\'(])\.\./assets/','/assets/',h)
+    h=h.replace('"onboarding-tal.css"','"/onboarding-tal.css"')
     return h
 
 def rewrite_links(h):
@@ -124,6 +127,7 @@ def rewrite_links(h):
         if '#' in href: href,frag=href.split('#',1); frag='#'+frag
         href=href.lstrip('./')
         href=href.replace('../','')
+        if href.startswith('site/'): href=href[5:]   # onboarding pages link to site/index.html etc.
         if href in URL:
             dest=URL[href]
             if frag and dest=='/': return f'href={q}/{frag}{q}'
@@ -286,6 +290,7 @@ def main():
     shutil.copytree(f'{SITE}/assets', f'{OUT}/assets')
     shutil.copytree(f'{SITE}/js', f'{OUT}/js')
     os.makedirs(f'{OUT}/ds')
+    if os.path.exists(f'{SRC}/onboarding-tal.css'): shutil.copy(f'{SRC}/onboarding-tal.css', f'{OUT}/onboarding-tal.css')
     shutil.copy(f'{SRC}/_ds/{DS}/colors_and_type.css', f'{OUT}/ds/colors_and_type.css')
     if os.path.exists(f'{SRC}/_ds/{DS}/styles.css'): shutil.copy(f'{SRC}/_ds/{DS}/styles.css', f'{OUT}/ds/styles.css')
     count=0

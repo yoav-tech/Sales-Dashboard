@@ -9,280 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --bg: #ffffff;
-    --bg-soft: #fafaff;
-    --surface-2: #f7f7fa;
-    --surface-3: #ececf2;
-    --line: #ececec;
-    --line-2: #dcdce0;
-    --ink: #1d1d1b;
-    --ink-muted: #555555;
-    --ink-soft: #8f8f8f;
-    --pink: #f9476c;
-    --purple: #8564ff;
-    --teal: #06c7a9;
-    --yellow: #efcc01;
-    --green: #299d88;
-    --lavender: #eeecff;
-    --mint: #e0f8f2;
-    --pink-l: #ffecf0;
-    --yellow-l: #fdf4c0;
-    --accent: var(--purple);
-    --accent-hover: #6442dd;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--ink); font-family: 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  body { min-height: 100vh; padding-bottom: 48px; }
-  a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; font-size: inherit; }
-  input { font-family: inherit; font-size: 14px; color: var(--ink); }
-  input::placeholder { color: var(--ink-soft); }
-  .mono { font-family: 'JetBrains Mono', monospace; }
-  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-
-  /* ============ NAV + STEPPER ============ */
-  nav.top { border-bottom: 1px solid var(--line); padding: 16px 0; margin-bottom: 40px; }
-  nav.top .inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; line-height: 1.05; }
-  .logo-mark {
-    width: 22px; height: 22px; flex-shrink: 0;
-    background:
-      radial-gradient(circle at 28% 28%, var(--pink) 0 4px, transparent 5px),
-      radial-gradient(circle at 72% 28%, var(--purple) 0 4px, transparent 5px),
-      radial-gradient(circle at 28% 72%, var(--teal) 0 4px, transparent 5px),
-      radial-gradient(circle at 72% 72%, var(--yellow) 0 4px, transparent 5px);
-  }
-  .logo .name { display: flex; flex-direction: column; line-height: 1.04; }
-  .logo .name span { display: block; }
-  .logo .name .ai { color: var(--pink); }
-
-  .stepper { display: flex; align-items: center; flex: 1; max-width: 640px; justify-content: center; gap: 14px; }
-  .step { display: inline-flex; align-items: center; gap: 10px; line-height: 1; color: var(--ink-soft); }
-  .step .circle {
-    width: 22px; height: 22px; border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--surface-3); border: 1px solid var(--line-2);
-    color: var(--ink-soft); font-size: 11px; font-weight: 700; flex-shrink: 0;
-  }
-  .step.done .circle { background: transparent; color: var(--ink); border-color: var(--line-2); }
-  .step.done .circle::after { content: "✓"; color: var(--ink); font-size: 11px; }
-  .step.done .circle .num { display: none; }
-  .step.active .circle { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 3px rgba(133,100,255,0.22); }
-  .step .label { font-size: 13px; font-weight: 500; }
-  .step.done .label, .step.active .label { color: var(--ink); font-weight: 600; }
-  .stepper > .line { width: 36px; height: 1px; background: var(--line-2); flex-shrink: 0; }
-  .help { font-size: 13px; color: var(--ink-soft); }
-  .help:hover { color: var(--ink); }
-
-  /* ============ HEADING ============ */
-  .heading { text-align: center; margin-bottom: 32px; }
-  .heading .eyebrow { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; background: var(--ink); color: #fff; padding: 4px 10px 4px 8px; border-radius: 999px; margin-bottom: 16px; }
-  .heading .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
-  .heading h1 { font-size: clamp(36px, 4.5vw, 56px); letter-spacing: -0.045em; line-height: 0.95; font-weight: 800; margin-bottom: 10px; }
-  .heading h1 .wrap { display: inline-block; background: var(--ink); color: #fff; padding: 0 12px 4px; border-radius: 14px; transform: rotate(-1.5deg); }
-  .heading h1 .accent { color: var(--accent); }
-  .heading p { font-size: 15px; color: var(--ink-muted); max-width: 52ch; margin: 0 auto; line-height: 1.5; }
-
-  /* ============ TWO-COL ============ */
-  .grid { display: grid; grid-template-columns: 1fr 0.85fr; gap: 24px; align-items: stretch; }
-
-  /* ---------- FORM PANEL ---------- */
-  .panel {
-    background: #fff; border: 1.5px solid var(--ink);
-    border-radius: 24px; padding: 36px;
-    display: flex; flex-direction: column;
-  }
-  .panel h2 { font-size: 22px; letter-spacing: -0.025em; font-weight: 700; margin-bottom: 4px; }
-  .panel .panel-sub { font-size: 13.5px; color: var(--ink-muted); margin-bottom: 16px; }
-
-  /* ---------- TRUST: top pills row ---------- */
-  .trust-row {
-    display: flex; gap: 10px; flex-wrap: wrap;
-    padding: 12px 14px; margin-bottom: 22px;
-    background: var(--bg-soft); border: 1px solid var(--line);
-    border-radius: 12px;
-  }
-  .trust-row .tr-item { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink); }
-  .trust-row .tr-item .stars { display: inline-flex; gap: 1px; line-height: 1; }
-  .trust-row .tr-item .stars .s { color: var(--yellow); font-size: 11px; }
-  .trust-row .tr-item b { font-weight: 700; }
-  .trust-row .tr-item .muted { color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; }
-  .trust-row .tr-sep { width: 1px; height: 14px; background: var(--line-2); }
-  .trust-row .tr-item .ic {
-    width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center;
-    color: var(--green);
-  }
-  .trust-row .tr-item .ic svg { width: 13px; height: 13px; }
-
-  .social-row { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 18px; }
-  .social {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    padding: 12px 14px; background: #fff;
-    border: 1.5px solid var(--ink); border-radius: 12px;
-    font-weight: 600; font-size: 13.5px; color: var(--ink);
-    transition: transform .15s, box-shadow .15s;
-  }
-  .social:hover { transform: translateY(-2px); box-shadow: 3px 4px 0 0 var(--ink); }
-  .social svg { width: 16px; height: 16px; }
-
-  .divider { display: flex; align-items: center; gap: 10px; margin: 18px 0 22px; color: var(--ink-soft); font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; }
-  .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line-2); }
-
-  .field { margin-bottom: 14px; }
-  .field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.005em; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .fld {
-    width: 100%; padding: 12px 14px;
-    border: 1.5px solid var(--ink); border-radius: 10px;
-    background: #fff; transition: box-shadow .15s, border-color .15s;
-    font-weight: 500;
-  }
-  .fld:focus { outline: none; box-shadow: 0 0 0 3px rgba(133,100,255,0.22); }
-  .fld-pw-wrap { position: relative; }
-  .fld-pw-wrap .toggle-pw { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--ink-muted); font-weight: 600; letter-spacing: 0.05em; }
-  .fld-pw-wrap .toggle-pw:hover { color: var(--ink); }
-
-  .pw-strength { display: flex; gap: 4px; margin-top: 8px; }
-  .pw-strength .bar { flex: 1; height: 3px; background: var(--line); border-radius: 2px; }
-  .pw-strength .bar.on { background: var(--teal); }
-  .pw-hint { font-size: 11px; color: var(--ink-soft); margin-top: 6px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em; }
-
-  .check-row { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0 22px; font-size: 13px; line-height: 1.5; color: var(--ink-muted); }
-  .check {
-    width: 18px; height: 18px; border: 1.5px solid var(--ink); border-radius: 5px;
-    flex-shrink: 0; margin-top: 1px; background: #fff; position: relative;
-    transition: background .15s;
-  }
-  .check.on { background: var(--accent); border-color: var(--accent); }
-  .check.on::after { content: "✓"; color: #fff; font-size: 12px; font-weight: 800; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); line-height: 1; }
-  .check-row a { color: var(--ink); text-decoration: underline; font-weight: 500; }
-
-  .cta-btn {
-    width: 100%; padding: 14px;
-    background: var(--accent); color: #fff;
-    font-weight: 700; font-size: 15px;
-    border: 1.5px solid var(--ink); border-radius: 12px;
-    box-shadow: 4px 4px 0 0 var(--ink);
-    transition: transform .12s ease, box-shadow .12s ease, background .15s;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    cursor: pointer;
-  }
-  .cta-btn:hover { background: var(--accent-hover); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 0 var(--ink); }
-  .cta-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--ink); }
-  .cta-btn svg { width: 16px; height: 16px; }
-
-  /* ---------- CTA reassurance line ---------- */
-  .cta-reassure {
-    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
-    margin-top: 12px; font-size: 12px; color: var(--ink-muted);
-    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em;
-  }
-  .cta-reassure span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-  .cta-reassure .ck { color: var(--green); font-weight: 800; }
-
-  /* ---------- Trusted-by mini brands strip ---------- */
-  .trust-brands {
-    margin-top: 22px; padding-top: 22px;
-    border-top: 1px dashed var(--line-2);
-    text-align: center;
-  }
-  .trust-brands .lbl {
-    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--ink-soft); margin-bottom: 12px;
-  }
-  .trust-brands .row {
-    display: flex; gap: 22px; flex-wrap: wrap; justify-content: center;
-    align-items: center; opacity: .75;
-  }
-  .trust-brands .row .b {
-    font-size: 14px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink-muted);
-  }
-  .trust-brands .row .b.i { font-style: italic; font-weight: 800; letter-spacing: -0.04em; }
-  .trust-brands .row .b.m { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.05em; }
-  .trust-brands .row .b.s { font-weight: 300; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; }
-
-  .signin-line { margin-top: 22px; text-align: center; font-size: 13.5px; color: var(--ink-muted); }
-  .signin-line a { color: var(--ink); font-weight: 700; text-decoration: underline; }
-
-  /* ---------- SIDE: VALUE BENTO ---------- */
-  .side {
-    display: grid; grid-template-rows: auto 1fr auto; gap: 14px;
-  }
-  .tile {
-    border: 1.5px solid var(--ink); border-radius: 18px;
-    padding: 22px; position: relative; overflow: hidden;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .tile.lavender { background: var(--lavender); }
-  .tile.dark { background: var(--ink); color: #fff; }
-  .tile.mint { background: var(--mint); }
-  .tile.yellow { background: var(--yellow-l); }
-  .tile-lab { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-  .tile.dark .tile-lab { color: rgba(255,255,255,0.55); }
-  .tile-lab .d { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-  .tile.dark .tile-lab .d { background: var(--teal); }
-
-  .stat-tile .n { font-size: 56px; font-weight: 800; letter-spacing: -0.045em; line-height: 1; }
-  .stat-tile .n .ac { color: var(--accent); }
-  .tile.dark .stat-tile .n .ac { color: var(--teal); }
-  .stat-tile .lab { font-size: 13px; color: inherit; opacity: .8; margin-top: 6px; line-height: 1.4; }
-
-  .perks { display: flex; flex-direction: column; gap: 10px; }
-  .perks li { list-style: none; font-size: 13.5px; line-height: 1.4; display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-top: 1px dashed rgba(255,255,255,0.18); }
-  .perks li:first-child { border-top: none; padding-top: 0; }
-  .perks li .ic { width: 22px; height: 22px; border-radius: 6px; background: rgba(255,255,255,0.1); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--teal); }
-  .perks li b { font-weight: 700; }
-
-  .quote-tile { overflow: hidden; }
-  .quote-tile .review { transition: opacity .35s ease, transform .35s ease; }
-  .quote-tile.swap .review { opacity: 0; transform: translateY(6px); }
-  .quote-tile .stars { display: inline-flex; gap: 2px; margin-bottom: 10px; line-height: 1; }
-  .quote-tile .stars .s { color: var(--yellow); font-size: 14px; }
-  .quote-tile .stars .s.off { color: rgba(0,0,0,0.18); }
-  .quote-tile p { font-size: 14px; line-height: 1.5; font-weight: 500; margin-bottom: 14px; min-height: 84px; }
-  .quote-tile .quote-author { display: flex; align-items: center; gap: 10px; }
-  .quote-tile .av { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--mint), var(--teal)); transition: background .35s ease; }
-  .quote-tile .nm { font-weight: 700; font-size: 13px; }
-  .quote-tile .role { font-size: 11px; color: var(--ink-muted); font-family: 'JetBrains Mono', monospace; }
-  .quote-tile .review-dots { display: flex; gap: 4px; margin-top: 14px; }
-  .quote-tile .review-dots .rd { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.18); transition: background .25s, width .25s; }
-  .quote-tile .review-dots .rd.on { background: var(--ink); width: 14px; border-radius: 999px; }
-
-  .trust-mini { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .trust-mini .badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted); display: inline-flex; align-items: center; gap: 6px; }
-  .trust-mini .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
-
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 920px) {
-    .grid { grid-template-columns: 1fr; gap: 20px; }
-    .stepper { gap: 8px; flex: 0 0 auto; max-width: none; }
-    .step .label { display: none; }
-    .stepper > .line { width: 18px; }
-    nav.top .help { display: none; }
-    .side { grid-template-rows: auto; }
-  }
-  @media (max-width: 640px) {
-    .container { padding: 0 16px; }
-    nav.top { padding: 12px 0; margin-bottom: 24px; }
-    nav.top .inner { gap: 12px; flex-wrap: wrap; }
-    .stepper { order: 3; width: 100%; justify-content: flex-start; gap: 6px; }
-    .stepper > .line { width: 12px; }
-    .heading { margin-bottom: 24px; }
-    .heading h1 { font-size: clamp(30px, 9vw, 44px); }
-    .heading h1 .wrap { padding: 0 10px 3px; }
-    .heading p { font-size: 14px; }
-    .panel { padding: 22px; border-radius: 18px; }
-    .panel h2 { font-size: 19px; }
-    .social-row, .field-row { grid-template-columns: 1fr; gap: 10px; }
-    .tile { padding: 18px; border-radius: 14px; }
-    .stat-tile .n { font-size: 42px; }
-    .quote-tile p { min-height: auto; font-size: 13.5px; }
-    body { padding-bottom: 24px; }
-  }
-</style>
+<link rel="stylesheet" href="onboarding-tal.css" />
 <style>
   /* ===== Brand logo (LOCKED — assets/imai-logo.png) ===== */
   .logo { width: 112px !important; height: 32px; padding: 0; gap: 0; background: #ffffff url('assets/imai-logo.png') center / auto 20px no-repeat; border-radius: 8px; display: inline-flex; align-items: center; }
@@ -294,7 +21,7 @@
 <!-- ============ NAV + STEPPER ============ -->
 <nav class="top">
   <div class="container inner">
-    <a class="logo" href="index.html">
+    <a class="logo" href="site/index.html">
       <span class="logo-mark"></span>
       <span class="name"><span>Influencer</span><span>Marketing<span class="ai">.Ai</span></span></span>
     </a>
@@ -316,7 +43,7 @@
   <div class="heading">
     <span class="eyebrow"><span class="dot"></span>Step 1 of 4</span>
     <h1>Create your <span class="wrap">account</span></h1>
-    <p>60 seconds to set up. 7 days free. Cancel anytime — no card needed yet.</p>
+    <p>60 seconds to set up. 14 days free. Cancel anytime — no card needed yet.</p>
   </div>
 
   <div class="grid">
@@ -395,7 +122,7 @@
 
       <div class="cta-reassure">
         <span><span class="ck">✓</span>No credit card</span>
-        <span><span class="ck">✓</span>7-day free trial</span>
+        <span><span class="ck">✓</span>14-day free trial</span>
         <span><span class="ck">✓</span>Cancel anytime</span>
       </div>
 
@@ -426,8 +153,8 @@
         <div class="tile-lab"><span class="d"></span>What you get on day one</div>
         <ul class="perks">
           <li><span class="ic">✓</span><span><b>Unlimited</b> AI Influencer Search across the full graph.</span></li>
-          <li><span class="ic">✓</span><span><b>250 creator unlocks</b> per month — vet audiences, ER, fakes.</span></li>
-          <li><span class="ic">✓</span><span><b>50 deep analyses</b> + 250 email exports a month.</span></li>
+          <li><span class="ic">✓</span><span><b>75 creator unlocks</b> per month — vet audiences, ER, fakes.</span></li>
+          <li><span class="ic">✓</span><span><b>20 deep analyses</b> + 100 email exports a month.</span></li>
           <li><span class="ic">✓</span><span><b>Priority support</b> from real humans, not a bot queue.</span></li>
         </ul>
       </div>
