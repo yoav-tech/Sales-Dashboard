@@ -51,6 +51,9 @@ URL = {
  'payment.html':'/onboarding/payment', 'setup.html':'/onboarding/setup',
 }
 
+# the sign-up flow is NOT exported to WordPress — send its CTAs to the live site
+FLOW_PATHS = {'/register', '/onboarding/personalize', '/onboarding/payment', '/onboarding/setup'}
+
 # ---------------------------------------------------------------- rename ----
 def f_cls(c):
     return c if c.startswith(('imw-', 'imai-')) else P + c
@@ -233,6 +236,7 @@ def rewrite_links(h):
         if href.startswith('site/'): href = href[5:]
         if href in URL:
             dest = URL[href]
+            if dest in FLOW_PATHS: dest = BASE + dest
             if frag and dest == '/': return 'href=%s/%s%s' % (q, frag, q)
             return 'href=%s%s%s%s' % (q, dest, frag, q)
         return m.group(0)
@@ -440,10 +444,9 @@ def write_readme(rows, hsize, fsize):
         '  with a new `BASE`.',
         '- `pages/pricing.html` is fully self-contained (the source page ships its own design) — it only',
         '  shares the header/footer chrome.',
-        '- CTAs link to `/register` and onboarding paths — keep those routes live (or point them at the app',
-        '  signup URL) on the WordPress site.',
-        '- The sign-up flow pages (`register`, `personalize`, `payment`, `setup`) are a standalone app flow',
-        '  and are intentionally not exported as Elementor widgets.', '']
+        '- The sign-up flow is not part of this bundle: all "Start free trial" / "Log in" CTAs link',
+        '  absolutely to the live flow at `%s/register`, so nothing on the' % BASE,
+        '  WordPress site depends on those routes existing there.', '']
     open(os.path.join(OUT, 'README.md'), 'w', encoding='utf-8').write('\n'.join(lines))
 
 if __name__ == '__main__':
