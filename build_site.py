@@ -7,6 +7,47 @@ DS='imai-design-system-4a6d94c2-7a00-44fd-bb33-ebaf204eaa53'
 BASE='https://influencermarketing.ai'
 BRAND='InfluencerMarketing.ai'
 
+FONTS='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Passion+One:wght@400;700;900&display=swap'
+
+# ---------------- minification (url() contents protected) ----------------
+_PURL=[]
+def _prot(css):
+    def keep(m):
+        _PURL.append(m.group(0)); return '\x00U%d\x00'%(len(_PURL)-1)
+    return re.sub(r'url\(\s*(?:"[^"]*"|\'[^\']*\'|[^)\'"]*)\s*\)', keep, css)
+def _rest(css):
+    return re.sub(r'\x00U(\d+)\x00', lambda m:_PURL[int(m.group(1))], css)
+def minify_css(css):
+    css=_prot(re.sub(r'/\*.*?\*/','',css,flags=re.S))
+    css=re.sub(r'\s+',' ',css)
+    css=re.sub(r'\s*([{};:,>])\s*',r'\1',css).replace(';}','}')
+    return _rest(css.strip())
+def minify_js(js):
+    js=re.sub(r'/\*.*?\*/','',js,flags=re.S)
+    js=re.sub(r'^\s*//[^\n]*$','',js,flags=re.M)
+    return '\n'.join(l.strip() for l in js.split('\n') if l.strip())
+
+# ---------------- per-page CSS bundles (one render-blocking file per page) ----------------
+_BUNDLES={}
+def css_bundle(hrefs):
+    key=tuple(hrefs)
+    if key in _BUNDLES: return _BUNDLES[key]
+    parts=[]
+    for h in hrefs:
+        h=h.lstrip('./')
+        if 'colors_and_type.css' in h: path=f'{SRC}/_ds/{DS}/colors_and_type.css'
+        elif h.startswith('css/'):     path=f'{SITE}/{h}'
+        elif h=='onboarding-tal.css':  path=f'{SRC}/onboarding-tal.css'
+        else: continue
+        css=open(path,encoding='utf-8').read()
+        css=re.sub(r'@import\s+url\((?:"[^"]*"|\'[^\']*\'|[^)]*)\)[^;]*;','',css)  # fonts load via <link>
+        parts.append(css)
+    out=minify_css('\n'.join(parts))
+    name='/css/b-'+hashlib.md5(out.encode()).hexdigest()[:8]+'.css'
+    open(OUT+name,'w',encoding='utf-8').write(out)
+    _BUNDLES[key]=name
+    return name
+
 # ---------------- cache-busting: content-hash CSS/JS/DS so immutable caching is safe ----------------
 def _fh(path):
     try: return hashlib.md5(open(path,'rb').read()).hexdigest()[:8]
@@ -209,11 +250,17 @@ def build_head(src, url, head_inner):
     full_title = title
     canon=BASE+url
     noindex = (kind=='noindex')
-    # preserve stylesheet links + inline styles + google-font links, rewrite paths
+    # bundle local stylesheets into ONE minified file per page; keep inline styles.
+    # External stylesheet links (none today) would be kept as-is.
     keep=[]
-    for m in re.finditer(r'<link[^>]+rel="stylesheet"[^>]*>', head_inner): keep.append(m.group(0))
-    for m in re.finditer(r'<link[^>]+rel="preconnect"[^>]*>', head_inner): keep.append(m.group(0))
-    for m in re.finditer(r'<style[^>]*>.*?</style>', head_inner, re.S): keep.append(m.group(0))
+    local_css=[]
+    for m in re.finditer(r'<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"[^>]*>', head_inner):
+        if m.group(1).startswith('http'): keep.append(m.group(0))
+        else: local_css.append(m.group(1))
+    for m in re.finditer(r'<style[^>]*>(.*?)</style>', head_inner, re.S):
+        keep.append('<style>'+minify_css(m.group(1))+'</style>')
+    if local_css:
+        keep.insert(0, f'<link rel="stylesheet" href="{css_bundle(local_css)}" />')
     keep_html=rewrite_assets('\n'.join(keep))
     faqs=[] if noindex else extract_faq(PAGE_BODY[src])
     jsonld='' if noindex else build_jsonld(src,url,title,desc,faqs)
@@ -245,6 +292,9 @@ def build_head(src, url, head_inner):
       '<link rel="apple-touch-icon" href="/assets/imai-mark.png" />',
       '<link rel="manifest" href="/site.webmanifest" />',
       '<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />',
+      # fonts off the critical path: swap in via onload, plain link for no-JS (font-display:swap in URL)
+      f'<link rel="stylesheet" href="{FONTS}" media="print" onload="this.media=\'all\'" />',
+      f'<noscript><link rel="stylesheet" href="{FONTS}" /></noscript>',
       keep_html,
       jsonld,
     ]
@@ -302,6 +352,19 @@ def main():
     if os.path.exists(f'{SRC}/onboarding-tal.css'): shutil.copy(f'{SRC}/onboarding-tal.css', f'{OUT}/onboarding-tal.css')
     shutil.copy(f'{SRC}/_ds/{DS}/colors_and_type.css', f'{OUT}/ds/colors_and_type.css')
     if os.path.exists(f'{SRC}/_ds/{DS}/styles.css'): shutil.copy(f'{SRC}/_ds/{DS}/styles.css', f'{OUT}/ds/styles.css')
+    # minify everything shipped directly (pages use bundles; these serve 404.html + direct hits)
+    for d in (f'{OUT}/css', f'{OUT}/ds'):
+        for fn in os.listdir(d):
+            if fn.endswith('.css'):
+                p=f'{d}/{fn}'; css=open(p,encoding='utf-8').read()
+                if fn=='colors_and_type.css':
+                    css=re.sub(r'@import\s+url\((?:"[^"]*"|\'[^\']*\'|[^)]*)\)[^;]*;','',css)
+                open(p,'w',encoding='utf-8').write(minify_css(css))
+    if os.path.exists(f'{OUT}/onboarding-tal.css'):
+        _ob=minify_css(open(f'{OUT}/onboarding-tal.css',encoding='utf-8').read())
+        open(f'{OUT}/onboarding-tal.css','w',encoding='utf-8').write(_ob)
+    _mj=minify_js(open(f'{OUT}/js/motion.js',encoding='utf-8').read())
+    open(f'{OUT}/js/motion.js','w',encoding='utf-8').write(_mj)
     count=0
     for src,url in URL.items():
         if src=='dashboard.html': continue

@@ -97,6 +97,8 @@ head='''<!DOCTYPE html>
 <meta name="robots" content="noindex,follow" />
 <meta name="theme-color" content="#7132F5" />
 <link rel="icon" type="image/png" href="/assets/imai-mark.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Passion+One:wght@400;700;900&display=swap" media="print" onload="this.media='all'" />
 <link rel="stylesheet" href="/ds/colors_and_type.css" />
 <link rel="stylesheet" href="/css/ds-components.css" />
 <link rel="stylesheet" href="/css/site.css" />
