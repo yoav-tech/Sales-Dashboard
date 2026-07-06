@@ -49,6 +49,7 @@ URL = {
  'ai-agents.html':'/solutions/ai-agents',
  'register.html':'/register', 'personalize.html':'/onboarding/personalize',
  'payment.html':'/onboarding/payment', 'setup.html':'/onboarding/setup',
+ 'terms.html':'/terms', 'privacy.html':'/privacy', 'cookies.html':'/cookies', 'security.html':'/security',
 }
 
 # the sign-up flow is NOT exported to WordPress — send its CTAs to the live site
@@ -227,7 +228,9 @@ def rewrite_links(h):
         q, href = m.group(1), m.group(2)
         if href.startswith('#'):
             return 'href=%s#%s%s' % (q, f_id(href[1:]), q) if len(href) > 1 else m.group(0)
-        if href.startswith(('http', 'mailto', '/')): return m.group(0)
+        if href.startswith('/'):
+            return 'href=%s%s%s%s' % (q, BASE, href, q) if href in FLOW_PATHS else m.group(0)
+        if href.startswith(('http', 'mailto')): return m.group(0)
         frag = ''
         if '#' in href:
             href, frag = href.split('#', 1)
@@ -446,7 +449,13 @@ def write_readme(rows, hsize, fsize):
         '  shares the header/footer chrome.',
         '- The sign-up flow is not part of this bundle: all "Start free trial" / "Log in" CTAs link',
         '  absolutely to the live flow at `%s/register`, so nothing on the' % BASE,
-        '  WordPress site depends on those routes existing there.', '']
+        '  WordPress site depends on those routes existing there.',
+        '- **Google Ads landing features** (shipped in the header widget\'s JS): set the Ads tracking',
+        '  template to `{lpurl}?utm_keyword={keyword}` and the page will 1) inject the keyword into the',
+        '  hero pre-heading (text-only, XSS-safe), 2) move the competitor comparison table directly under',
+        '  the hero for competitor/alternative keywords, 3) hide unrelated workspace modules for',
+        '  product-segment keywords, and 4) pin a 48px sticky CTA bar on sub-768px viewports. Counters',
+        '  ship their final values and lock their width before animating, so they add no CLS.', '']
     open(os.path.join(OUT, 'README.md'), 'w', encoding='utf-8').write('\n'.join(lines))
 
 if __name__ == '__main__':

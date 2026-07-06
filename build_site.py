@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import re, os, shutil, hashlib, html as _html
-SRC='/Users/ppc/sales-dashboard-imai'
+SRC=os.path.dirname(os.path.abspath(__file__))
 SITE=f'{SRC}/site'
 OUT=f'{SRC}/public'
 DS='imai-design-system-4a6d94c2-7a00-44fd-bb33-ebaf204eaa53'
@@ -38,6 +38,7 @@ URL={
  'ai-agents.html':'/solutions/ai-agents',
  'register.html':'/register','personalize.html':'/onboarding/personalize',
  'payment.html':'/onboarding/payment','setup.html':'/onboarding/setup','dashboard.html':'/register',
+ 'terms.html':'/terms','privacy.html':'/privacy','cookies.html':'/cookies','security.html':'/security',
 }
 
 # ---------------- SEO MAP ----------------
@@ -94,6 +95,14 @@ S={
 'personalize.html':("Personalize Your Workspace","Tailor your InfluencerMarketing.ai workspace.","Personalize","noindex"),
 'payment.html':("Start Your 7-Day Trial","Confirm your plan and start your 7-day InfluencerMarketing.ai trial.","Payment","noindex"),
 'setup.html':("Set Up Your Workspace","Finish setting up your InfluencerMarketing.ai workspace.","Setup","noindex"),
+'terms.html':("Terms of Service",
+ "The terms that govern your use of the InfluencerMarketing.ai platform and website.","Terms","page"),
+'privacy.html':("Privacy Policy",
+ "How InfluencerMarketing.ai collects, uses and protects personal data across the platform and website.","Privacy","page"),
+'cookies.html':("Cookie Policy",
+ "How InfluencerMarketing.ai uses cookies and similar technologies, and the choices you have.","Cookies","page"),
+'security.html':("Security at InfluencerMarketing.ai",
+ "The security practices that protect customer data: SOC 2 Type II controls, encryption, access management and more.","Security","page"),
 }
 
 NAV_SECTION={ # for active-state + breadcrumb parent

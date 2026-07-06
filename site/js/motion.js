@@ -100,6 +100,14 @@
   }
   function initCounters() {
     var els = [].slice.call(document.querySelectorAll("[data-count]"));
+    // CLS guard: pages ship the FINAL value in the markup. Lock each counter to
+    // that rendered width before any animation so the 0→N count-up can never
+    // shift surrounding layout (Core Web Vitals / Ads landing-page experience).
+    els.forEach(function (e) {
+      e.textContent = finalText(e);
+      var w = e.getBoundingClientRect().width;
+      if (w) { e.style.display = "inline-block"; e.style.minWidth = Math.ceil(w) + "px"; }
+    });
     var done = [];
     function run(e) { if (done.indexOf(e) >= 0) return; done.push(e); animateCount(e); }
     if (reduce) { els.forEach(run); return; }
@@ -157,6 +165,7 @@
     burger.addEventListener("click", function () {
       var on = burger.classList.toggle("on");
       menu.classList.toggle("on", on);
+      docEl.classList.toggle("drawer-open", on);   // lets CSS hide the sticky CTA bar
       document.body.style.overflow = on ? "hidden" : "";
     });
     [].slice.call(menu.querySelectorAll(".mm-head")).forEach(function (head) {
@@ -168,7 +177,7 @@
       });
     });
     [].slice.call(menu.querySelectorAll("a")).forEach(function (a) {
-      a.addEventListener("click", function () { burger.classList.remove("on"); menu.classList.remove("on"); document.body.style.overflow = ""; });
+      a.addEventListener("click", function () { burger.classList.remove("on"); menu.classList.remove("on"); docEl.classList.remove("drawer-open"); document.body.style.overflow = ""; });
     });
   }
 
@@ -237,12 +246,73 @@
     });
   }
 
+  /* ---- paid-landing enhancements (Google Ads quality score / CRO) ----
+     Reads ?utm_keyword= (fallback ?utm_term=) set by the Ads URL template:
+       https://<landing-host>/?utm_keyword={keyword}
+     1. Dynamic text replacement into #dynamic-keyword-target (textContent only — XSS-safe).
+     2. Competitor keywords surface the comparison table directly under the hero.
+     3. Product-segment keywords hide unrelated workspace modules ([data-seg]).
+     4. Sticky bottom CTA bar on <768px viewports (48px touch target). */
+  function initAdLanding() {
+    var kw = "";
+    try {
+      var params = new URLSearchParams(window.location.search);
+      kw = (params.get("utm_keyword") || params.get("utm_term") || "").trim().slice(0, 80);
+    } catch (e) { /* no URLSearchParams — skip personalization */ }
+    var kwl = kw.toLowerCase();
+
+    if (kw) {
+      var target = document.getElementById("dynamic-keyword-target");
+      if (target) target.textContent = kw.toUpperCase();
+    }
+
+    if (/(modash|upfluence|\bgrin\b|creatoriq|alternative|\bvs\b|compare)/.test(kwl)) {
+      var cmp = document.getElementById("compare");
+      var hero = document.querySelector(".hero");
+      if (cmp && hero) hero.insertAdjacentElement("afterend", cmp);
+    }
+
+    var SEGMENTS = {
+      im: /influencer|creator|crm|discovery|campaign|payout/,
+      ci: /listening|consumer intelligence|social monitor/,
+      pr: /\bpr\b|press|journalist|media outreach/,
+      ugc: /ugc|avatar video|video ad/,
+      llm: /llm|ai search|ai visibility|\bgeo\b|generative engine/,
+      agents: /ai agent|voice agent|chat ?bot|chat agent/
+    };
+    var seg = null;
+    for (var k in SEGMENTS) { if (kwl && SEGMENTS[k].test(kwl)) { seg = k; break; } }
+    if (seg) {
+      var cards = [].slice.call(document.querySelectorAll("[data-seg]"));
+      var kept = 0;
+      cards.forEach(function (c) {
+        var on = c.getAttribute("data-seg") === seg;
+        c.style.display = on ? "" : "none";
+        if (on) kept++;
+      });
+      // the rest of the homepage already covers the core product — collapse the grid
+      if (cards.length && seg === "im" && kept < 2) {
+        var sec = cards[0].closest("section");
+        if (sec) sec.style.display = "none";
+      }
+    }
+
+    var nav = document.querySelector(".nav");
+    var host = nav ? nav.parentNode : document.body;
+    if (host && !document.querySelector(".m-cta-bar")) {
+      var tmp = document.createElement("div");
+      tmp.innerHTML = '<div class="m-cta-bar"><a class="imai-btn imai-btn--primary imai-btn--lg imai-btn--block" href="/register">Start free trial — no card needed</a></div>';
+      host.appendChild(tmp.firstChild);
+    }
+  }
+
   // expose so shell.js can re-run after injecting nav/footer
   window.IMAIMotion = function () {
     initNavScroll(); initMega(); initMobile(); initMarquee();
   };
 
   ready(function () {
+    initAdLanding();                 // reorder/hide before reveals measure the page
     initStagger(); initReveal(); initCounters();
     initAcc(); initTabs(); initAnchors();
     // nav-related run after shell injects (shell calls IMAIMotion); also run now in case nav is inline
