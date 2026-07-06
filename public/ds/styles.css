@@ -1,18 +1,1 @@
-/* ============================================================
-   IMAI Design System — root stylesheet
-   Single entry point. Consumers link THIS file; it pulls in the
-   token foundation plus every component/layout stylesheet.
-   ============================================================ */
-
-/* 1. Foundation — color, type, spacing, radius, shadow tokens */
-@import url('colors_and_type.css');
-
-/* 2. Product UI kit (app shell, cards, tables, controls) */
-@import url('ui_kits/imai-app/kit.css');
-
-/* 3. Marketing / paid-social ad systems */
-@import url('ads/campaign/ad-system.css');
-@import url('ads/trial-set/trial-ads.css');
-
-/* 4. Design-system preview cards */
-@import url('preview/_card.css');
+@import url('colors_and_type.css');@import url('ui_kits/imai-app/kit.css');@import url('ads/campaign/ad-system.css');@import url('ads/trial-set/trial-ads.css');@import url('preview/_card.css');

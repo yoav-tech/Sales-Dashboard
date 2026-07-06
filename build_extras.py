@@ -11,7 +11,8 @@ pages=[('/','1.0','weekly'),('/platform','0.9','monthly'),('/solutions','0.9','m
  ('/platform/tracking-roi','0.8','monthly'),('/platform/creator-payouts','0.8','monthly'),('/platform/competitive-intelligence','0.8','monthly'),
  ('/solutions/enterprise','0.8','monthly'),('/solutions/agencies','0.8','monthly'),('/solutions/smb','0.8','monthly'),
  ('/solutions/ecommerce','0.8','monthly'),('/solutions/ugc','0.8','monthly'),('/solutions/pr','0.8','monthly'),
- ('/solutions/consumer-intelligence','0.8','monthly'),('/solutions/llm-visibility','0.8','monthly'),('/solutions/ai-agents','0.8','monthly')]
+ ('/solutions/consumer-intelligence','0.8','monthly'),('/solutions/llm-visibility','0.8','monthly'),('/solutions/ai-agents','0.8','monthly'),
+ ('/terms','0.3','yearly'),('/privacy','0.3','yearly'),('/cookies','0.3','yearly'),('/security','0.4','yearly')]
 sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u,p,cf in pages: sm+=f'  <url><loc>{BASE}{u}</loc><lastmod>{TODAY}</lastmod><changefreq>{cf}</changefreq><priority>{p}</priority></url>\n'
 sm+='</urlset>\n'; open(f'{OUT}/sitemap.xml','w').write(sm)
@@ -96,6 +97,8 @@ head='''<!DOCTYPE html>
 <meta name="robots" content="noindex,follow" />
 <meta name="theme-color" content="#7132F5" />
 <link rel="icon" type="image/png" href="/assets/imai-mark.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Passion+One:wght@400;700;900&display=swap" media="print" onload="this.media='all'" />
 <link rel="stylesheet" href="/ds/colors_and_type.css" />
 <link rel="stylesheet" href="/css/ds-components.css" />
 <link rel="stylesheet" href="/css/site.css" />
