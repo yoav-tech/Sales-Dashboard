@@ -300,8 +300,9 @@
     var nav = document.querySelector(".nav");
     var host = nav ? nav.parentNode : document.body;
     if (host && !document.querySelector(".m-cta-bar")) {
+      // self-styled (no component classes): the bar may land outside the widget scopes
       var tmp = document.createElement("div");
-      tmp.innerHTML = '<div class="m-cta-bar"><a class="imai-btn imai-btn--primary imai-btn--lg imai-btn--block" href="/register">Start free trial — no card needed</a></div>';
+      tmp.innerHTML = '<div class="m-cta-bar"><a href="/register">Start free trial — no card needed</a></div>';
       host.appendChild(tmp.firstChild);
     }
   }

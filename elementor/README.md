@@ -12,7 +12,7 @@ the same page are fetched once. When several widgets share a page, the JS guard 
 copy bind events — no double-firing.
 
 1. **Header (once):** Elementor Pro → Theme Builder → Header template → drop an **HTML widget**
-   (full-width section, no padding) and paste `header.html` (43KB).
+   (full-width section, no padding) and paste `header.html` (46KB).
    Enable Elementor's **Sticky: Top** motion effect on the header section to keep the nav pinned.
 2. **Footer (once):** Theme Builder → Footer template → HTML widget → paste `footer.html` (8KB).
 3. **Pages:** create each WordPress page at the path below (Elementor full-width / canvas-content
@@ -23,33 +23,33 @@ copy bind events — no double-firing.
 
 | Snippet | Suggested WP path | Size |
 |---|---|---|
-| `pages/about.html` | `/about` | 28KB |
-| `pages/agencies.html` | `/solutions/agencies` | 43KB |
-| `pages/ai-agents.html` | `/solutions/ai-agents` | 42KB |
-| `pages/campaign-management.html` | `/platform/campaign-management` | 48KB |
-| `pages/competitive-intelligence.html` | `/platform/competitive-intelligence` | 43KB |
-| `pages/consumer-intelligence.html` | `/solutions/consumer-intelligence` | 42KB |
+| `pages/about.html` | `/about` | 30KB |
+| `pages/agencies.html` | `/solutions/agencies` | 45KB |
+| `pages/ai-agents.html` | `/solutions/ai-agents` | 44KB |
+| `pages/campaign-management.html` | `/platform/campaign-management` | 51KB |
+| `pages/competitive-intelligence.html` | `/platform/competitive-intelligence` | 46KB |
+| `pages/consumer-intelligence.html` | `/solutions/consumer-intelligence` | 45KB |
 | `pages/cookies.html` | `/cookies` | 18KB |
-| `pages/creator-payouts.html` | `/platform/creator-payouts` | 43KB |
-| `pages/customers.html` | `/customers` | 28KB |
-| `pages/discovery.html` | `/platform/discovery` | 44KB |
-| `pages/ecommerce.html` | `/solutions/ecommerce` | 46KB |
-| `pages/enterprise.html` | `/solutions/enterprise` | 43KB |
-| `pages/find-influencers.html` | `/find-influencers` | 45KB |
-| `pages/home.html` | `/` | 77KB |
-| `pages/influencer-crm.html` | `/platform/influencer-crm` | 44KB |
-| `pages/llm-visibility.html` | `/solutions/llm-visibility` | 42KB |
-| `pages/platform.html` | `/platform` | 44KB |
-| `pages/pr.html` | `/solutions/pr` | 43KB |
-| `pages/pricing.html` | `/pricing` | 53KB |
+| `pages/creator-payouts.html` | `/platform/creator-payouts` | 45KB |
+| `pages/customers.html` | `/customers` | 29KB |
+| `pages/discovery.html` | `/platform/discovery` | 46KB |
+| `pages/ecommerce.html` | `/solutions/ecommerce` | 49KB |
+| `pages/enterprise.html` | `/solutions/enterprise` | 45KB |
+| `pages/find-influencers.html` | `/find-influencers` | 47KB |
+| `pages/home.html` | `/` | 81KB |
+| `pages/influencer-crm.html` | `/platform/influencer-crm` | 46KB |
+| `pages/llm-visibility.html` | `/solutions/llm-visibility` | 45KB |
+| `pages/platform.html` | `/platform` | 46KB |
+| `pages/pr.html` | `/solutions/pr` | 44KB |
+| `pages/pricing.html` | `/pricing` | 57KB |
 | `pages/privacy.html` | `/privacy` | 19KB |
 | `pages/security.html` | `/security` | 18KB |
-| `pages/smb.html` | `/solutions/smb` | 43KB |
-| `pages/solutions.html` | `/solutions` | 38KB |
+| `pages/smb.html` | `/solutions/smb` | 44KB |
+| `pages/solutions.html` | `/solutions` | 40KB |
 | `pages/terms.html` | `/terms` | 19KB |
-| `pages/tracking-roi.html` | `/platform/tracking-roi` | 47KB |
-| `pages/ugc.html` | `/solutions/ugc` | 43KB |
-| `pages/webinars.html` | `/webinars` | 44KB |
+| `pages/tracking-roi.html` | `/platform/tracking-roi` | 49KB |
+| `pages/ugc.html` | `/solutions/ugc` | 45KB |
+| `pages/webinars.html` | `/webinars` | 47KB |
 
 ## Notes
 

@@ -121,8 +121,15 @@ def rename_sel(sel):
     sel = re.sub(r'#([A-Za-z_][\w-]*)', lambda m: '#' + f_id(m.group(1)), sel)
     return sel
 
+# selectors anchored on <html>-level state classes or on elements motion.js may
+# inject OUTSIDE the scope containers — emitted as-is (names are unique anyway)
+UNSCOPED_PREFIXES = ('.imw-js-motion', '.imw-motion-off', '.imw-drawer-open', '.imw-m-cta-bar')
+
 def scope_part(p, S):
-    """Scope one comma-separated selector part under container S. -> list of parts (may be empty)."""
+    """Scope one comma-separated selector part under container S. -> list of parts (may be empty).
+    EVERY selector gets the same S prefix so all specificities shift uniformly and the
+    stylesheet's internal cascade order is preserved (prefixing only element selectors
+    would let `.imw-scope a` outrank component classes like `.imai-btn--primary`)."""
     p = p.strip()
     if not p: return []
     if p.startswith(':root'): return [S + p[len(':root'):]]
@@ -131,9 +138,9 @@ def scope_part(p, S):
         if not rest or rest[0] in ' >+~,': return []      # global <html> side-effects: drop
         return [p]                                        # html.imw-js-motion … (JS adds it)
     if re.match(r'body(?![\w-])', p): return [S + p[4:]]
-    if p[0] in '.#': return [p]                           # already unique via prefix
+    if p.startswith(UNSCOPED_PREFIXES): return [p]
     if p[0] == '*': return [S + ' ' + p, S]
-    return [S + ' ' + p]                                  # bare element / attr / pseudo
+    return [S + ' ' + p]
 
 def rename_kf_refs(body, kf_names):
     if 'animation' not in body: return body
@@ -366,8 +373,7 @@ def main():
         p['content_out'] + ''.join(p['scripts_out']) for p in pages.values())
     SHARED = [css_files['tokens'], css_files['ds-components.css'], css_files['site.css']]
     # classes motion.js can inject into any snippet (sticky CTA bar + html-level states)
-    MOTION_DYNAMIC = (' imw-m-cta-bar imai-btn imai-btn--primary imai-btn--lg imai-btn--block'
-                      ' imw-js-motion imw-motion-off imw-drawer-open imw-footer')
+    MOTION_DYNAMIC = ' imw-m-cta-bar imw-js-motion imw-motion-off imw-drawer-open imw-footer'
 
     header_css = build_css(SHARED, '.imw-scope', global_usage)
     footer_css = build_css(SHARED, '.imw-scope', footer_out + MOTION_DYNAMIC)

@@ -228,7 +228,9 @@ a{color:inherit;text-decoration:none;}
     background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     box-shadow:0 -4px 12px rgba(10,13,18,.08);border-top:1px solid var(--border);
   }
-  .m-cta-bar .imai-btn{min-height:48px;}
+  .m-cta-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;width:100%;
+    border-radius:9999px;background:var(--action,#7132F5);color:var(--on-action,#fff);
+    font-family:var(--font-sans,'Poppins',sans-serif);font-weight:700;font-size:16px;text-decoration:none;}
   .drawer-open .m-cta-bar{display:none;}
   .footer{padding-bottom:120px;}   /* keep footer content clear of the fixed bar */
 }
