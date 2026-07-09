@@ -160,7 +160,7 @@ def emit_css(nodes, S, tokens, always, kf_names):
             if a.startswith('@'):                          # @font-face
                 out.append(a + '{' + b.strip() + '}'); continue
             parts = []
-            for part in a.split(','):
+            for part in split_selectors(a):
                 rp = rename_sel(part)
                 if not sel_used(rp, tokens, always): continue
                 parts += scope_part(rp, S)
@@ -185,9 +185,25 @@ def shake_vars(css, used_vars):
 
 def minify_css(css):
     css = re.sub(r'\s+', ' ', css)
-    css = re.sub(r'\s*([{};:,>])\s*', r'\1', css)
+    # never strip space BEFORE ':' — ".x :is(h2)" is a descendant selector,
+    # ".x:is(h2)" is a different (broken) one. After-colon space is always safe.
+    css = re.sub(r'\s*([{};,>])\s*', r'\1', css)
+    css = re.sub(r':\s+', ':', css)
     css = css.replace(';}', '}')
     return css.strip()
+
+def split_selectors(sel):
+    """Split a selector list on top-level commas only (commas inside :is()/:not() stay)."""
+    parts, depth, cur = [], 0, ''
+    for ch in sel:
+        if ch == '(': depth += 1
+        elif ch == ')': depth -= 1
+        if ch == ',' and depth == 0:
+            parts.append(cur); cur = ''
+        else:
+            cur += ch
+    parts.append(cur)
+    return parts
 
 GLOBAL_KF = {}   # keyframe name -> body, across every stylesheet (populated in main)
 

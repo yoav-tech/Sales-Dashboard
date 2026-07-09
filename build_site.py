@@ -20,7 +20,9 @@ def _rest(css):
 def minify_css(css):
     css=_prot(re.sub(r'/\*.*?\*/','',css,flags=re.S))
     css=re.sub(r'\s+',' ',css)
-    css=re.sub(r'\s*([{};:,>])\s*',r'\1',css).replace(';}','}')
+    # keep space BEFORE ':' (".x :is(h2)" is a descendant selector); after-colon is safe
+    css=re.sub(r'\s*([{};,>])\s*',r'\1',css)
+    css=re.sub(r':\s+',':',css).replace(';}','}')
     return _rest(css.strip())
 def minify_js(js):
     js=re.sub(r'/\*.*?\*/','',js,flags=re.S)

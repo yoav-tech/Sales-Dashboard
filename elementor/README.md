@@ -23,33 +23,33 @@ copy bind events — no double-firing.
 
 | Snippet | Suggested WP path | Size |
 |---|---|---|
-| `pages/about.html` | `/about` | 29KB |
+| `pages/about.html` | `/about` | 28KB |
 | `pages/agencies.html` | `/solutions/agencies` | 43KB |
-| `pages/ai-agents.html` | `/solutions/ai-agents` | 43KB |
-| `pages/campaign-management.html` | `/platform/campaign-management` | 49KB |
-| `pages/competitive-intelligence.html` | `/platform/competitive-intelligence` | 44KB |
-| `pages/consumer-intelligence.html` | `/solutions/consumer-intelligence` | 43KB |
-| `pages/cookies.html` | `/cookies` | 19KB |
-| `pages/creator-payouts.html` | `/platform/creator-payouts` | 44KB |
+| `pages/ai-agents.html` | `/solutions/ai-agents` | 42KB |
+| `pages/campaign-management.html` | `/platform/campaign-management` | 48KB |
+| `pages/competitive-intelligence.html` | `/platform/competitive-intelligence` | 43KB |
+| `pages/consumer-intelligence.html` | `/solutions/consumer-intelligence` | 42KB |
+| `pages/cookies.html` | `/cookies` | 18KB |
+| `pages/creator-payouts.html` | `/platform/creator-payouts` | 43KB |
 | `pages/customers.html` | `/customers` | 28KB |
-| `pages/discovery.html` | `/platform/discovery` | 45KB |
-| `pages/ecommerce.html` | `/solutions/ecommerce` | 47KB |
-| `pages/enterprise.html` | `/solutions/enterprise` | 44KB |
-| `pages/find-influencers.html` | `/find-influencers` | 46KB |
+| `pages/discovery.html` | `/platform/discovery` | 44KB |
+| `pages/ecommerce.html` | `/solutions/ecommerce` | 46KB |
+| `pages/enterprise.html` | `/solutions/enterprise` | 43KB |
+| `pages/find-influencers.html` | `/find-influencers` | 45KB |
 | `pages/home.html` | `/` | 77KB |
-| `pages/influencer-crm.html` | `/platform/influencer-crm` | 45KB |
-| `pages/llm-visibility.html` | `/solutions/llm-visibility` | 43KB |
+| `pages/influencer-crm.html` | `/platform/influencer-crm` | 44KB |
+| `pages/llm-visibility.html` | `/solutions/llm-visibility` | 42KB |
 | `pages/platform.html` | `/platform` | 44KB |
 | `pages/pr.html` | `/solutions/pr` | 43KB |
-| `pages/pricing.html` | `/pricing` | 55KB |
-| `pages/privacy.html` | `/privacy` | 20KB |
-| `pages/security.html` | `/security` | 19KB |
+| `pages/pricing.html` | `/pricing` | 53KB |
+| `pages/privacy.html` | `/privacy` | 19KB |
+| `pages/security.html` | `/security` | 18KB |
 | `pages/smb.html` | `/solutions/smb` | 43KB |
-| `pages/solutions.html` | `/solutions` | 39KB |
-| `pages/terms.html` | `/terms` | 20KB |
-| `pages/tracking-roi.html` | `/platform/tracking-roi` | 48KB |
+| `pages/solutions.html` | `/solutions` | 38KB |
+| `pages/terms.html` | `/terms` | 19KB |
+| `pages/tracking-roi.html` | `/platform/tracking-roi` | 47KB |
 | `pages/ugc.html` | `/solutions/ugc` | 43KB |
-| `pages/webinars.html` | `/webinars` | 45KB |
+| `pages/webinars.html` | `/webinars` | 44KB |
 
 ## Notes
 
