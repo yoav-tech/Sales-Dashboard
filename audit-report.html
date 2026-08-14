@@ -1,0 +1,873 @@
+<title>The IMAI Copy Audit</title>
+<style>
+:root{
+  --paper:#EFF2F5; --card:#FFFFFF; --card-2:#F7F9FB;
+  --ink:#16202E; --ink-2:#55637A; --ink-3:#7C8899;
+  --rule:#D6DDE5; --rule-2:#E6EBF0;
+  --pen:#C42E22; --pen-soft:#FBEDEB;
+  --p0:#C42E22; --p1:#A96A00; --p2:#2F6E8F; --p3:#6B7789;
+  --ok:#2E6B4F;
+  --shadow:0 1px 2px rgba(22,32,46,.06), 0 8px 24px -16px rgba(22,32,46,.28);
+  --serif:"Iowan Old Style","Charter","Georgia","Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Helvetica Neue","Segoe UI",sans-serif;
+  --mono:ui-monospace,"SF Mono","Menlo","Consolas",monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#111823; --card:#182130; --card-2:#1D2736;
+    --ink:#E7ECF3; --ink-2:#A3B0C2; --ink-3:#7E8CA0;
+    --rule:#2A3648; --rule-2:#222C3C;
+    --pen:#FF6F5C; --pen-soft:#2E1B18;
+    --p0:#FF6F5C; --p1:#E0A448; --p2:#6BAFD0; --p3:#93A1B4;
+    --ok:#5FBF8F;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111823; --card:#182130; --card-2:#1D2736;
+  --ink:#E7ECF3; --ink-2:#A3B0C2; --ink-3:#7E8CA0;
+  --rule:#2A3648; --rule-2:#222C3C;
+  --pen:#FF6F5C; --pen-soft:#2E1B18;
+  --p0:#FF6F5C; --p1:#E0A448; --p2:#6BAFD0; --p3:#93A1B4;
+  --ok:#5FBF8F;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px; margin:0 auto; padding:0 28px}
+.col{max-width:70ch}
+
+/* ---- masthead ---- */
+.mast{
+  border-bottom:2px solid var(--ink);
+  padding:64px 0 28px; margin-bottom:8px;
+}
+.mast .kicker{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--pen); margin:0 0 20px;
+  display:flex; gap:14px; flex-wrap:wrap; align-items:center;
+}
+.mast .kicker span:not(:last-child)::after{content:" ／"; color:var(--ink-3); margin-left:14px}
+.mast h1{
+  font-family:var(--serif); font-weight:600; font-size:clamp(2.4rem,6vw,3.9rem);
+  line-height:1.02; letter-spacing:-.02em; margin:0 0 18px; text-wrap:balance;
+}
+.mast .standfirst{
+  font-family:var(--serif); font-size:clamp(1.05rem,2.2vw,1.28rem);
+  color:var(--ink-2); line-height:1.5; max-width:60ch; margin:0;
+}
+.facts{
+  display:flex; flex-wrap:wrap; gap:0; margin:34px 0 0;
+  border-top:1px solid var(--rule);
+}
+.fact{
+  flex:1 1 130px; padding:16px 20px 14px 0; border-right:1px solid var(--rule-2);
+}
+.fact:last-child{border-right:0}
+.fact b{
+  display:block; font-family:var(--serif); font-size:1.85rem; line-height:1;
+  font-variant-numeric:tabular-nums; margin-bottom:6px;
+}
+.fact.alert b{color:var(--pen)}
+.fact span{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink-3);
+}
+
+/* ---- structure ---- */
+section{padding:56px 0; border-bottom:1px solid var(--rule-2)}
+section:last-of-type{border-bottom:0}
+h2{
+  font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.4vw,2.3rem);
+  line-height:1.14; letter-spacing:-.015em; margin:0 0 8px; text-wrap:balance;
+}
+h2 .num{
+  font-family:var(--mono); font-size:.62em; color:var(--pen);
+  letter-spacing:0; margin-right:.6em; font-weight:400;
+}
+.lede{color:var(--ink-2); font-size:1.06rem; margin:0 0 34px; max-width:66ch}
+h3{font-family:var(--serif); font-weight:600; font-size:1.22rem; line-height:1.25; margin:0 0 12px}
+h4{
+  font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-3); margin:38px 0 14px; font-weight:600;
+}
+p{margin:0 0 16px; max-width:70ch}
+a{color:var(--pen); text-underline-offset:3px}
+code{
+  font-family:var(--mono); font-size:.855em; background:var(--card-2);
+  border:1px solid var(--rule-2); border-radius:4px; padding:1px 5px; color:var(--ink);
+}
+strong{font-weight:650}
+em{font-style:italic}
+.p0{color:var(--p0)}
+
+/* ---- finding cards ---- */
+.finding{
+  background:var(--card); border:1px solid var(--rule); border-radius:3px;
+  border-left:4px solid var(--sev,var(--p0));
+  padding:26px 28px; margin:0 0 22px; box-shadow:var(--shadow);
+}
+.finding.sev-p1{--sev:var(--p1)} .finding.sev-p2{--sev:var(--p2)} .finding.sev-p3{--sev:var(--p3)}
+.finding > h3{display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px}
+.fid{
+  font-family:var(--mono); font-size:12px; color:var(--sev,var(--p0));
+  font-weight:600; letter-spacing:.02em;
+}
+.chip{
+  font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  border:1px solid currentColor; border-radius:999px; padding:2px 8px;
+  color:var(--sev,var(--p0)); font-weight:600; white-space:nowrap;
+}
+.impact{
+  margin:18px 0 0; padding:14px 16px; background:var(--card-2);
+  border-left:2px solid var(--sev,var(--p0)); border-radius:0 3px 3px 0;
+  font-size:.94rem; color:var(--ink-2);
+}
+.impact b{color:var(--ink)}
+.fix{margin-top:18px; font-size:.96rem}
+.fix > b{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:8px;
+}
+
+/* ---- tables ---- */
+.scroll{overflow-x:auto; margin:0 0 8px; -webkit-overflow-scrolling:touch}
+table{border-collapse:collapse; width:100%; font-size:.925rem; min-width:520px}
+th,td{text-align:left; padding:11px 16px 11px 0; border-bottom:1px solid var(--rule-2); vertical-align:top}
+thead th{
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--ink-3); border-bottom:1px solid var(--rule); font-weight:600; white-space:nowrap;
+}
+tbody th{font-weight:500; white-space:nowrap}
+td.q{font-family:var(--serif); font-size:1rem; color:var(--ink)}
+td.note-cell{color:var(--ink-2); font-size:.9rem; min-width:280px}
+td.rec-cta{font-family:var(--serif); font-size:1.04rem}
+.grade{
+  font-family:var(--mono); font-weight:600; font-size:.9rem;
+  font-variant-numeric:tabular-nums;
+}
+.g-a{color:var(--ok)} .g-b{color:var(--p1)} .g-c{color:var(--p0)}
+
+/* ---- before / after ---- */
+.meta-card{
+  background:var(--card); border:1px solid var(--rule); border-radius:3px;
+  padding:22px 24px; margin:0 0 16px; box-shadow:var(--shadow);
+}
+.meta-card > h3{font-family:var(--mono); font-size:.95rem; font-weight:600; margin-bottom:16px}
+.meta-card > h3 code{background:none; border:0; padding:0; font-size:1em}
+.ba{display:flex; flex-direction:column; gap:1px; margin-bottom:14px}
+.ba:last-of-type{margin-bottom:0}
+.ba-r{
+  display:grid; grid-template-columns:112px 1fr auto; gap:16px; align-items:start;
+  padding:11px 14px; background:var(--card-2); border-radius:3px;
+}
+.ba-r.rec{background:var(--pen-soft); border-left:2px solid var(--pen)}
+.ba-k{
+  font-family:var(--mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--ink-3); padding-top:4px; font-weight:600;
+}
+.ba-r.rec .ba-k{color:var(--pen)}
+.ba-v{font-size:.95rem; line-height:1.5; min-width:0; overflow-wrap:break-word}
+.ba-r.cur .ba-v{color:var(--ink-2)}
+.ba-n{
+  font-family:var(--mono); font-size:11.5px; color:var(--ink-3);
+  font-variant-numeric:tabular-nums; padding-top:4px;
+}
+
+/* char meter */
+.meter{display:flex; align-items:center; gap:8px; padding-top:5px}
+.meter-bar{
+  position:relative; width:74px; height:5px; background:var(--rule-2);
+  border-radius:99px; overflow:visible; display:block; flex:none;
+}
+.meter-fill{position:absolute; inset:0 auto 0 0; background:var(--ok); border-radius:99px}
+.meter.over .meter-fill{background:var(--p0)}
+.meter-thr{position:absolute; top:-3px; bottom:-3px; width:1px; background:var(--ink-3)}
+.meter-n{
+  font-family:var(--mono); font-size:11.5px; font-variant-numeric:tabular-nums;
+  color:var(--ink-3); min-width:26px; text-align:right;
+}
+.meter.over .meter-n{color:var(--p0); font-weight:600}
+.note{
+  margin:14px 0 0; padding-top:13px; border-top:1px solid var(--rule-2);
+  font-size:.88rem; color:var(--ink-2); max-width:none;
+}
+.meta-card.slim .note{margin-top:10px}
+
+/* ---- misc ---- */
+.callout{
+  background:var(--card); border:1px solid var(--rule); border-left:4px solid var(--p2);
+  border-radius:3px; padding:22px 26px; margin:26px 0; box-shadow:var(--shadow);
+}
+.callout h3{margin-bottom:10px}
+.callout p:last-child{margin-bottom:0}
+ol.plan{margin:0; padding:0; list-style:none; counter-reset:step}
+ol.plan li{
+  counter-increment:step; position:relative; padding:14px 0 14px 46px;
+  border-bottom:1px solid var(--rule-2); max-width:72ch;
+}
+ol.plan li:last-child{border-bottom:0}
+ol.plan li::before{
+  content:counter(step,decimal-leading-zero); position:absolute; left:0; top:15px;
+  font-family:var(--mono); font-size:11.5px; color:var(--ink-3);
+  font-variant-numeric:tabular-nums;
+}
+.phase{
+  display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+  margin:40px 0 6px; padding-bottom:10px; border-bottom:1px solid var(--rule);
+}
+.phase b{font-family:var(--mono); font-size:12px; letter-spacing:.1em; font-weight:700}
+.phase .t{font-family:var(--serif); font-size:1.14rem}
+.phase .est{
+  font-family:var(--mono); font-size:11px; color:var(--ink-3);
+  margin-left:auto; white-space:nowrap;
+}
+.ph0 b{color:var(--p0)} .ph1 b{color:var(--p1)} .ph2 b{color:var(--p2)} .ph3 b{color:var(--p3)}
+ul.plain{padding-left:20px; margin:0 0 16px; max-width:70ch}
+ul.plain li{margin-bottom:7px}
+.foot{
+  padding:42px 0 72px; color:var(--ink-3); font-size:.86rem;
+  border-top:2px solid var(--ink); margin-top:16px;
+}
+.foot p{max-width:74ch}
+:focus-visible{outline:2px solid var(--pen); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 18px}
+  .ba-r{grid-template-columns:1fr; gap:6px}
+  .ba-k{padding-top:0}
+  .meter,.ba-n{padding-top:2px}
+  .fact{flex:1 1 44%; border-right:0}
+}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <p class="kicker"><span>PAS &amp; AIDA</span><span>27 pages</span><span>14 August 2026</span></p>
+    <h1>Good copy, five broken promises.</h1>
+    <p class="standfirst">A full content audit of InfluencerMarketing.ai — every page, every headline,
+    every meta description — read against Problem&#8202;·&#8202;Agitate&#8202;·&#8202;Solution and
+    Attention&#8202;·&#8202;Interest&#8202;·&#8202;Desire&#8202;·&#8202;Action.</p>
+    <div class="facts">
+      <div class="fact"><b>27</b><span>Pages audited</span></div>
+      <div class="fact"><b>54</b><span>Titles &amp; descriptions</span></div>
+      <div class="fact"><b>737</b><span>Headline elements</span></div>
+      <div class="fact alert"><b>5</b><span>P0 contradictions</span></div>
+      <div class="fact alert"><b>0</b><span>Descriptions using PAS</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap col">
+    <h2>The short version</h2>
+    <p>The copy on this site is <strong>better than most B2B SaaS</strong>. Sixteen of 27 pages already run a
+    disciplined, near-textbook PAS structure, and the agitate copy is specific and human — <em>“A creator says yes
+    in a DM you never see again.”</em> Headline voice is consistent, concrete and benefit-led. That is not a small thing,
+    and none of it needs rewriting.</p>
+    <p>The problems are not in the writing. They are in three places:</p>
+    <ul class="plain">
+      <li><strong>Five factual contradictions that break the AIDA “Action” step.</strong> The site promises a 7-day
+      trial on some pages and 14-day on others; promises “no card required” on 18 pages and then asks for card
+      details; quotes 400M+ creators in every meta description and 412M+ in the homepage hero; and is actively
+      selling a webinar that happened 29 days ago.</li>
+      <li><strong>The meta layer does zero PAS work.</strong> All 27 descriptions are pure Solution — feature lists
+      with no Problem and no Agitate. Five also overflow and truncate, and two lose their strongest hook in the cut.</li>
+      <li><strong>Eleven pages have no Problem/Agitate section at all</strong> — including <code>platform</code>,
+      <code>solutions</code>, <code>pricing</code> and <code>customers</code>. <code>customers.html</code>, which should be
+      the Desire engine of the whole funnel, has exactly two headlines.</li>
+    </ul>
+    <p>Fix the five contradictions first. They cost money today and take about an hour.</p>
+
+    <div class="callout">
+      <h3>Where to make the changes</h3>
+      <p>Headlines and body copy live in <code>site/*.html</code> plus the four onboarding pages at the repo root.
+      Titles and meta descriptions live in the <code>S={…}</code> map in <code>build_site.py</code> (lines 43–99).
+      The 28 files under <code>public/</code> are build output — they are wiped and regenerated, so never edit them directly.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="col">
+      <h2><span class="num">01</span>Critical defects</h2>
+      <p class="lede">These five are not opinions. Each is verifiable in the source, and each breaks AIDA at the
+      Action step — where it is most expensive.</p>
+    </div>
+
+    <article class="finding">
+      <h3><span class="fid">1.1</span> <span class="chip">P0</span> The trial length contradicts itself across the funnel</h3>
+      <p>The site cannot decide whether the trial is 7 or 14 days, and the contradiction lands hardest on the
+      payment page itself.</p>
+      <div class="scroll"><table>
+        <thead><tr><th>Location</th><th>Claim</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><code>build_site.py:53</code> — pricing meta</th><td><strong>14-day</strong> free trial</td></tr>
+          <tr><th scope="row"><code>build_site.py:79</code> — smb meta</th><td><strong>7-day</strong> free trial</td></tr>
+          <tr><th scope="row"><code>build_site.py:95</code> — payment title</th><td><strong>7-Day</strong> trial</td></tr>
+          <tr><th scope="row"><code>payment.html:6</code> &lt;title&gt;</th><td><strong>7-day</strong> free trial</td></tr>
+          <tr><th scope="row"><code>payment.html</code> &lt;h1&gt;</th><td>activate your <strong>14-day</strong> trial</td></tr>
+          <tr><th scope="row"><code>site/smb.html:28,38,39,57</code></th><td><strong>7-day</strong> — hero, ticks, stat, FAQ</td></tr>
+          <tr><th scope="row"><code>site/smb.html:38</code> timeline</th><td>“Day 5 — full access”, “<strong>Day 7</strong> — you stay in control”</td></tr>
+          <tr><th scope="row"><code>site/solutions.html:94</code></th><td><strong>7-day</strong> free trial</td></tr>
+          <tr><th scope="row"><code>site/pricing.html:1501</code></th><td><strong>14-day</strong> free trial</td></tr>
+          <tr><th scope="row"><code>ecommerce</code>, <code>ugc</code>, <code>register</code></th><td><strong>14 day</strong></td></tr>
+        </tbody>
+      </table></div>
+      <p class="impact"><b>Worst case:</b> <code>payment.html</code> — the final step before payment — has
+      <code>7-day</code> in its own title and <code>14-day</code> in its own H1. A prospect arriving from
+      <code>/solutions/smb</code> (which says 7-day four times, with a Day-5/Day-7 timeline) sees a browser tab
+      saying 7 and a headline saying 14. <b>AIDA impact: Action.</b> This is the last thing a buyer reads before
+      entering a card. Contradiction here reads as bait-and-switch.</p>
+      <div class="fix"><b>Fix</b>Pick one number and propagate it to all 11 locations. If SMB genuinely has a
+      different trial to other plans, say so explicitly — “7 days on Starter, 14 on Growth and above” — rather than
+      letting two numbers float unlabelled.</div>
+    </article>
+
+    <article class="finding">
+      <h3><span class="fid">1.2</span> <span class="chip">P0</span> “No card required” is promised on 18 pages, then contradicted at checkout</h3>
+      <p>Eighteen pages carry the phrase <strong>“no card required”</strong> (or “no credit card”):
+      <code>agencies</code>, <code>ai-agents</code>, <code>campaign-management</code>, <code>competitive-intelligence</code>,
+      <code>consumer-intelligence</code>, <code>creator-payouts</code>, <code>discovery</code>, <code>ecommerce</code>,
+      <code>enterprise</code>, <code>index</code>, <code>influencer-crm</code>, <code>llm-visibility</code>, <code>pr</code>,
+      <code>pricing</code>, <code>smb</code>, <code>solutions</code>, <code>tracking-roi</code>, <code>ugc</code>.</p>
+      <p>Then <code>payment.html</code> opens with the H1: <strong>“Enter card details to activate your 14-day trial.”</strong></p>
+      <p class="impact"><b>AIDA impact: Action, catastrophically.</b> The single most repeated risk-reversal on the
+      site is revoked at the moment of commitment. Worse, the H1 leads with the <em>friction</em> instead of the
+      <em>reward</em> — a textbook conversion anti-pattern. The button beneath it (“Pay $0 and start your 14-day
+      trial”) gets this exactly right; the headline above it does not.</p>
+      <div class="fix"><b>Fix</b>If a card <em>is</em> required, remove “no card required” from all 18 pages — it is a
+      false promise. If it is <em>not</em>, this page is mislabelled and should be reframed as an optional upgrade
+      step. Either way, rewrite the H1 to lead with reward: <strong>“Start your 14-day trial. You won't be charged
+      today.”</strong> — with card entry as the mechanism beneath, not the headline.</div>
+    </article>
+
+    <article class="finding">
+      <h3><span class="fid">1.3</span> <span class="chip">P0</span> The webinar page is selling an event that already happened</h3>
+      <p>Today is <strong>14 August 2026</strong>. The event is dated <strong>Thursday, 16 July 2026</strong> —
+      <strong>29 days in the past</strong>. Every urgency device on the page now points backwards.</p>
+      <div class="scroll"><table>
+        <thead><tr><th>Location</th><th>Content</th><th>Problem</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><code>webinars.html:132,238</code></th><td>“Thursday, July 16, 2026 · 11:00 AM ET”</td><td class="note-cell">Past</td></tr>
+          <tr><th scope="row"><code>webinars.html:237</code></th><td><strong>“Doors open in 29 days.”</strong></td><td class="note-cell">Hardcoded countdown, now exactly inverted — it is 29 days <em>since</em></td></tr>
+          <tr><th scope="row"><code>webinars.html:238</code></th><td>“Grab your seat before it fills.”</td><td class="note-cell">Dead urgency</td></tr>
+          <tr><th scope="row"><code>webinars.html</code> hero</th><td>“218 seats left”</td><td class="note-cell">Hardcoded scarcity on a finished event</td></tr>
+          <tr><th scope="row"><code>webinars.html:250</code></th><td>“See you on July 16.”</td><td class="note-cell">Confirmation state promises a past date</td></tr>
+          <tr><th scope="row"><code>webinars.html:308</code></th><td>schema <code>2026-07-16</code></td><td class="note-cell">Google may surface an expired event</td></tr>
+          <tr><th scope="row"><code>build_site.py:61</code></th><td>meta: “Thursday, July 16, 2026”</td><td class="note-cell">Stale date in the SERP</td></tr>
+        </tbody>
+      </table></div>
+      <p class="impact"><b>AIDA impact: Desire and Action both.</b> Scarcity and countdown <em>are</em> the
+      Desire→Action engine on a webinar page. Here they are the proof the page is abandoned. A visitor who does the
+      arithmetic learns the company does not maintain its own site.</p>
+      <div class="fix"><b>Fix</b>Either reschedule — new date, recomputed countdown, reset seat count, updated schema
+      and meta — or convert the page to on-demand replay; it already has a “Recent sessions, ready when you are”
+      section that would carry it. <strong>The countdown and seat count must be computed at build time from the
+      event date, not hardcoded</strong>, or this recurs every cycle.</div>
+    </article>
+
+    <article class="finding">
+      <h3><span class="fid">1.4</span> <span class="chip">P0</span> The creator count contradicts itself — including within the homepage</h3>
+      <p><strong>400M+</strong> appears around 90 times, across every page and every meta description.
+      <strong>412M+</strong> appears in six places: <code>index.html</code> lines 150, 157 and 246;
+      <code>pricing.html</code> lines 8 and 1501; and <code>build_site.py</code> lines 53 and 93.</p>
+      <p>Which means the homepage's own meta description says <strong>400M+</strong> while its hero proof-point
+      says <strong>412M+</strong>.</p>
+      <p class="impact"><b>AIDA impact: Interest and Desire.</b> This is the site's single most-repeated credibility
+      number. Two versions of it means neither is trusted. Note that <code>find-influencers.html</code> breaks down as
+      218M + 112M + 58M = 388M across three platforms — coherent with 400M+, less so with 412M+.</p>
+      <div class="fix"><b>Fix</b>Pick one and propagate everywhere. If the database genuinely grew from 400M to 412M,
+      update all ~90 instances — a stale number repeated 90 times is worse than a new number stated once.</div>
+    </article>
+
+    <article class="finding">
+      <h3><span class="fid">1.5</span> <span class="chip">P0</span> Five descriptions truncate — two lose their strongest hook</h3>
+      <p>Google truncates around 155–160 characters. What actually gets cut:</p>
+      <div class="scroll"><table>
+        <thead><tr><th>Page</th><th>Len</th><th>Text lost in the cut</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><code>webinars.html</code></th><td class="grade g-c">195</td><td>“hursday, July 16, 2026. Replay included.”</td></tr>
+          <tr><th scope="row"><code>pricing.html</code></th><td class="grade g-c">181</td><td>“y plan. <strong>14-day free trial.</strong>” — the Action hook</td></tr>
+          <tr><th scope="row"><code>index.html</code></th><td class="grade g-c">174</td><td>“s and <strong>provable ROI</strong>.” — the strongest Desire hook</td></tr>
+          <tr><th scope="row"><code>find-influencers.html</code></th><td class="grade g-c">162</td><td>“safety.”</td></tr>
+          <tr><th scope="row"><code>solutions.html</code></th><td class="grade g-c">159</td><td>“nts.”</td></tr>
+        </tbody>
+      </table></div>
+      <p class="impact"><code>index.html</code> is the worst of these: the homepage description spends 155 characters
+      listing features and gets cut immediately before <b>“provable ROI”</b> — the one phrase that separates IMAI from a
+      database vendor. <code>pricing.html</code> loses its risk-reversal.</p>
+      <div class="fix"><b>Fix</b>Rewrite to 155 characters or fewer with the payoff front-loaded. Every rewrite in
+      section 02 is length-checked.</div>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="col">
+      <h2><span class="num">02</span>The meta layer</h2>
+      <p class="lede">All 27 descriptions are <strong>Solution-only</strong>. Not one opens with a Problem or an
+      Agitate. Every one reads as a feature manifest.</p>
+      <p>This is the biggest single missed opportunity on the site, because the SERP snippet is where PAS pays best —
+      you are competing for a click against nine other results, and “here is what we do” loses to “here is what is
+      going wrong for you.”</p>
+      <p>The irony is that <strong>the pages already contain the hooks.</strong> <code>tracking-roi.html</code> opens with
+      <em>“‘It went well.’ Prove it.”</em> — and its meta description says <em>“Measure influencer ROI with sales
+      attribution via SDK, UTMs and discount codes.”</em> The PAS line was already written. It just never made it into
+      the meta layer.</p>
+      <p>Titles are mostly solid for head terms but are category labels with no Attention value. The recommendations
+      below keep the head keyword and add tension only where the character budget allows. Bars show length against
+      the 155-character SERP limit, marked.</p>
+    </div>
+    <article class="meta-card" id="meta-index">
+<h3><code>index.html</code></h3>
+<div class="ba"><div class="ba-r cur"><span class="ba-k">Current title</span><span class="ba-v">InfluencerMarketing.ai — AI Influencer Marketing Platform</span><span class="ba-n">57</span></div><div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">InfluencerMarketing.ai — AI Platform That Proves ROI</span><span class="ba-n">51</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Discover, vet, activate and pay creators from 400M+ profiles — one AI platform for influencer search, fraud detection, campaigns, payouts in 135+ currencies and provable ROI.</span><span class="meter over" role="img" aria-label="174 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:87.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">174</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Most influencer spend can't be traced to revenue. Discover, vet, activate and pay creators from 400M+ profiles — and prove every dollar back.</span><span class="meter ok" role="img" aria-label="146 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:73.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">146</span></span></div>
+</div>
+<p class="note">Opens on Problem, closes on Solution + Desire. Fits without truncation — the current version loses “provable ROI” in the cut.</p>
+</article>
+<article class="meta-card" id="meta-platform">
+<h3><code>platform.html</code></h3>
+<div class="ba"><div class="ba-r cur"><span class="ba-k">Current title</span><span class="ba-v">Platform — AI Influencer Marketing Software</span><span class="ba-n">43</span></div><div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Influencer Marketing Software — One Connected Platform</span><span class="ba-n">52</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Creator discovery, influencer CRM, campaign management, ROI tracking and global payouts — the complete AI platform to run influencer marketing end to end.</span><span class="meter ok" role="img" aria-label="154 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:77.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">154</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Stop stitching together a database, an inbox, a spreadsheet and a payments app. Discovery, CRM, campaigns, ROI and payouts — one connected platform.</span><span class="meter ok" role="img" aria-label="150 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:75.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">150</span></span></div>
+</div>
+<p class="note">Reuses the page's own hero deck, which already states the problem well.</p>
+</article>
+<article class="meta-card" id="meta-solutions">
+<h3><code>solutions.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Solutions for Enterprise, Agencies, SMB &amp; Ecommerce</span><span class="ba-n">51</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">One AI platform for enterprise, agencies, SMBs and ecommerce — across influencer marketing, PR, UGC video, consumer intelligence, LLM visibility and AI agents.</span><span class="meter over" role="img" aria-label="159 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:79.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">159</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Every team buys its own tool and none of them share data. One AI platform for enterprise, agencies, SMBs and ecommerce — six workspaces, one login.</span><span class="meter ok" role="img" aria-label="147 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:73.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">147</span></span></div>
+</div>
+<p class="note">Title kept — strong keyword coverage and within budget.</p>
+</article>
+<article class="meta-card" id="meta-pricing">
+<h3><code>pricing.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Pricing — Influencer Marketing Plans for Brands &amp; Agencies</span><span class="ba-n">58</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Flexible influencer marketing pricing: Personal $129, Starter $299, Growth $499, Scale $1,200/mo and custom Enterprise. Full 412M+ creator database on every plan. 14-day free trial.</span><span class="meter over" role="img" aria-label="181 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:90.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">181</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Full 400M+ creator database on every plan. Personal $129, Starter $299, Growth $499, Scale $1,200/mo. 14-day trial, no credit card.</span><span class="meter ok" role="img" aria-label="136 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:68.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">136</span></span></div>
+</div>
+<p class="note">Fixes the 412M error (§1.4) and saves “14-day trial” from truncation (§1.5).</p>
+</article>
+<article class="meta-card" id="meta-customers">
+<h3><code>customers.html</code></h3>
+<div class="ba"><div class="ba-r cur"><span class="ba-k">Current title</span><span class="ba-v">Customer Stories &amp; Case Studies</span><span class="ba-n">31</span></div><div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Customer Stories — Proven Influencer Marketing ROI</span><span class="ba-n">49</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">See how 1,000+ brands and agencies — including Estée Lauder, Samsung and Playtika — drive measurable ROI with InfluencerMarketing.ai.</span><span class="meter ok" role="img" aria-label="133 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:66.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">133</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Most teams can't prove influencer ROI. See how Estée Lauder, Samsung, Playtika and 1,000+ brands turned creator spend into attributed revenue.</span><span class="meter ok" role="img" aria-label="141 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:70.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">141</span></span></div>
+</div>
+<p class="note">Current title is generic — no brand, no keyword, no tension.</p>
+</article>
+<article class="meta-card" id="meta-about">
+<h3><code>about.html</code></h3>
+<div class="ba"><div class="ba-r cur"><span class="ba-k">Current title</span><span class="ba-v">About InfluencerMarketing.ai</span><span class="ba-n">28</span></div><div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">About InfluencerMarketing.ai — Our Mission &amp; Team</span><span class="ba-n">48</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">The AI platform helping 1,000+ brands discover, vet, activate and pay creators from 400M+ profiles across 50+ countries.</span><span class="meter ok" role="img" aria-label="120 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:60.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">120</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Influencer marketing ran on spreadsheets and gut feel. We built the AI platform that helps 1,000+ brands prove what creator spend actually returns.</span><span class="meter ok" role="img" aria-label="146 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:73.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">146</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-find-influencers">
+<h3><code>find-influencers.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Find Influencers — Search 400M+ Creators</span><span class="ba-n">40</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Search 400M+ influencers across Instagram, TikTok, YouTube and X by niche, location, audience and engagement. Vet any creator for fake followers and brand safety.</span><span class="meter over" role="img" aria-label="162 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:81.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">162</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Follower counts don't tell you who converts. Search 400M+ creators on Instagram, TikTok, YouTube and X — and vet every audience for fakes.</span><span class="meter ok" role="img" aria-label="137 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:68.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">137</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-webinars">
+<h3><code>webinars.html</code></h3>
+<div class="ba"><div class="ba-r cur"><span class="ba-k">Current title</span><span class="ba-v">Live Webinar — Proving Influencer ROI in 2026</span><span class="ba-n">45</span></div><div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Live Webinar — Prove Influencer ROI to Your CFO</span><span class="ba-n">47</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Free live webinar: turn 400M+ creators into measurable revenue. See AI creator discovery, authenticity vetting and client-ready ROI dashboards in action. Thursday, July 16, 2026. Replay included.</span><span class="meter over" role="img" aria-label="195 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:97.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">195</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Finance doesn't trust EMV. Free live webinar: turn 400M+ creators into attributed revenue — AI discovery, vetting and a client-ready ROI dashboard.</span><span class="meter ok" role="img" aria-label="148 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:74.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">148</span></span></div>
+</div>
+<p class="note">Blocked on defect §1.3 — assumes a new date. Move the date out of the meta entirely; it is what makes this description go stale. Let the event schema carry it.</p>
+</article>
+<article class="meta-card" id="meta-discovery">
+<h3><code>discovery.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">AI Creator Discovery — Search 400M+ Influencers</span><span class="ba-n">47</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Find and vet creators with natural-language AI search across 400M+ Instagram, TikTok, YouTube and X profiles, with fake-follower and brand-safety screening.</span><span class="meter over" role="img" aria-label="156 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:78.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">156</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Boolean filters surface the obvious accounts, not the ones that fit. Describe your creator in plain English and AI ranks 400M+ vetted matches.</span><span class="meter ok" role="img" aria-label="142 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:71.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">142</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-influencer-crm">
+<h3><code>influencer-crm.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Influencer CRM &amp; AI Outreach Software</span><span class="ba-n">37</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Manage every creator, message and deliverable in one pipeline with AI outreach and automatic follow-ups — a 62% average reply rate, 3.1× the manual baseline.</span><span class="meter over" role="img" aria-label="157 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:78.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">157</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Your pipeline lives in 15 open inboxes. Move every creator, message and deliverable into one pipeline — AI outreach, auto follow-ups, 62% reply rate.</span><span class="meter ok" role="img" aria-label="150 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:75.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">150</span></span></div>
+</div>
+<p class="note">Keeps the 62% proof point — the strongest number in the whole meta layer.</p>
+</article>
+<article class="meta-card" id="meta-campaign-management">
+<h3><code>campaign-management.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Influencer Campaign Management Software</span><span class="ba-n">39</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Run influencer campaigns from brief to bank transfer — contracts, e-sign, content approval and payouts in 135+ currencies, all in one platform.</span><span class="meter ok" role="img" aria-label="143 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:71.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">143</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">One campaign, six disconnected tools — every handoff a dropped ball. Run brief to bank transfer in one place: contracts, e-sign, approvals, payouts.</span><span class="meter ok" role="img" aria-label="152 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:76.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">152</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-tracking-roi">
+<h3><code>tracking-roi.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Influencer Marketing ROI Tracking &amp; Attribution</span><span class="ba-n">47</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Measure influencer ROI with sales attribution via SDK, UTMs and discount codes. Roll up EMV, GMV, CAC and ROAS by creator, campaign or brand in real time.</span><span class="meter ok" role="img" aria-label="154 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:77.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">154</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">“It went well” isn't a number finance trusts. Attribute sales via SDK, UTMs and codes, then roll up EMV, GMV, CAC and ROAS in real time.</span><span class="meter ok" role="img" aria-label="138 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:69.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">138</span></span></div>
+</div>
+<p class="note">Lifts the page's own H2 into the SERP. The single best PAS opportunity on the site.</p>
+</article>
+<article class="meta-card" id="meta-creator-payouts">
+<h3><code>creator-payouts.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Creator Payouts in 135+ Currencies</span><span class="ba-n">34</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Pay influencers in 135+ currencies across 100+ countries, with tax forms, VAT/GST and conversion handled automatically — batch a whole campaign in one click.</span><span class="meter over" role="img" aria-label="157 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:78.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">157</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Cross-border creator payments mean wires, tax forms and currency math. Pay in 135+ currencies across 100+ countries — VAT, 1099s and FX automated.</span><span class="meter ok" role="img" aria-label="148 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:74.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">148</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-competitive-intelligence">
+<h3><code>competitive-intelligence.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Competitive Intelligence for Influencer Marketing</span><span class="ba-n">49</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Track competitor creator strategies, brand mentions and share of voice in real time — and see exactly which creators are driving the conversation.</span><span class="meter ok" role="img" aria-label="146 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:73.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">146</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">You find out about a competitor's winning play after it worked. Track their creators, mentions and share of voice live — and see who drove each spike.</span><span class="meter ok" role="img" aria-label="150 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:75.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">150</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-enterprise">
+<h3><code>enterprise.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Enterprise Influencer Marketing Platform</span><span class="ba-n">40</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Consolidate influencer, PR, UGC and consumer intelligence into one governed platform with SSO, SOC 2 Type II, role-based access and a dedicated CSM.</span><span class="meter ok" role="img" aria-label="148 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:74.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">148</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Five tools, five logins, zero governance. Consolidate influencer, PR, UGC and consumer intelligence into one platform — SSO, SOC 2 Type II, RBAC.</span><span class="meter ok" role="img" aria-label="144 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:72.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">144</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-agencies">
+<h3><code>agencies.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">White-Label Influencer Marketing Platform for Agencies</span><span class="ba-n">54</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Launch your own branded influencer platform — your logo, domain and colors. Manage every client, service and payout from one login, with client-ready reports.</span><span class="meter over" role="img" aria-label="158 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:79.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">158</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Manual reporting caps how many clients each strategist can carry. Launch your own branded platform — your logo, domain, colors, one login for all.</span><span class="meter ok" role="img" aria-label="150 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:75.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">150</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-smb">
+<h3><code>smb.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Influencer Marketing for SMBs &amp; Startups</span><span class="ba-n">40</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Launch influencer campaigns in minutes. Find vetted creators, run campaigns, see sales by creator and automate payouts — 7-day free trial, no card required.</span><span class="meter over" role="img" aria-label="156 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:78.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">156</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">No media buyer, no agency, no spreadsheet wizard. Find vetted creators, launch campaigns and automate payouts in minutes — free trial, no card.</span><span class="meter ok" role="img" aria-label="145 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:72.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">145</span></span></div>
+</div>
+<p class="note">Trial length deliberately omitted until §1.1 is resolved — re-insert the agreed number.</p>
+</article>
+<article class="meta-card" id="meta-ecommerce">
+<h3><code>ecommerce.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Influencer Marketing for Ecommerce &amp; Shopify</span><span class="ba-n">44</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Find creators that convert, attribute Shopify GMV per creator, and produce UGC video ads at scale. Tie every influencer post to real revenue.</span><span class="meter ok" role="img" aria-label="141 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:70.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">141</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Big followings, tiny carts. Find creators by conversion history, attribute Shopify GMV per creator, and produce UGC video ads at scale.</span><span class="meter ok" role="img" aria-label="135 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:67.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">135</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-ugc">
+<h3><code>ugc.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">UGC Video Ads at Scale — AI Avatar Video</span><span class="ba-n">40</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Source creators and produce UGC video ads — including AI avatar video in 40+ languages — with usage rights and whitelisting handled. Brief to live in 14 days.</span><span class="meter over" role="img" aria-label="158 characters, over the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:79.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">158</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Your best ad dies in two weeks. Produce UGC and AI avatar video in 40+ languages, rights and whitelisting handled — brief to live in 14 days.</span><span class="meter ok" role="img" aria-label="146 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:73.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">146</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-pr">
+<h3><code>pr.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">AI PR &amp; Media Outreach — Pitch 1M+ Journalists</span><span class="ba-n">46</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Pitch 1M+ verified journalists with AI, track coverage and EMV, and target the outlets AI answers cite. PR and influencer marketing in one platform.</span><span class="meter ok" role="img" aria-label="148 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:74.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">148</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Great stories, pitched into the void. Pitch 1M+ verified journalists with AI, track coverage and EMV, and target the outlets AI answers cite.</span><span class="meter ok" role="img" aria-label="141 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:70.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">141</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-consumer-intelligence">
+<h3><code>consumer-intelligence.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">Consumer Intelligence &amp; Social Listening</span><span class="ba-n">40</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Monitor 2T+ conversations across social, surface trends and sentiment in real time, and activate the creators driving them — listening plus activation.</span><span class="meter ok" role="img" aria-label="151 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:75.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">151</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Most listening tools show you the spike but can't act on it. Monitor 2T+ conversations, surface trends live, then activate the creators driving them.</span><span class="meter ok" role="img" aria-label="149 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:74.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">149</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-llm-visibility">
+<h3><code>llm-visibility.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">LLM Visibility — Track Your Brand in AI Search</span><span class="ba-n">46</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">See and shape how ChatGPT, Perplexity and Google AI Overviews describe your brand. Track AI share of voice and influence the sources they cite.</span><span class="meter ok" role="img" aria-label="143 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:71.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">143</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Your buyers ask AI about your category. See how ChatGPT, Perplexity and AI Overviews describe you, track AI share of voice, shape the sources cited.</span><span class="meter ok" role="img" aria-label="152 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:76.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">152</span></span></div>
+</div>
+
+</article>
+<article class="meta-card" id="meta-ai-agents">
+<h3><code>ai-agents.html</code></h3>
+<div class="ba"><div class="ba-r keep"><span class="ba-k">Title — keep</span><span class="ba-v">AI Voice &amp; Chat Agents for Marketing</span><span class="ba-n">36</span></div></div>
+<div class="ba">
+<div class="ba-r cur"><span class="ba-k">Current description</span><span class="ba-v">Deploy AI agents that qualify leads, book meetings and support customers 24/7 — on-brand, multilingual and always on.</span><span class="meter ok" role="img" aria-label="117 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:58.5%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">117</span></span></div>
+<div class="ba-r rec"><span class="ba-k">Recommended</span><span class="ba-v">Every question unanswered after 6pm is a sale your competitor wins. Deploy AI voice and chat agents that qualify, book and support 24/7, on-brand.</span><span class="meter ok" role="img" aria-label="148 characters, within the 155-character limit"><span class="meter-bar"><span class="meter-fill" style="width:74.0%"></span><span class="meter-thr" style="left:77.5%"></span></span><span class="meter-n">148</span></span></div>
+</div>
+<p class="note">Current description under-uses its character budget by 38 characters.</p>
+</article>
+    <div class="col"><h4>Onboarding pages — noindex, but titles still show in the browser tab</h4></div>
+    <article class="meta-card slim"><h3><code>register.html</code></h3><div class="ba"><div class="ba-r keep"><span class="ba-k">Current title</span><span class="ba-v">Start Your Free Trial — InfluencerMarketing.ai</span><span class="ba-n">46</span></div></div><p class="note">Title is good. Description contains the <strong>412M+</strong> error (§1.4) — change to 400M+.</p></article>
+<article class="meta-card slim"><h3><code>personalize.html</code></h3><div class="ba"><div class="ba-r keep"><span class="ba-k">Current title</span><span class="ba-v">Personalize Your Workspace</span><span class="ba-n">26</span></div></div><p class="note">Description (“Tailor your InfluencerMarketing.ai workspace.”, 45 chars) does no Desire work at a drop-off point. Recommended: <em>“Two minutes of setup so your first creator shortlist is ready when you land.”</em></p></article>
+<article class="meta-card slim"><h3><code>payment.html</code></h3><div class="ba"><div class="ba-r keep"><span class="ba-k">Current title</span><span class="ba-v">Start Your 7-Day Trial</span><span class="ba-n">22</span></div></div><p class="note"><strong class='p0'>P0.</strong> The title says 7-day and the page's own H1 says 14-day. Must be reconciled per §1.1.</p></article>
+<article class="meta-card slim"><h3><code>setup.html</code></h3><div class="ba"><div class="ba-r keep"><span class="ba-k">Current title</span><span class="ba-v">Set Up Your Workspace</span><span class="ba-n">21</span></div></div><p class="note">The page's H1 — “We already started working.” — is far stronger and should be echoed. Recommended title: <em>“Your Workspace Is Already Working”</em>.</p></article>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="col">
+      <h2><span class="num">03</span>Page by page</h2>
+      <p class="lede">Fifteen pages share a templated PAS structure — and it is genuinely good.</p>
+      <p>H1 for Attention, hero deck for Interest, an H2 problem statement, three agitate cards, two or three solution
+      splits, a four-step mechanism, cross-links, an FAQ for objections, and a closing CTA. PAS on these pages is close
+      to model. AIDA loses points only at Action.</p>
+    </div>
+    <div class="scroll"><table>
+      <thead><tr><th>Page</th><th>Problem statement</th><th>PAS</th><th>AIDA</th><th>Notes</th></tr></thead>
+      <tbody><tr><th scope="row"><code>discovery</code></th><td class="q">“The right creator is in there. Finding them isn't.”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-a">A−</span></td><td class="note-cell">Best-executed page on the site. Agitate trio (“Boolean filter hell” / “Followers ≠ fit” / “Siloed by platform”) is specific and lands. No changes needed beyond the shared CTA note.</td></tr>
+<tr><th scope="row"><code>tracking-roi</code></th><td class="q">““It went well.” Prove it.”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-a">A−</span></td><td class="note-cell">The single best headline on the site. “EMV guesswork that leadership rightly doesn't trust” is excellent agitation. Only issue: none of this quality reaches the meta layer.</td></tr>
+<tr><th scope="row"><code>influencer-crm</code></th><td class="q">“Your pipeline lives in 15 open inboxes.”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-a">A−</span></td><td class="note-cell">Concrete, visual, specific number. “A creator says yes in a DM you never see again” is the best agitate line on the site.</td></tr>
+<tr><th scope="row"><code>ecommerce</code></th><td class="q">“Reach is nice. Revenue pays the bills.”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-a">A−</span></td><td class="note-cell">Uniquely carries a <em>third</em> solution split (creative engine), which is correct — ecommerce has three distinct pains.</td></tr>
+<tr><th scope="row"><code>pr</code></th><td class="q">“Great stories, pitched into the void.”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-a">A−</span></td><td class="note-cell">“Contacts who moved on two beats ago” is precise and insider-credible.</td></tr>
+<tr><th scope="row"><code>campaign-management</code></th><td class="q">“One campaign, six disconnected tools.”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-a">A−</span></td><td class="note-cell">H1 “From brief to bank transfer.” is memorable enough to be reused on <code>index</code> and <code>platform</code> — and correctly is.</td></tr>
+<tr><th scope="row"><code>consumer-intelligence</code></th><td class="q">“Listening tools that can't act.”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-b">B+</span></td><td class="note-cell">A sharp category-competitor jab. Loses only at the templated close.</td></tr>
+<tr><th scope="row"><code>llm-visibility</code></th><td class="q">“Your buyers ask AI. What does it say?”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-b">B+</span></td><td class="note-cell">The only H2 on the site that uses a question, and it earns it.</td></tr>
+<tr><th scope="row"><code>agencies</code></th><td class="q">“You sell the work. Spreadsheets sell you out.”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-b">B+</span></td><td class="note-cell">Best wordplay on the site. Minor: “front and centre” (British) against American spelling everywhere else.</td></tr>
+<tr><th scope="row"><code>ugc</code></th><td class="q">“Paid social is hungry. Creative can't keep up.”</td><td><span class="grade g-a">A</span></td><td><span class="grade g-b">B+</span></td><td class="note-cell">“Your best ad dies in two weeks” is a top-three agitate line. Weak templated close.</td></tr>
+<tr><th scope="row"><code>enterprise</code></th><td class="q">“Five tools, five logins, zero control.”</td><td><span class="grade g-a">A−</span></td><td><span class="grade g-b">B+</span></td><td class="note-cell">Rhythmically strong. H1 “Six workspaces. One login.” puts a Solution in the Attention slot — which works here, because the contrast <em>is</em> the hook.</td></tr>
+<tr><th scope="row"><code>competitive-intelligence</code></th><td class="q">“Your competitors are moving. You're guessing.”</td><td><span class="grade g-a">A−</span></td><td><span class="grade g-b">B</span></td><td class="note-cell">H1 “See how you stack up.” is notably weaker than the H2 — the better hook sits in second position. Recommended H1: <em>“Know their next move before it lands.”</em></td></tr>
+<tr><th scope="row"><code>ai-agents</code></th><td class="q">“Leads don't wait for business hours.”</td><td><span class="grade g-a">A−</span></td><td><span class="grade g-b">B</span></td><td class="note-cell">The sub-line (“Every unanswered question after 6pm is a sale your competitor answers first”) is stronger than the H2 above it. Promote it.</td></tr>
+<tr><th scope="row"><code>smb</code></th><td class="q">“Big-team results without the big team.”</td><td><span class="grade g-a">A−</span></td><td><span class="grade g-c">C</span></td><td class="note-cell">Well-targeted agitation, but carries the 7-day trial claim in four places plus a Day-5/Day-7 timeline. AIDA downgraded purely for the trial contradiction — which lands on the page where self-serve conversion actually happens.</td></tr>
+<tr><th scope="row"><code>creator-payouts</code></th><td class="q">“You found them and briefed them. Now pay them.”</td><td><span class="grade g-b">B+</span></td><td><span class="grade g-b">B</span></td><td class="note-cell">The H2 is a <em>sequence</em> line, not a Problem line — it states a task, not a pain. Weaker than its peers. Recommended: <em>“The campaign is done. The payments are a month of admin.”</em></td></tr></tbody>
+    </table></div>
+
+    <div class="col">
+      <h4>Shared defect A — the closing CTA is a mail-merge</h4>
+      <p>Nine pages end with a templated Action headline with the page name slotted in: <em>“Ready to put
+      <strong>Agencies</strong> on IMAI?”</em>, <em>“Ready to put <strong>AI Agents</strong> on IMAI?”</em>, and so on.
+      The six platform pages use a marginally better variant — “See Campaign Management in action.” — but it is still
+      a label, not a close.</p>
+      <p>This is the <strong>most important Action headline on each page</strong> and it is doing no work. It is
+      product-centric — “put X on IMAI” is a phrase no buyer would ever use — grammatically awkward with plural nouns,
+      and identical across nine pages.</p>
+      <p><code>index.html</code> already shows the right instinct: <strong>“Stop guessing. Start paying creators who
+      work.”</strong> That is a real close. The template should follow it — restate the resolved pain in the imperative.</p>
+    </div>
+    <div class="scroll"><table>
+      <thead><tr><th>Page</th><th>Recommended closing headline</th></tr></thead>
+      <tbody><tr><th scope="row"><code>agencies</code></th><td class="rec-cta">Stop rebuilding decks. Start winning renewals.</td></tr>
+<tr><th scope="row"><code>ai-agents</code></th><td class="rec-cta">Stop losing leads to your own business hours.</td></tr>
+<tr><th scope="row"><code>campaign-management</code></th><td class="rec-cta">One campaign. One board. Zero dropped balls.</td></tr>
+<tr><th scope="row"><code>competitive-intelligence</code></th><td class="rec-cta">Stop finding out second.</td></tr>
+<tr><th scope="row"><code>consumer-intelligence</code></th><td class="rec-cta">Stop watching the spike. Start riding it.</td></tr>
+<tr><th scope="row"><code>creator-payouts</code></th><td class="rec-cta">Pay every creator today, in their currency.</td></tr>
+<tr><th scope="row"><code>discovery</code></th><td class="rec-cta">Stop scrolling filters. Start describing.</td></tr>
+<tr><th scope="row"><code>ecommerce</code></th><td class="rec-cta">Stop buying reach. Start buying revenue.</td></tr>
+<tr><th scope="row"><code>enterprise</code></th><td class="rec-cta">Six tools, one contract, one number to own.</td></tr>
+<tr><th scope="row"><code>influencer-crm</code></th><td class="rec-cta">Close the inboxes. Open the pipeline.</td></tr>
+<tr><th scope="row"><code>llm-visibility</code></th><td class="rec-cta">Find out what AI says about you.</td></tr>
+<tr><th scope="row"><code>pr</code></th><td class="rec-cta">Stop pitching into the void.</td></tr>
+<tr><th scope="row"><code>smb</code></th><td class="rec-cta">Launch your first campaign this afternoon.</td></tr>
+<tr><th scope="row"><code>tracking-roi</code></th><td class="rec-cta">Bring finance a number they'll believe.</td></tr>
+<tr><th scope="row"><code>ugc</code></th><td class="rec-cta">Never run out of creative again.</td></tr></tbody>
+    </table></div>
+
+    <div class="col">
+      <h4>Shared defect B — the Action path argues with itself</h4>
+      <p>Four solution pages — <code>ai-agents</code>, <code>consumer-intelligence</code>, <code>llm-visibility</code> and
+      <code>ugc</code> — close with <strong>“Book a demo” + “See pricing”</strong>. The other eleven close with
+      <strong>“Start free trial” + “Book a demo”</strong>.</p>
+      <p>But all four <em>also</em> carry “Start free trial” in the hero and “no card required” in the trust bar. So the
+      page opens by offering a trial and closes by withholding it, sending the highest-intent visitor to a pricing table
+      instead. Either these four products genuinely have no self-serve trial — in which case remove the trial CTA and the
+      “no card required” line from their heroes — or they do, and the closing CTA should match the other eleven.</p>
+
+      <h4>The eleven pages with no Problem or Agitate</h4>
+      <p>These are not bad pages. They are half-built ones — they skip straight to Solution.</p>
+    </div>
+
+    <article class="finding sev-p1">
+      <h3><span class="fid">platform.html</span> <span class="chip">PAS D · AIDA C</span></h3>
+      <p>The hero deck contains a genuine problem statement — <em>“Stop stitching together a database, an inbox, a
+      spreadsheet and a payments tool”</em> — and then the page never agitates it. It goes straight into a feature list:
+      six capability H3s, then six more under “AI that does the heavy lifting.” Structurally it is a spec sheet with a
+      good opening line.</p>
+      <p>Separately, the first H2 is <em>“Pay creators in 135+ currencies.”</em> — a <em>single feature</em> occupying the
+      most prominent section headline on the whole-platform page. Payouts are one of six capabilities; this is a
+      hierarchy error.</p>
+      <div class="fix"><b>Fix</b>Insert a Problem/Agitate section after the hero, reusing the four agitate cards
+      <code>index.html</code> already has — Databases / Email inboxes / Spreadsheets / Separate payments. They were written
+      for exactly this argument. Then demote the payouts H2 to peer level with the other capabilities.</div>
+    </article>
+
+    <article class="finding sev-p1">
+      <h3><span class="fid">customers.html</span> <span class="chip">PAS F · AIDA D</span></h3>
+      <p>This page has <strong>two headlines in total</strong>: “Real results from real campaigns.” and “Ready to
+      replicate these results?” That is the entire headline inventory.</p>
+      <p>Customer proof is the <strong>Desire engine of the whole funnel</strong> — it is where a skeptical buyer goes to
+      be convinced, and every other page routes here. Two headlines and a logo wall cannot carry that weight.</p>
+      <div class="fix"><b>Fix — highest-ROI content investment on the site</b>Rebuild as PAS per case study. For each of
+      Estée Lauder, Samsung and Playtika: what was broken before, what it cost, what changed, and the number. Give each
+      an H2 that states an outcome rather than a label — <em>“Estée Lauder cut creator vetting from 3 weeks to 2 days.”</em>
+      Right now the page asserts results without ever narrating them.</div>
+    </article>
+
+    <div class="col">
+      <p>The remaining nine follow the same pattern in milder form:</p>
+      <ul class="plain">
+        <li><strong><code>solutions.html</code></strong> — PAS C. Four solution cards lifted from the child pages, then the
+        expansion grid, with no problem framing at all. Add an H2 before the cards — <em>“Every team ends up buying its own
+        tool.”</em> — with three agitate cards adapted from <code>enterprise</code>.</li>
+        <li><strong><code>find-influencers.html</code></strong> — PAS C+. Excellent Interest and Desire content, but
+        “One database, every network.” is a Solution in the Problem slot. Add: <em>“Six networks, six tools, six shortlists
+        that never talk.”</em></li>
+        <li><strong><code>pricing.html</code></strong> — PAS C. The comparison table does real PAS work implicitly, which is
+        the page's strength, but there is no explicit Problem. Lead with the cost of the status quo: <em>“Cheaper than the
+        four tools it replaces.”</em></li>
+        <li><strong><code>about.html</code></strong> — PAS D+. “AI does the heavy lifting — people make the calls.” is good.
+        The values trio is generic and interchangeable with any SaaS about page. Values headings should carry a claim, not a
+        noun: “Transparency” → <em>“Real audience data, or we don't show it.”</em></li>
+        <li><strong><code>webinars.html</code></strong> — PAS B, AIDA F while defect 1.3 stands. Structure is strong;
+        the Problem is only implied. Add an explicit H2: <em>“Your CFO doesn't accept EMV as a number.”</em></li>
+      </ul>
+
+      <h4>The four onboarding pages — PAS F · AIDA D</h4>
+      <p>These are the highest-drop-off pages on the site and they carry the least persuasion. AIDA does not stop at the
+      signup form — Desire has to be <em>maintained</em> through the funnel, especially where friction increases.</p>
+    </div>
+
+    <div class="scroll"><table>
+      <thead><tr><th>Page</th><th>Current</th><th>Problem</th><th>Recommended</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><code>register</code></th><td>“Create your account” / “Get started”</td><td class="note-cell">Zero Desire reinforcement. Pure mechanics.</td><td class="rec-cta">Start finding creators in the next five minutes.</td></tr>
+        <tr><th scope="row"><code>personalize</code></th><td>“Tell us how you work.”</td><td class="note-cell">Asks for effort, promises nothing in return.</td><td class="rec-cta">Tell us how you work — we'll pre-build your first search.</td></tr>
+        <tr><th scope="row"><code>payment</code></th><td>“Enter card details to activate your 14-day trial”</td><td class="note-cell"><strong class="p0">P0.</strong> Leads with friction; contradicts its own title and 18 pages of “no card required”.</td><td class="rec-cta">Start your 14-day trial. You won't be charged today.</td></tr>
+        <tr><th scope="row"><code>setup</code></th><td>“We already started working.”</td><td class="note-cell">Actually the strongest onboarding line on the site — but the title throws the payoff away.</td><td class="rec-cta">Keep the H1; align the title to match.</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="col">
+      <p><code>setup.html</code> is the model the other three should follow: “We already started working.” delivers Desire
+      at the exact moment a new user is deciding whether any of this was worth it.</p>
+
+      <h4>Repeated section furniture</h4>
+    </div>
+    <div class="scroll"><table>
+      <thead><tr><th>Headline</th><th>Pages</th><th>Assessment</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">“Questions &amp; answers.”</th><td class="grade">17</td><td class="note-cell"><strong>P2.</strong> The FAQ is the objection-handling step — the last chance to resolve Problem before Action. A neutral label wastes it. Try “Still deciding?”</td></tr>
+        <tr><th scope="row">“Expand without adding tools.”</th><td class="grade">10</td><td class="note-cell"><strong>P3.</strong> Actually good — a benefit, not a label. Keep.</td></tr>
+        <tr><th scope="row">“It all connects.”</th><td class="grade">6</td><td class="note-cell"><strong>P3.</strong> Vague. Try “Works with the rest of your stack.”</td></tr>
+        <tr><th scope="row">SOC 2 / GDPR / G2 Leader</th><td class="grade">all</td><td class="note-cell">Good trust signals, correctly placed in the Action zone. Keep.</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="col">
+      <h4>CTA buttons</h4>
+      <ul class="plain">
+        <li><strong>“Start free trial”</strong> — dominant, 3–5× per page. Correct as primary, but identical every time;
+        the closing instance could carry more Desire.</li>
+        <li><strong>“See pricing”</strong> — inconsistent, per shared defect B above.</li>
+        <li><strong>“Explore this capability”</strong> (<code>platform</code>, ×5) and <strong>“Explore this solution”</strong>
+        (<code>solutions</code>, ×4) — generic. Name the destination instead: “See how discovery works.”</li>
+        <li><strong>“✦ Try AI Search”</strong> and <strong>“✦ Check creator”</strong> — the two best CTAs on the site.
+        Specific, low-commitment, product-led. <strong>Use this pattern more widely.</strong></li>
+        <li><strong>“Pay $0 and start your 14-day trial”</strong> — excellent CTA copy, undermined by the H1 above it.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap col">
+    <h2><span class="num">04</span>What to do, in order</h2>
+
+    <div class="phase ph0"><b>P0</b><span class="t">Fix the contradictions</span><span class="est">~1–2 hours</span></div>
+    <ol class="plan">
+      <li><strong>Resolve the trial length</strong> to one number across 11 locations. Start with <code>payment.html</code>,
+      which contradicts itself.</li>
+      <li><strong>Resolve “no card required” vs “Enter card details”</strong> — either fix the claim on 18 pages or fix the
+      payment page framing.</li>
+      <li><strong>Fix or retire the webinar.</strong> Nothing on the site is more visibly broken. Make the countdown and
+      seat count build-time computed so it cannot recur.</li>
+      <li><strong>Standardize the creator count</strong> — 400M+ or 412M+, one of them, everywhere.</li>
+      <li><strong>Trim the five over-length descriptions</strong> — recovers “provable ROI” on the homepage and “14-day free
+      trial” on pricing.</li>
+    </ol>
+
+    <div class="phase ph1"><b>P1</b><span class="t">High value</span><span class="est">~1–2 days</span></div>
+    <ol class="plan">
+      <li><strong>Rewrite all 27 meta descriptions to PAS.</strong> Drafted and length-checked in section 02. The highest-leverage
+      content change available.</li>
+      <li><strong>Replace the nine “Ready to put X on IMAI?” closes.</strong> Replacements drafted.</li>
+      <li><strong>Reconcile the Action path</strong> on the four solution pages.</li>
+      <li><strong>Rebuild <code>customers.html</code></strong> as PAS per case study — the biggest structural gap on the site.</li>
+      <li><strong>Add Desire copy to the four onboarding pages</strong>, starting with the <code>payment.html</code> H1.</li>
+    </ol>
+
+    <div class="phase ph2"><b>P2</b><span class="t">Structural</span><span class="est">~2–3 days</span></div>
+    <ol class="plan">
+      <li><strong>Add Problem/Agitate sections</strong> to <code>platform</code>, <code>solutions</code>,
+      <code>find-influencers</code> and <code>pricing</code>. The agitate copy already exists on sibling pages and adapts directly.</li>
+      <li><strong>Fix the <code>platform.html</code> hierarchy</strong> — demote the payouts H2 to peer level.</li>
+      <li><strong>Promote the stronger H2 into the H1 slot</strong> on <code>competitive-intelligence</code> and <code>ai-agents</code>.</li>
+      <li><strong>Rewrite “Questions &amp; answers.”</strong> across 17 pages.</li>
+      <li><strong>Rewrite the generic titles</strong> — <code>customers</code>, <code>about</code>, <code>setup</code>.</li>
+    </ol>
+
+    <div class="phase ph3"><b>P3</b><span class="t">Polish</span><span class="est">half a day</span></div>
+    <ol class="plan">
+      <li>“It all connects.” → something concrete, across 6 pages.</li>
+      <li>“Explore this capability / solution” → name the destination, across 9 CTAs.</li>
+      <li>“front and centre” → “front and center” in <code>agencies.html</code>, for consistency.</li>
+      <li>Extend the <code>✦ Try AI Search</code> / <code>✦ Check creator</code> pattern to more pages.</li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap col">
+    <p><strong>Coverage.</strong> 27 pages · 27 titles · 27 meta descriptions · 27 H1s · 737 extracted headline elements ·
+    all eyebrows · all CTAs.</p>
+    <p>Pages audited: <code>index</code>, <code>platform</code>, <code>solutions</code>, <code>pricing</code>,
+    <code>customers</code>, <code>about</code>, <code>find-influencers</code>, <code>webinars</code>, <code>discovery</code>,
+    <code>influencer-crm</code>, <code>campaign-management</code>, <code>tracking-roi</code>, <code>creator-payouts</code>,
+    <code>competitive-intelligence</code>, <code>enterprise</code>, <code>agencies</code>, <code>smb</code>,
+    <code>ecommerce</code>, <code>ugc</code>, <code>pr</code>, <code>consumer-intelligence</code>, <code>llm-visibility</code>,
+    <code>ai-agents</code>, <code>register</code>, <code>personalize</code>, <code>payment</code>, <code>setup</code>.</p>
+    <p>The 28 files under <code>public/</code> are build output of <code>build_site.py</code> and were not audited separately —
+    they are generated from the sources above. All fixes belong in <code>site/*.html</code>, the root onboarding pages, and the
+    <code>S={…}</code> map in <code>build_site.py</code>.</p>
+  </div>
+</footer>
