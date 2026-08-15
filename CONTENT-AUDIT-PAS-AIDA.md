@@ -2,12 +2,14 @@
 
 **Site:** InfluencerMarketing.ai (IMAI)
 **Audit date:** 14 August 2026
-**Scope:** 27 pages — every `<title>`, every `<meta name="description">`, every H1/H2/H3/H4, every eyebrow and every CTA.
+**Scope:** 27 pages + 3 generated content surfaces — every `<title>`, every `<meta name="description">`, every H1/H2/H3/H4, every eyebrow and every CTA.
 **Frameworks:** PAS (Problem → Agitate → Solution) and AIDA (Attention → Interest → Desire → Action).
 
 **Source of truth:**
 - Body copy and headlines: `site/*.html` + 4 onboarding pages at repo root.
-- Titles and meta descriptions: the `S={...}` SEO map in `build_site.py` (lines 43–99). `public/` is generated output — **do not edit `public/` directly**, it is wiped and rebuilt by `build_site.py`.
+- Titles and meta descriptions: the `S={...}` SEO map in `build_site.py` (lines 43–99).
+- Generated content surfaces: `llms.txt`, `404.html` and `site.webmanifest`, all emitted by `build_extras.py`.
+- `public/` is generated output — **do not edit `public/` directly**, it is wiped and rebuilt by `build_site.py`.
 
 ---
 
@@ -17,11 +19,11 @@ The copy on this site is **better than most B2B SaaS**. Sixteen of 27 pages alre
 
 The problems are not in the writing. They are in three places:
 
-1. **Five factual contradictions that break the AIDA "Action" step.** The site promises a 7-day trial on some pages and 14-day on others; promises "no card required" on 18 pages and then asks for card details; quotes 400M+ creators in every meta description and 412M+ in the homepage hero; and is actively selling a webinar that happened 29 days ago. These are conversion defects, not style notes.
+1. **Six factual contradictions that break the AIDA "Action" step.** The site promises a 7-day trial on some pages and 14-day on others; promises "no card required" on 18 pages and then asks for card details; quotes 400M+ creators in every meta description and 412M+ in eight places including the homepage hero; is actively selling a webinar that happened 29 days ago; and ships an `llms.txt` that states both contradictions in a single sentence. These are conversion defects, not style notes.
 2. **The meta layer does zero PAS work.** All 27 descriptions are pure Solution — feature lists with no Problem and no Agitate. The SERP snippet is the highest-leverage PAS surface a site owns, and it is being used as a spec sheet. Five descriptions also overflow and truncate, and two of them lose their strongest hook in the cut.
 3. **Eleven pages have no Problem/Agitate section at all** — including `platform`, `solutions`, `pricing`, `customers` and all four onboarding pages. These are pure Solution pages. `customers.html`, which should be the Desire engine of the whole site, has exactly two headlines.
 
-Fix the five contradictions first. They cost money today and take an hour.
+Fix the six contradictions first. They cost money today and take an hour or two.
 
 ---
 
@@ -38,7 +40,7 @@ Fix the five contradictions first. They cost money today and take an hour.
 
 # Part 1 — Critical defects (P0)
 
-These five are not opinions. Each is verifiable in the source and each breaks AIDA at the Action step, where it is most expensive.
+These six are not opinions. Each is verifiable in the source and each breaks AIDA at the Action step, where it is most expensive.
 
 ## 1.1 — The trial length contradicts itself across the funnel
 
@@ -98,16 +100,21 @@ Every urgency device on the page now points backwards:
 
 ## 1.4 — The creator-count number contradicts itself, including within the homepage
 
-**400M+** appears ~90 times across every page and every meta description. **412M+** appears in six places:
+**400M+** appears ~90 times across every page and every meta description. **412M+** appears in **10 places across 6 source files**, plus the generated `llms.txt`:
 
 | Location | Claim |
 |---|---|
 | `site/index.html:150` | "Natural-language search across **412M+** creators" |
 | `site/index.html:157` | "AI search · **412M** creators" |
 | `site/index.html:246` | "Plain-English search across **412M** creators" |
-| `site/pricing.html:8` + `:1501` | "Full **412M+** creator database" |
+| `site/pricing.html:8` | "Full **412M+** creator database" |
+| `site/pricing.html:1501` | "Full **412M+** creator database" |
+| `site/discovery.html:36` | **412M** |
+| `site/platform.html:54` | **412M** |
+| `site/smb.html:43` | **412M** |
 | `build_site.py:53` (pricing meta) | "Full **412M+** creator database" |
 | `build_site.py:93` (register meta) | "full access to **412M+** creators" |
+| `public/llms.txt` (generated) | "Full **412M+** creator database on every plan" |
 
 The homepage's own meta description says **400M+** while its hero proof-point says **412M+**.
 
@@ -130,6 +137,32 @@ Google truncates around 155–160 characters. What gets cut:
 `index.html` is the worst: the homepage description spends 155 characters listing features and gets cut immediately before "provable ROI" — the one phrase that differentiates IMAI from a database vendor. `pricing.html` loses its risk-reversal.
 
 **Fix:** Rewrite to ≤155 with the payoff front-loaded. Rewrites in Part 2.
+
+
+## 1.6 — `llms.txt` states both contradictions in one sentence — and it is the file AI reads
+
+`build_extras.py:83` generates `public/llms.txt`, the machine-readable brief that ChatGPT, Perplexity and other AI crawlers read to learn what IMAI is. Its "Key facts" section contains this line verbatim:
+
+> Pricing: Personal $129/mo, Starter $299/mo, Growth $499/mo, Scale $1,200/mo, and custom Enterprise. **7-day free trial, no card required. Full 412M+ creator database on every plan.**
+
+That single sentence carries **both** the trial contradiction (§1.1 — 7-day, against 14-day on pricing and register) and the creator-count contradiction (§1.4 — 412M+, against 400M+ used four times *elsewhere in the same file*).
+
+`llms.txt` contradicts itself internally: **400M+ appears 4 times and 412M+ once, in one 4KB document.**
+
+**AIDA impact:** upstream of all four stages. This file shapes what AI assistants say about IMAI before a buyer ever reaches the site — and an AI summarizing a self-contradicting source will either pick one number arbitrarily or hedge.
+
+**Why this one stings:** IMAI sells **LLM Visibility** as a product — *"Own how AI talks about you," "Influence the sources AI cites," "Wrong or stale facts: AI repeats outdated claims and you have no lever to correct them."* The company's own AI-facing source file has exactly the defect its product exists to fix. Any prospect who checks `influencermarketing.ai/llms.txt` before buying that product will notice.
+
+**Fix:** Resolve §1.1 and §1.4 first, then regenerate. Better: derive the trial length and creator count in `build_extras.py` from single named constants shared with `build_site.py`, so the two files cannot drift again.
+
+---
+
+## Also unaudited until now — two minor generated surfaces
+
+**`public/404.html`** (`build_extras.py:94–118`) — **not a defect.** Title "Page not found — InfluencerMarketing.ai"; H1 *"This page took an unscheduled break."*; body *"The link may be broken or the page moved. Let's get you back to finding creators."* This is **good copy** — on-voice, recovers the visitor, routes to four real destinations. Footer tag correctly uses 400M+. No change needed.
+
+**`public/site.webmanifest`** (`build_extras.py:42`) — description: *"The AI platform for influencer marketing — discover, vet, activate and pay creators from 400M+ profiles."* Consistent with the 400M+ standard. No change needed.
+
 
 ---
 
@@ -496,6 +529,7 @@ AIDA does not stop at the signup form. Desire has to be *maintained* through the
 3. **Fix or retire the webinar** (§1.3). Nothing on the site is more visibly broken. Make the countdown and seat count build-time computed.
 4. **Standardize the creator count** — 400M+ or 412M+, one of them, everywhere (§1.4).
 5. **Trim the 5 over-length descriptions** (§1.5) — recovers "provable ROI" on the homepage and "14-day free trial" on pricing.
+6. **Regenerate `llms.txt` once 1 and 4 are settled** (§1.6), and derive both numbers from shared constants in `build_extras.py` so the files cannot drift apart again.
 
 ### P1 — High value (~1–2 days)
 
@@ -533,6 +567,11 @@ AIDA does not stop at the signup form. Desire has to be *maintained* through the
 | H2 / H3 / H4 | 737 extracted elements across all pages | ✅ (Part 3) |
 | Eyebrows / kickers | all | ✅ (§3.3) |
 | CTAs | all | ✅ (§3.4) |
+| `llms.txt` | 1 | ✅ (§1.6) — **P0 defect found** |
+| `404.html` | 1 | ✅ (§1.6) — no defect |
+| `site.webmanifest` | 1 | ✅ (§1.6) — no defect |
+
+**Revision note.** §1.4 and the coverage table were corrected after first publication. The original §1.4 listed 412M+ in six locations; the true figure is 10 across 6 source files (`site/discovery.html:36`, `site/platform.html:54` and `site/smb.html:43` were missed because the initial scan was cut off by a result limit). The three generated surfaces above were added in the same revision — they are produced by `build_extras.py`, which was not read in the first pass.
 
 Pages audited: `index`, `platform`, `solutions`, `pricing`, `customers`, `about`, `find-influencers`, `webinars`, `discovery`, `influencer-crm`, `campaign-management`, `tracking-roi`, `creator-payouts`, `competitive-intelligence`, `enterprise`, `agencies`, `smb`, `ecommerce`, `ugc`, `pr`, `consumer-intelligence`, `llm-visibility`, `ai-agents`, `register`, `personalize`, `payment`, `setup`.
 

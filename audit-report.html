@@ -252,13 +252,14 @@ ul.plain li{margin-bottom:7px}
     <p class="kicker"><span>PAS &amp; AIDA</span><span>27 pages</span><span>14 August 2026</span></p>
     <h1>Good copy, five broken promises.</h1>
     <p class="standfirst">A full content audit of InfluencerMarketing.ai — every page, every headline,
-    every meta description — read against Problem&#8202;·&#8202;Agitate&#8202;·&#8202;Solution and
+    every meta description, plus the generated <code>llms.txt</code> — read against Problem&#8202;·&#8202;Agitate&#8202;·&#8202;Solution and
     Attention&#8202;·&#8202;Interest&#8202;·&#8202;Desire&#8202;·&#8202;Action.</p>
     <div class="facts">
       <div class="fact"><b>27</b><span>Pages audited</span></div>
+      <div class="fact"><b>3</b><span>Generated surfaces</span></div>
       <div class="fact"><b>54</b><span>Titles &amp; descriptions</span></div>
       <div class="fact"><b>737</b><span>Headline elements</span></div>
-      <div class="fact alert"><b>5</b><span>P0 contradictions</span></div>
+      <div class="fact alert"><b>6</b><span>P0 contradictions</span></div>
       <div class="fact alert"><b>0</b><span>Descriptions using PAS</span></div>
     </div>
   </div>
@@ -274,23 +275,25 @@ ul.plain li{margin-bottom:7px}
     and none of it needs rewriting.</p>
     <p>The problems are not in the writing. They are in three places:</p>
     <ul class="plain">
-      <li><strong>Five factual contradictions that break the AIDA “Action” step.</strong> The site promises a 7-day
+      <li><strong>Six factual contradictions that break the AIDA “Action” step.</strong> The site promises a 7-day
       trial on some pages and 14-day on others; promises “no card required” on 18 pages and then asks for card
-      details; quotes 400M+ creators in every meta description and 412M+ in the homepage hero; and is actively
-      selling a webinar that happened 29 days ago.</li>
+      details; quotes 400M+ creators in every meta description and 412M+ in eight more places; is actively
+      selling a webinar that happened 29 days ago; and ships an <code>llms.txt</code> that states two of those
+      contradictions in a single sentence.</li>
       <li><strong>The meta layer does zero PAS work.</strong> All 27 descriptions are pure Solution — feature lists
       with no Problem and no Agitate. Five also overflow and truncate, and two lose their strongest hook in the cut.</li>
       <li><strong>Eleven pages have no Problem/Agitate section at all</strong> — including <code>platform</code>,
       <code>solutions</code>, <code>pricing</code> and <code>customers</code>. <code>customers.html</code>, which should be
       the Desire engine of the whole funnel, has exactly two headlines.</li>
     </ul>
-    <p>Fix the five contradictions first. They cost money today and take about an hour.</p>
+    <p>Fix the six contradictions first. They cost money today and take an hour or two.</p>
 
     <div class="callout">
       <h3>Where to make the changes</h3>
       <p>Headlines and body copy live in <code>site/*.html</code> plus the four onboarding pages at the repo root.
       Titles and meta descriptions live in the <code>S={…}</code> map in <code>build_site.py</code> (lines 43–99).
-      The 28 files under <code>public/</code> are build output — they are wiped and regenerated, so never edit them directly.</p>
+      A third file, <code>build_extras.py</code>, generates <code>llms.txt</code>, <code>404.html</code> and the web manifest.
+      The files under <code>public/</code> are build output — they are wiped and regenerated, so never edit them directly.</p>
     </div>
   </div>
 </section>
@@ -299,7 +302,7 @@ ul.plain li{margin-bottom:7px}
   <div class="wrap">
     <div class="col">
       <h2><span class="num">01</span>Critical defects</h2>
-      <p class="lede">These five are not opinions. Each is verifiable in the source, and each breaks AIDA at the
+      <p class="lede">These six are not opinions. Each is verifiable in the source, and each breaks AIDA at the
       Action step — where it is most expensive.</p>
     </div>
 
@@ -378,8 +381,10 @@ ul.plain li{margin-bottom:7px}
     <article class="finding">
       <h3><span class="fid">1.4</span> <span class="chip">P0</span> The creator count contradicts itself — including within the homepage</h3>
       <p><strong>400M+</strong> appears around 90 times, across every page and every meta description.
-      <strong>412M+</strong> appears in six places: <code>index.html</code> lines 150, 157 and 246;
-      <code>pricing.html</code> lines 8 and 1501; and <code>build_site.py</code> lines 53 and 93.</p>
+      <strong>412M+</strong> appears in <strong>10 places across 6 source files</strong>: <code>index.html</code>
+      lines 150, 157 and 246; <code>pricing.html</code> lines 8 and 1501; <code>discovery.html</code> line 36;
+      <code>platform.html</code> line 54; <code>smb.html</code> line 43; and <code>build_site.py</code> lines 53 and 93 —
+      plus the generated <code>llms.txt</code>.</p>
       <p>Which means the homepage's own meta description says <strong>400M+</strong> while its hero proof-point
       says <strong>412M+</strong>.</p>
       <p class="impact"><b>AIDA impact: Interest and Desire.</b> This is the site's single most-repeated credibility
@@ -408,6 +413,38 @@ ul.plain li{margin-bottom:7px}
       <div class="fix"><b>Fix</b>Rewrite to 155 characters or fewer with the payoff front-loaded. Every rewrite in
       section 02 is length-checked.</div>
     </article>
+    <article class="finding">
+      <h3><span class="fid">1.6</span> <span class="chip">P0</span> <code>llms.txt</code> states two contradictions in one sentence — and it is the file AI reads</h3>
+      <p><code>build_extras.py:83</code> generates <code>public/llms.txt</code>, the machine-readable brief that ChatGPT,
+      Perplexity and other AI crawlers read to learn what IMAI is. Its “Key facts” section contains this line verbatim:</p>
+      <p class="impact">Pricing: Personal $129/mo, Starter $299/mo, Growth $499/mo, Scale $1,200/mo, and custom
+      Enterprise. <b>7-day free trial, no card required. Full 412M+ creator database on every plan.</b></p>
+      <p>That single sentence carries <strong>both</strong> the trial contradiction (§1.1 — 7-day, against 14-day on
+      pricing and register) and the creator-count contradiction (§1.4 — 412M+, against 400M+ used four times
+      <em>elsewhere in the same file</em>). The document contradicts itself internally: <strong>400M+ appears four
+      times and 412M+ once, inside one 4&#8202;KB file.</strong></p>
+      <p class="impact"><b>AIDA impact: upstream of all four stages.</b> This file shapes what AI assistants say about
+      IMAI before a buyer ever reaches the site — and an assistant summarizing a self-contradicting source will either
+      pick a number arbitrarily or hedge.</p>
+      <p><strong>Why this one stings:</strong> IMAI sells <strong>LLM Visibility</strong> as a product — <em>“Own how AI
+      talks about you”</em>, <em>“Influence the sources AI cites”</em>, <em>“Wrong or stale facts: AI repeats outdated
+      claims and you have no lever to correct them.”</em> The company's own AI-facing source file has exactly the defect
+      its product exists to fix. Any prospect who opens <code>influencermarketing.ai/llms.txt</code> before buying that
+      product will notice.</p>
+      <div class="fix"><b>Fix</b>Resolve §1.1 and §1.4, then regenerate. Better: derive the trial length and creator
+      count in <code>build_extras.py</code> from single named constants shared with <code>build_site.py</code>, so the two
+      files cannot drift apart again.</div>
+    </article>
+
+    <article class="finding sev-p3">
+      <h3><span class="fid">also</span> <span class="chip">no defect</span> Two further generated surfaces, now checked</h3>
+      <p><strong><code>404.html</code></strong> — title “Page not found — InfluencerMarketing.ai”, H1 <em>“This page took
+      an unscheduled break.”</em>, body <em>“The link may be broken or the page moved. Let's get you back to finding
+      creators.”</em> This is <strong>good copy</strong>: on-voice, recovers the visitor, routes to four real destinations,
+      and its footer tag correctly uses 400M+. No change needed.</p>
+      <p><strong><code>site.webmanifest</code></strong> — description consistent with the 400M+ standard. No change needed.</p>
+    </article>
+
   </div>
 </section>
 
@@ -823,6 +860,8 @@ ul.plain li{margin-bottom:7px}
       <li><strong>Standardize the creator count</strong> — 400M+ or 412M+, one of them, everywhere.</li>
       <li><strong>Trim the five over-length descriptions</strong> — recovers “provable ROI” on the homepage and “14-day free
       trial” on pricing.</li>
+      <li><strong>Regenerate <code>llms.txt</code></strong> once steps 1 and 4 are settled, deriving both numbers from shared
+      constants so the files cannot drift apart again.</li>
     </ol>
 
     <div class="phase ph1"><b>P1</b><span class="t">High value</span><span class="est">~1–2 days</span></div>
@@ -859,14 +898,19 @@ ul.plain li{margin-bottom:7px}
 <footer class="foot">
   <div class="wrap col">
     <p><strong>Coverage.</strong> 27 pages · 27 titles · 27 meta descriptions · 27 H1s · 737 extracted headline elements ·
-    all eyebrows · all CTAs.</p>
+    all eyebrows · all CTAs · plus 3 generated surfaces (<code>llms.txt</code>, <code>404.html</code>, <code>site.webmanifest</code>).</p>
+    <p><strong>Revision.</strong> §1.4 and coverage were corrected after first publication: the original §1.4 listed 412M+ in six
+    locations, but the true figure is 10 across 6 source files — <code>discovery.html:36</code>, <code>platform.html:54</code> and
+    <code>smb.html:43</code> were missed because the initial scan hit a result limit. The three generated surfaces were added in the
+    same revision; they come from <code>build_extras.py</code>, which was not read in the first pass.</p>
     <p>Pages audited: <code>index</code>, <code>platform</code>, <code>solutions</code>, <code>pricing</code>,
     <code>customers</code>, <code>about</code>, <code>find-influencers</code>, <code>webinars</code>, <code>discovery</code>,
     <code>influencer-crm</code>, <code>campaign-management</code>, <code>tracking-roi</code>, <code>creator-payouts</code>,
     <code>competitive-intelligence</code>, <code>enterprise</code>, <code>agencies</code>, <code>smb</code>,
     <code>ecommerce</code>, <code>ugc</code>, <code>pr</code>, <code>consumer-intelligence</code>, <code>llm-visibility</code>,
     <code>ai-agents</code>, <code>register</code>, <code>personalize</code>, <code>payment</code>, <code>setup</code>.</p>
-    <p>The 28 files under <code>public/</code> are build output of <code>build_site.py</code> and were not audited separately —
+    <p>A third file, <code>build_extras.py</code>, generates <code>llms.txt</code>, <code>404.html</code> and the web manifest.
+      The files under <code>public/</code> are build output of <code>build_site.py</code> and were not audited separately —
     they are generated from the sources above. All fixes belong in <code>site/*.html</code>, the root onboarding pages, and the
     <code>S={…}</code> map in <code>build_site.py</code>.</p>
   </div>
